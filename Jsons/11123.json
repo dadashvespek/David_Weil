@@ -1,0 +1,79 @@
+{
+    "ID_Inst": "11123",
+    "Description": "Weight Set (1mg to 10kg)",
+    "Cal_Date": "10/18/2023",
+    "Due_Date": "04/30/2024",
+    "Calibrated_by": "Tony Abreu",
+    "Calibrate_Date": "11/16/2023",
+    "Quality_Approval_by": "Kiara Mari\u00f1ez",
+    "QA_Date": "11/21/2023",
+    "Weights": [
+        [
+            {
+                "category": "Weight - Linearity Up",
+                "measurements": [
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 0,
+                        "low_limit": -0.0002,
+                        "high_limit": 0.0002,
+                        "as_found": 0,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 1.000018,
+                        "low_limit": 0.9998,
+                        "high_limit": 1.0002,
+                        "as_found": 1.0,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 54.999986,
+                        "low_limit": 54.9998,
+                        "high_limit": 55.0002,
+                        "as_found": 55.0,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 109.999807,
+                        "low_limit": 109.9996,
+                        "high_limit": 110.0,
+                        "as_found": 109.9999,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 164.999793,
+                        "low_limit": 164.9996,
+                        "high_limit": 165.0,
+                        "as_found": 164.9998,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 220.000272,
+                        "low_limit": 220.0001,
+                        "high_limit": 220.0005,
+                        "as_found": 220.0002,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    }
+                ]
+            }
+        ]
+    ]
+}

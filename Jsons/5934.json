@@ -1,0 +1,357 @@
+{
+    "ID_Inst": "5934",
+    "Description": "Weight Sets 0.001-200g",
+    "Cal_Date": "01/11/2022",
+    "Due_Date": "10/31/2022",
+    "Calibrated_by": "Francisco Diaz",
+    "Calibrate_Date": "08/31/2022",
+    "Quality_Approval_by": "Estephanie M\u00e9ndez",
+    "QA_Date": "09/01/2022",
+    "Weights": [
+        [
+            {
+                "category": "Weight - Sensitivity",
+                "measurements": [
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 6e-05,
+                        "nominal": 0.001998,
+                        "low_limit": 0.00194,
+                        "high_limit": 0.00206,
+                        "as_found": 0.00199,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    }
+                ]
+            },
+            {
+                "category": "Weight - Eccentricity Center",
+                "measurements": [
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0004,
+                        "nominal": 70.000008,
+                        "low_limit": 69.99961,
+                        "high_limit": 70.00041,
+                        "as_found": 69.9998,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    }
+                ]
+            },
+            {
+                "category": "Weight - Eccentricity East",
+                "measurements": [
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0004,
+                        "nominal": 70.000008,
+                        "low_limit": 69.99961,
+                        "high_limit": 70.00041,
+                        "as_found": 69.9998,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    }
+                ]
+            },
+            {
+                "category": "Weight - Eccentricity North",
+                "measurements": [
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0004,
+                        "nominal": 70.000008,
+                        "low_limit": 69.99961,
+                        "high_limit": 70.00041,
+                        "as_found": 69.9998,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    }
+                ]
+            },
+            {
+                "category": "Weight - Eccentricity South",
+                "measurements": [
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0004,
+                        "nominal": 70.000008,
+                        "low_limit": 69.99961,
+                        "high_limit": 70.00041,
+                        "as_found": 69.9997,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    }
+                ]
+            },
+            {
+                "category": "Weight - Eccentricity West",
+                "measurements": [
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0004,
+                        "nominal": 70.000008,
+                        "low_limit": 69.99961,
+                        "high_limit": 70.00041,
+                        "as_found": 69.9998,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "category": "Weight - Linearity Down",
+                "measurements": [
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 0.0,
+                        "low_limit": -5e-05,
+                        "high_limit": 5e-05,
+                        "as_found": 0.0,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 0.005001,
+                        "low_limit": 0.00495,
+                        "high_limit": 0.00505,
+                        "as_found": 0.005,
+                        "meas_uncert": 1e-05,
+                        "TUR": "8.5:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 0.200001,
+                        "low_limit": 0.19995,
+                        "high_limit": 0.20005,
+                        "as_found": 0.2,
+                        "meas_uncert": 1e-05,
+                        "TUR": "8.5:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 1.0000057,
+                        "low_limit": 0.99996,
+                        "high_limit": 1.00006,
+                        "as_found": 1.0,
+                        "meas_uncert": 2.2e-05,
+                        "TUR": "2.5:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 5.000008,
+                        "low_limit": 4.99996,
+                        "high_limit": 5.00006,
+                        "as_found": 5.0,
+                        "meas_uncert": 3e-05,
+                        "TUR": "1.7:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 10.000009,
+                        "low_limit": 9.99996,
+                        "high_limit": 10.00006,
+                        "as_found": 10.0,
+                        "meas_uncert": 4.4e-05,
+                        "TUR": "1.2:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 50.00003,
+                        "low_limit": 49.99998,
+                        "high_limit": 50.00008,
+                        "as_found": 50.0,
+                        "meas_uncert": 0.0001,
+                        "TUR": "0.5:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 80.000016,
+                        "low_limit": 79.99997,
+                        "high_limit": 80.00007,
+                        "as_found": 80.00003,
+                        "meas_uncert": 0.00011,
+                        "TUR": "0.5:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 100.0,
+                        "low_limit": 99.9998,
+                        "high_limit": 100.0002,
+                        "as_found": 99.9998,
+                        "meas_uncert": 0.00017,
+                        "TUR": "1.3:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 150.00003,
+                        "low_limit": 149.9998,
+                        "high_limit": 150.0002,
+                        "as_found": 149.9999,
+                        "meas_uncert": 0.0003,
+                        "TUR": "0.7:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 200.000038,
+                        "low_limit": 199.9998,
+                        "high_limit": 200.0002,
+                        "as_found": 199.9998,
+                        "meas_uncert": 0.0003,
+                        "TUR": "0.7:1"
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "category": "Weight",
+                "measurements": [
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 0.0,
+                        "low_limit": -5e-05,
+                        "high_limit": 5e-05,
+                        "as_found": 0.0,
+                        "meas_uncert": "n/a",
+                        "TUR": "n/a"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 0.005001,
+                        "low_limit": 0.00495,
+                        "high_limit": 0.00505,
+                        "as_found": 0.00502,
+                        "meas_uncert": 1e-05,
+                        "TUR": "8.5:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 0.200001,
+                        "low_limit": 0.19995,
+                        "high_limit": 0.20005,
+                        "as_found": 0.20003,
+                        "meas_uncert": 1e-05,
+                        "TUR": "8.5:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 1.0000057,
+                        "low_limit": 0.99996,
+                        "high_limit": 1.00006,
+                        "as_found": 1.00002,
+                        "meas_uncert": 2.2e-05,
+                        "TUR": "2.5:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 5.000008,
+                        "low_limit": 4.99996,
+                        "high_limit": 5.00006,
+                        "as_found": 5.00005,
+                        "meas_uncert": 3e-05,
+                        "TUR": "1.7:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 10.000009,
+                        "low_limit": 9.99996,
+                        "high_limit": 10.00006,
+                        "as_found": 10.00003,
+                        "meas_uncert": 4.4e-05,
+                        "TUR": "1.2:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 50.00003,
+                        "low_limit": 49.99998,
+                        "high_limit": 50.00008,
+                        "as_found": 50.0,
+                        "meas_uncert": 0.0001,
+                        "TUR": "0.5:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 5e-05,
+                        "nominal": 80.000016,
+                        "low_limit": 79.99997,
+                        "high_limit": 80.00007,
+                        "as_found": 80.00004,
+                        "meas_uncert": 0.00011,
+                        "TUR": "0.5:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 100.0,
+                        "low_limit": 99.9998,
+                        "high_limit": 100.0002,
+                        "as_found": 100.0,
+                        "meas_uncert": 0.00017,
+                        "TUR": "1.3:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 150.00003,
+                        "low_limit": 149.9998,
+                        "high_limit": 150.0002,
+                        "as_found": 149.9999,
+                        "meas_uncert": 0.0003,
+                        "TUR": "0.7:1"
+                    },
+                    {
+                        "units": "g",
+                        "max_error_tolerance": 0.0002,
+                        "nominal": 200.000038,
+                        "low_limit": 199.9998,
+                        "high_limit": 200.0002,
+                        "as_found": 199.9998,
+                        "meas_uncert": 0.0003,
+                        "TUR": "0.7:1"
+                    }
+                ]
+            }
+        ],
+        {
+            "contact": {
+                "phone_numbers": [
+                    "809 563-0457",
+                    "786 866-5606"
+                ],
+                "email": "sales@phoenixcalibrationdr.com",
+                "website": "www.phoenixcalibrationdr.com",
+                "address": "Calle D, Esquina C. El Diamante No. 18, Zona Ind. de Herrera Santo Domingo, Rep.Dom. 11001",
+                "social_media": "@phoenixcalibrationdr"
+            },
+            "datasheet": {
+                "cert_no": "C310211",
+                "revision_no": 0,
+                "form_no": "DR-FM-0086 Rev. B",
+                "issue_date": "04/19/2022",
+                "page": "5 of 5"
+            }
+        }
+    ]
+}

@@ -1,0 +1,254 @@
+[
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 0.0,
+        "measured_uncertainty": 1.1,
+        "required_uncertainty": 3.5e-06,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 0.0049985,
+        "measured_uncertainty": 2.8e-05,
+        "required_uncertainty": 3.501649505e-06,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 0.2000021,
+        "measured_uncertainty": 2.8e-05,
+        "required_uncertainty": 3.5660006929999997e-06,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 1.0000106,
+        "measured_uncertainty": 2.8e-05,
+        "required_uncertainty": 3.830003498e-06,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 5.0000148,
+        "measured_uncertainty": 2.8e-05,
+        "required_uncertainty": 8.800005328e-06,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 9.999991,
+        "measured_uncertainty": 1.1,
+        "required_uncertainty": 1.059999676e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 50.000034,
+        "measured_uncertainty": 8.4e-05,
+        "required_uncertainty": 5.750000442e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 80.000018,
+        "measured_uncertainty": 8.4e-05,
+        "required_uncertainty": 6.140000234e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 100.000037,
+        "measured_uncertainty": 0.00012,
+        "required_uncertainty": 6.400000481000001e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 150.000071,
+        "measured_uncertainty": 0.00012,
+        "required_uncertainty": 7.050000923e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Down",
+        "nominal": 199.999956,
+        "measured_uncertainty": 0.00012,
+        "required_uncertainty": 7.699999428e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 0.0,
+        "measured_uncertainty": 1.1,
+        "required_uncertainty": 3.5e-06,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 0.0049985,
+        "measured_uncertainty": 2.8e-05,
+        "required_uncertainty": 3.501649505e-06,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 0.2000021,
+        "measured_uncertainty": 2.8e-05,
+        "required_uncertainty": 3.5660006929999997e-06,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 1.0000106,
+        "measured_uncertainty": 2.8e-05,
+        "required_uncertainty": 3.830003498e-06,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 5.0000148,
+        "measured_uncertainty": 2.8e-05,
+        "required_uncertainty": 8.800005328e-06,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 9.999991,
+        "measured_uncertainty": 1.1,
+        "required_uncertainty": 1.059999676e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 50.000034,
+        "measured_uncertainty": 8.4e-05,
+        "required_uncertainty": 5.750000442e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 80.000018,
+        "measured_uncertainty": 8.4e-05,
+        "required_uncertainty": 6.140000234e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 100.000037,
+        "measured_uncertainty": 0.00012,
+        "required_uncertainty": 6.400000481000001e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 150.000071,
+        "measured_uncertainty": 0.00012,
+        "required_uncertainty": 7.050000923e-05,
+        "passed": true
+    },
+    {
+        "category": "Weight - Linearity Up",
+        "nominal": 199.999956,
+        "measured_uncertainty": 0.00012,
+        "required_uncertainty": 7.699999428e-05,
+        "passed": true
+    },
+    {
+        "category": "Accuracy Chart AsFound Upper Limit Lower Limit",
+        "nominal": 100.000037,
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Accuracy Chart AsFound Upper Limit Lower Limit",
+        "nominal": 100.000037,
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Accuracy Chart AsFound Eccentricity Center",
+        "nominal": 100.000037,
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Weight - Eccentricity NorthEast",
+        "nominal": 100.000037,
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Weight - Eccentricity NorthWest",
+        "nominal": 100.000037,
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "-1 -0.5 0 0.5 1",
+        "nominal": -1.2e-05,
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Weight - Eccentricity SouthEast",
+        "nominal": "100.000037",
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Weight - Eccentricity SouthWest",
+        "nominal": "100.000037",
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Weight - Repeatability",
+        "nominal": "Dev.Std: 0.000143",
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Weight - Repeatability 2",
+        "nominal": "Dev.Std: 0.57",
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Weight - g - - 200mg StdDev",
+        "nominal": "0.0000000",
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Weight - g - - Excentricity",
+        "nominal": "N/A",
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Weight - g - - 100g StdDev",
+        "nominal": "0.000000",
+        "measured_uncertainty": "n/a",
+        "required_uncertainty": "n/a",
+        "passed": "Not Applicable"
+    },
+    {
+        "category": "Weight - Sensitivity",
+        "nominal": 10.0000086,
+        "measured_uncertainty": 1.5e-05,
+        "required_uncertainty": 1.0600003096e-05,
+        "passed": true
+    }
+]

@@ -1,0 +1,252 @@
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Pablo Romero",
+  "Calibrate_Date": "10/09/2023",
+  "Quality_Approval_by": "Kiara Mariñez",
+  "QA_Date": "11/10/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Pablo Romero",
+  "Calibrate_Date": "10/09/2023",
+  "Quality_Approval_by": "Kiara Mariñez",
+  "QA_Date": "11/10/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Pablo Romero",
+  "Calibrate_Date": "10/09/2023",
+  "Quality_Approval_by": "Kiara Mariñez",
+  "QA_Date": "11/10/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Pablo Romero",
+  "Calibrate_Date": "10/09/2023",
+  "Quality_Approval_by": "Kiara Mariñez",
+  "QA_Date": "11/10/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Pablo Romero",
+  "Calibrate_Date": "10/09/2023",
+  "Quality_Approval_by": "Kiara Mariñez",
+  "QA_Date": "11/10/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Pablo Romero",
+  "Calibrate_Date": "10/09/2023",
+  "Quality_Approval_by": "Kiara Mariñez",
+  "QA_Date": "11/10/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set 1mg to 10kg",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Pablo Romero",
+  "Calibrate_Date": "09/06/2023",
+  "Quality_Approval_by": "Mayelin Cabrera",
+  "QA_Date": "09/12/2023"
+}
+----
+{
+  "ID_Inst": "9959",
+  "Description": "Weight Set (1mg to 10kg)",
+  "Cal_Date": "08/19/2023",
+  "Due_Date": "11/30/2023",
+  "Calibrated_by": "Jose Casanova",
+  "Calibrate_Date": "11/08/2023",
+  "Quality_Approval_by": "Jasmin Marte",
+  "QA_Date": "11/14/2023"
+}

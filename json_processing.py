@@ -35,38 +35,21 @@ def extract_and_convert_to_dict(input_string):
 
     return data_dict
 
+import json
+import os
 def save_json(data, name, folder_path):
-    """
-    Save a given data as a JSON file in the specified folder path.
-
-    :param data: The data to be saved (either a dictionary, a list of dictionaries, or a list of JSON strings).
-    :param name: Name of the file (without .json extension).
-    :param folder_path: The path of the folder where the file will be saved.
-    """
-
-    # Ensure the folder path exists, create if not
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
-
-    # Construct the full file path
     file_path = os.path.join(folder_path, f"{name}.json")
-
-    # Prepare the data for JSON serialization
     if isinstance(data, list):
-        # Convert string representations to dictionaries if needed
         prepared_data = [json.loads(item) if isinstance(item, str) else item for item in data]
     else:
-        # Use the data as is for dictionaries
         prepared_data = data
-
-    # Write the data to a JSON file
     with open(file_path, 'w') as file:
         json.dump(prepared_data, file, indent=4)
 
     print(f"File '{name}.json' saved in '{folder_path}'.")
 
-import json
-import os
 
 def convert_to_json(input_string):
     # Remove the ```json and ``` markers

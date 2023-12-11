@@ -2,6 +2,7 @@ from json_processing import save_json
 import json
 import glob
 import os
+import math
 from termcolor import colored
 def save_json(data, name, folder_path):
     if not os.path.exists(folder_path):
@@ -49,15 +50,8 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                 nominal = measurement.get("Nominal")
                 meas_uncert_str = measurement.get("MeasUncert")
 
-                # Handle 'n/a' measurement uncertainty
+                # Skip 'n/a' measurement uncertainty
                 if meas_uncert_str in ["n/a", "N/A", '**', '**\nn/a', "''", ''] or meas_uncert_str is None:
-                    result = {
-                        "nominal": nominal,
-                        "measured_uncertainty": "n/a",
-                        "required_uncertainty": "n/a",
-                        "passed": "Not Applicable"
-                    }
-                    results.append(result)
                     continue
 
                 meas_uncert = convert_to_grams(float(meas_uncert_str), measurement.get("MeasUnit"))
@@ -66,8 +60,9 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                     for range_info in certification["measurement_uncertainty"]:
                         nominal_value = float(nominal)
                         nominal_value = convert_to_grams(nominal_value, measurement.get("Units"))
+                        test_nominal_value = nominal_value *0.99
 
-                        if range_info["range"][0] <= nominal_value <= range_info["range"][1]:
+                        if range_info["range"][0] <= test_nominal_value <= range_info["range"][1]:
                             fixed_uncertainty = convert_to_grams(range_info["fixed_uncertainty"], range_info["fixed_uncertainty_unit"])
                             variable_uncertainty_per_unit = convert_to_grams(range_info["variable_uncertainty"], range_info["variable_uncertainty_unit"].split('/')[0])
                             per_unit = range_info["variable_uncertainty_unit"].split('/')[1]
@@ -83,25 +78,30 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                             variable_uncertainty = variable_uncertainty_per_unit * nominal_value
                             total_uncertainty = fixed_uncertainty + variable_uncertainty
                             # Round to nearest 0.0000001
-                            total_uncertainty = round(total_uncertainty * 10000000) / 10000000
+                            scale = 10 ** (1 - int(math.floor(math.log10(abs(total_uncertainty)))))
+                            total_uncertainty = round(total_uncertainty * scale) / scale
 
                             passed = meas_uncert >= total_uncertainty
                             status = "Passed" if passed else "Failed"
                             color = "green" if passed else "red"
 
-                            result = {
-                                "nominal": f"{nominal_value}g",
-                                "measured_uncertainty": f"{meas_uncert}g",
-                                "required_uncertainty": f"{total_uncertainty}g",
-                                "passed": passed
-                            }
-                            print(colored(f"[{status}] Group: {group}, Nominal: {nominal_value}g, Measured Uncertainty: {meas_uncert}g, Required Uncertainty: {total_uncertainty}g", color))
-                            results.append(result)
-                            break
+                            # Only append if the status is "Failed"
+                            if status == "Failed":
+                                result = {
+                                    "group": group,
+                                    "nominal": f"{nominal_value}g",
+                                    "measured_uncertainty": f"{meas_uncert}g",
+                                    "required_uncertainty": f"{total_uncertainty}g",
+                                    "passed": passed
+                                }
+                                print(colored(f"[{status}] Group: {group}, Nominal: {nominal_value}g, Measured Uncertainty: {meas_uncert}g, Required Uncertainty: {total_uncertainty}g", color))
+                                results.append(result)
 
-        results_by_certno[CertNo] = results  # Add results to the dictionary under the CertNo key
+        if results:  # Only add to results_by_certno if there are any failed results
+            results_by_certno[CertNo] = results
 
-    return results_by_certno  # Return the dictionary of res
+    return results_by_certno  # Return the dictionary of results grouped by CertNo
+
 
 
 

@@ -1,0 +1,174 @@
+{
+    "C348872": [
+        {
+            "group": "Weight - Linearity Down",
+            "nominal": "1800000.0g",
+            "measured_uncertainty": "250.0g",
+            "required_uncertainty": "260.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Down",
+            "nominal": "2400000.0g",
+            "measured_uncertainty": "250.0g",
+            "required_uncertainty": "320.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "3000000.0g",
+            "measured_uncertainty": "250.0g",
+            "required_uncertainty": "390.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "1800000.0g",
+            "measured_uncertainty": "250.0g",
+            "required_uncertainty": "260.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "2400000.0g",
+            "measured_uncertainty": "250.0g",
+            "required_uncertainty": "320.0g",
+            "passed": false
+        }
+    ],
+    "C348389": [
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "5100.0g",
+            "measured_uncertainty": "0.014g",
+            "required_uncertainty": "0.03g",
+            "passed": false
+        }
+    ],
+    "C350264": [
+        {
+            "group": "Weight - Linearity Dn",
+            "nominal": "90000.0g",
+            "measured_uncertainty": "15.0g",
+            "required_uncertainty": "16.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "90000.0g",
+            "measured_uncertainty": "15.0g",
+            "required_uncertainty": "16.0g",
+            "passed": false
+        }
+    ],
+    "C346618": [
+        {
+            "group": "Weight - Linearity Down",
+            "nominal": "224.999814g",
+            "measured_uncertainty": "7.8e-05g",
+            "required_uncertainty": "0.00028g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "224.999814g",
+            "measured_uncertainty": "7.8e-05g",
+            "required_uncertainty": "0.00028g",
+            "passed": false
+        }
+    ],
+    "C348086": [
+        {
+            "group": "Weight - Linearity Dw",
+            "nominal": "600000.0g",
+            "measured_uncertainty": "66.0g",
+            "required_uncertainty": "73.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Dw",
+            "nominal": "450000.0g",
+            "measured_uncertainty": "50.0g",
+            "required_uncertainty": "56.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Dw",
+            "nominal": "300000.0g",
+            "measured_uncertainty": "36.0g",
+            "required_uncertainty": "39.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Dw",
+            "nominal": "150000.0g",
+            "measured_uncertainty": "20.0g",
+            "required_uncertainty": "22.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "450000.0g",
+            "measured_uncertainty": "50.0g",
+            "required_uncertainty": "56.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "600000.0g",
+            "measured_uncertainty": "66.0g",
+            "required_uncertainty": "73.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "150000.0g",
+            "measured_uncertainty": "20.0g",
+            "required_uncertainty": "22.0g",
+            "passed": false
+        },
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "300000.0g",
+            "measured_uncertainty": "36.0g",
+            "required_uncertainty": "39.0g",
+            "passed": false
+        }
+    ],
+    "C349293": [
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "21.000009g",
+            "measured_uncertainty": "3.2e-05g",
+            "required_uncertainty": "5.4e-05g",
+            "passed": false
+        }
+    ],
+    "C351433": [
+        {
+            "group": "Weight - Linearity Up",
+            "nominal": "21.000009g",
+            "measured_uncertainty": "3.2e-05g",
+            "required_uncertainty": "5.4e-05g",
+            "passed": false
+        }
+    ],
+    "C348045": [
+        {
+            "group": "Peso - Linealidad Ascendente",
+            "nominal": "6000.0g",
+            "measured_uncertainty": "0.025g",
+            "required_uncertainty": "0.032g",
+            "passed": false
+        }
+    ],
+    "C349207": [
+        {
+            "group": "Peso - Linealidad Ascendente",
+            "nominal": "150000.0g",
+            "measured_uncertainty": "10.0g",
+            "required_uncertainty": "22.0g",
+            "passed": false
+        }
+    ]
+}

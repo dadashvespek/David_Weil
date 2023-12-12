@@ -29,18 +29,18 @@ def convert_to_grams(value, unit):
         'kg': 1e3,
         'lb': 453.592 
     }
-    return value * unit_converters.get(unit, 1)  # Default to assuming the unit is already in grams
+    return value * unit_converters.get(unit, 1) 
 
 
 def check_measurement_uncertainty_nested(json_data_list, certification):
-    results_by_certno = {}  # Store results by CertNo
 
+    results_by_certno = {} 
     for json_data in json_data_list:
         datasheets = json_data.get("Datasheet", [])
         CertNo = json_data.get("CertNo", "Unknown CertNo")
         print(colored(f"CertNo: {CertNo}", "blue"))
 
-        results = []  # Store results for this CertNo
+        results = [] 
 
         for datasheet in datasheets:
             group = datasheet.get("Group", "Unknown Group")
@@ -49,8 +49,6 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
             for measurement in measurements:
                 nominal = measurement.get("Nominal")
                 meas_uncert_str = measurement.get("MeasUncert")
-
-                # Skip 'n/a' measurement uncertainty
                 if meas_uncert_str in ["n/a", "N/A", '**', '**\nn/a', "''", ''] or meas_uncert_str is None:
                     continue
 
@@ -77,15 +75,12 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
 
                             variable_uncertainty = variable_uncertainty_per_unit * nominal_value
                             total_uncertainty = fixed_uncertainty + variable_uncertainty
-                            # Round to nearest 0.0000001
                             scale = 10 ** (1 - int(math.floor(math.log10(abs(total_uncertainty)))))
                             total_uncertainty = round(total_uncertainty * scale) / scale
 
                             passed = meas_uncert >= total_uncertainty
                             status = "Passed" if passed else "Failed"
                             color = "green" if passed else "red"
-
-                            # Only append if the status is "Failed"
                             if status == "Failed":
                                 result = {
                                     "group": group,
@@ -97,20 +92,16 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                                 print(colored(f"[{status}] Group: {group}, Nominal: {nominal_value}g, Measured Uncertainty: {meas_uncert}g, Required Uncertainty: {total_uncertainty}g", color))
                                 results.append(result)
 
-        if results:  # Only add to results_by_certno if there are any failed results
+        if results:
             results_by_certno[CertNo] = results
 
-    return results_by_certno  # Return the dictionary of results grouped by CertNo
+    return results_by_certno  
 
 
 
 
 list_of_all_json = glob.glob(os.path.join('inputjson', '*.json'))
 for i,ajson in enumerate(list_of_all_json):
-    ajson = list_of_all_json[0]
-    ajson = json.load(open(ajson, 'r', encoding='utf-8'))
-    certjson = json.load(open('certjson.json','r', encoding='utf-8'))
-    final_results = check_measurement_uncertainty_nested(ajson, certjson)
-
+    final_results = check_measurement_uncertainty_nested(json.load(open(list_of_all_json[0], 'r', encoding='utf-8')), json.load(open('certjson.json','r', encoding='utf-8')))
     save_json(final_results, f'final_{i}','Final_Results')
 

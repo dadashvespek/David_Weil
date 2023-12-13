@@ -1,50 +1,61 @@
-from json_processing import save_json
+from json_processing import save_json, convert_to_grams
 import json
 import glob
 import os
 import math
 from termcolor import colored
-def save_json(data, name, folder_path):
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
-    file_path = os.path.join(folder_path, f"{name}.json")
-    if isinstance(data, list):
-        prepared_data = [json.loads(item) if isinstance(item, str) else item for item in data]
-    else:
-        prepared_data = data
-    with open(file_path, 'w') as file:
-        json.dump(prepared_data, file, indent=4)
+from directions import split_directions
 
-    print(f"File '{name}.json' saved in '{folder_path}'.")
 
 os.makedirs('Final_Results', exist_ok=True)
-def convert_to_grams(value, unit):
-    """
-    Convert different mass units to grams.
-    """
-    unit_converters = {
-        'µg': 1e-6,
-        'mg': 1e-3,
-        'g': 1,
-        'kg': 1e3,
-        'lb': 453.592 
-    }
-    return value * unit_converters.get(unit, 1) 
 
+import re
 
 def check_measurement_uncertainty_nested(json_data_list, certification):
-
     results_by_certno = {} 
     for json_data in json_data_list:
+        group_values = []
+        results = [] 
         datasheets = json_data.get("Datasheet", [])
         CertNo = json_data.get("CertNo", "Unknown CertNo")
-        print(colored(f"CertNo: {CertNo}", "blue"))
+        # print(colored(f"CertNo: {CertNo}", "blue"))
+        std_passed = False
+        for datasheet in datasheets:
+            group = datasheet.get("Group", "Unknown Group")
+            group_values.append(group)
+            if 'std' in group.lower() or 'desviación' in group.lower():
+    
+                std_passed = True
+                if std_passed:
+                    int_var = int(''.join(re.findall(r'\d+', group))) if any(char.isdigit() for char in group) else False
+                    if not int_var:
+                        result = {
+                            
+                            "STD_Has_Weight": False,
+                        }
+                        # print(colored(f"[Failed] No std weight found", "red"))
+                        results.append(result)
+                    else:
+                        std_value = int_var
+                        print(colored(f"[Passed] STD weight found: {std_value}g", "green"))
+            not_present = [direction for direction, parts in split_directions.items() if not any(part.lower() in element.lower() for part in parts for element in group_values)]
+        if not_present != []:
+            print(colored(f"CerNo: {CertNo}", "blue"))
+            print(colored(f"Directions not present: {not_present}", "blue"))
+            results.append({"Directions not present": not_present})
 
-        results = [] 
+        if not std_passed:
+            result ={
+                "STD_Present": False,
+            }
+            print(colored(f"[Failed] No std group found", "red"))
+            results.append(result)
+
 
         for datasheet in datasheets:
             group = datasheet.get("Group", "Unknown Group")
             measurements = datasheet.get("Measurements", [])
+            
 
             for measurement in measurements:
                 nominal = measurement.get("Nominal")
@@ -78,16 +89,17 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                             scale = 10 ** (1 - int(math.floor(math.log10(abs(total_uncertainty)))))
                             total_uncertainty = round(total_uncertainty * scale) / scale
 
-                            passed = meas_uncert >= total_uncertainty
-                            status = "Passed" if passed else "Failed"
-                            color = "green" if passed else "red"
+                            weight_passed = meas_uncert >= total_uncertainty
+                            status = "Passed" if weight_passed else "Failed"
+                            color = "green" if weight_passed else "red"
                             if status == "Failed":
                                 result = {
                                     "group": group,
                                     "nominal": f"{nominal_value}g",
                                     "measured_uncertainty": f"{meas_uncert}g",
                                     "required_uncertainty": f"{total_uncertainty}g",
-                                    "passed": passed
+                                    "weight_passed": weight_passed,
+
                                 }
                                 print(colored(f"[{status}] Group: {group}, Nominal: {nominal_value}g, Measured Uncertainty: {meas_uncert}g, Required Uncertainty: {total_uncertainty}g", color))
                                 results.append(result)

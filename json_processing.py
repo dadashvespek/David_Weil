@@ -14,3 +14,15 @@ def save_json(data, name, folder_path):
 
     print(f"File '{name}.json' saved in '{folder_path}'.")
 
+def convert_to_grams(value, unit):
+    """
+    Convert different mass units to grams.
+    """
+    unit_converters = {
+        'µg': 1e-6,
+        'mg': 1e-3,
+        'g': 1,
+        'kg': 1e3,
+        'lb': 453.592 
+    }
+    return value * unit_converters.get(unit, 1) 

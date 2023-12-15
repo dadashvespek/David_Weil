@@ -65,7 +65,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
             group = datasheet.get("Group", "Unknown Group")
             measurements = datasheet.get("Measurements", [])
 
-            if 'up' in group.lower() or 'ascendente' in group.lower():
+            if any(keyword in group.lower() for keyword in ['up', 'ascendente','down','dw','dn','descendente']):
                 max_nominal = None
                 for i in measurements:
                     nom = i.get("Nominal")
@@ -89,12 +89,12 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                     pass
                 else:
                     print(colored(f"[Failed] Max Nominal: {max_nominal}g is not within 0.5 * Nominal STD: {nominal_std}g", "red"))
-                    results.append({"Max Nominal of Linearity UP": f"{max_nominal}g", "Repeatiblity STD": f"{nominal_std}g", "Repeatiblity Nominal 50-100 of Max Nominal":False })
+                    results.append({f"Max Nominal of {group}": f"{max_nominal}g", "Repeatiblity STD": f"{nominal_std}g", "Repeatiblity Nominal 50-100 of Max Nominal":False })
                 if len(measurements) >= 5:
                     print(colored(f"[Passed] Number of measurements: {len(measurements)}", "green"))
                 else:
                     print(colored(f"[Failed] Number of measurements: {len(measurements)}", "red"))
-                    results.append({"Number of measurements": len(measurements), "Number of measurements 5 or more": False})
+                    results.append({f"Number of measurements of {group}": len(measurements), "Number of measurements 5 or more": False})
        
 
             for measurement in measurements:

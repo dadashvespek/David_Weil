@@ -1,4 +1,29 @@
 {
+    "C350212": [
+        {
+            "Max Nominal of Weight - Linearity Up": "30000.0g",
+            "Repeatiblity STD": "15000000.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
+    "C350216": [
+        {
+            "Max Nominal of Weight - Linearity Up": "100000.0g",
+            "Repeatiblity STD": "50000000.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
+    "C349720": [
+        {
+            "Number of measurements of Weight - Linearity DW": 4,
+            "Number of measurements 5 or more": false
+        },
+        {
+            "Max Nominal of Weight - Linearity UP": "13607.76g",
+            "Repeatiblity STD": "3086185.53696g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
     "C350264": [
         {
             "group": "Weight - Linearity Dn",
@@ -8,6 +33,11 @@
             "weight_passed": false
         },
         {
+            "Max Nominal of Weight - Linearity Up": "150000.0g",
+            "Repeatiblity STD": "75000000.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        },
+        {
             "group": "Weight - Linearity Up",
             "nominal": "90000.0g",
             "measured_uncertainty": "15.0g",
@@ -15,16 +45,97 @@
             "weight_passed": false
         }
     ],
+    "C350337": [
+        {
+            "Number of measurements of Weight - Linearity DW": 4,
+            "Number of measurements 5 or more": false
+        },
+        {
+            "Max Nominal of Weight - Linearity UP": "54431.04g",
+            "Repeatiblity STD": "12344742.14784g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
+    "C350338": [
+        {
+            "Number of measurements of Weight - Linearity DW": 4,
+            "Number of measurements 5 or more": false
+        },
+        {
+            "Max Nominal of Weight - Linearity UP": "30000.0g",
+            "Repeatiblity STD": "15000000.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
+    "C349721": [
+        {
+            "Max Nominal of Weight - Linearity UP": "150000.0g",
+            "Repeatiblity STD": "75000000.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
+    "C349662": [
+        {
+            "Max Nominal of Peso - Linealidad Descendente": "12000.0g",
+            "Repeatiblity STD": "10000000.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
+    "C350501": [
+        {
+            "Number of measurements of Weight - Linearity Down": 4,
+            "Number of measurements 5 or more": false
+        }
+    ],
+    "C350400": [
+        {
+            "Number of measurements of Weight - Linearity Down": 4,
+            "Number of measurements 5 or more": false
+        },
+        {
+            "Max Nominal of Weight - Linearity Up": "45000.0g",
+            "Repeatiblity STD": "25000000.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
+    "C350339": [
+        {
+            "Number of measurements of Weight - Linearity DW": 4,
+            "Number of measurements 5 or more": false
+        },
+        {
+            "Max Nominal of Weight - Linearity UP": "60000.0g",
+            "Repeatiblity STD": "30000000.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
+    "C350225": [
+        {
+            "Max Nominal of Weight - Linearity Up": "68038.8g",
+            "Repeatiblity STD": "15430927.6848g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
     "C350228": [
         {
-            "Max Nominal of Linearity UP": "6200.0g",
+            "Max Nominal of Weight - Linearity Dw": "5000.0g",
+            "Repeatiblity STD": "600.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        },
+        {
+            "Max Nominal of Weight - Linearity Up": "6200.0g",
             "Repeatiblity STD": "600.0g",
             "Repeatiblity Nominal 50-100 of Max Nominal": false
         }
     ],
     "C349473": [
         {
-            "Max Nominal of Linearity UP": "220.0g",
+            "Max Nominal of Weight - Linearity Down": "220.0g",
+            "Repeatiblity STD": "100.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        },
+        {
+            "Max Nominal of Weight - Linearity Up": "220.0g",
             "Repeatiblity STD": "100.0g",
             "Repeatiblity Nominal 50-100 of Max Nominal": false
         }
@@ -38,6 +149,23 @@
                 "West",
                 "Center"
             ]
+        },
+        {
+            "Number of measurements of Weight - Linearity Dn": 4,
+            "Number of measurements 5 or more": false
+        }
+    ],
+    "C349674": [
+        {
+            "Number of measurements of Peso - Linealidad Descendente": 4,
+            "Number of measurements 5 or more": false
+        }
+    ],
+    "C350233": [
+        {
+            "Max Nominal of Weight - Linearity Up": "75000.0g",
+            "Repeatiblity STD": "50000000.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
         }
     ],
     "C349961": [
@@ -49,12 +177,34 @@
                 "West",
                 "Center"
             ]
+        },
+        {
+            "Number of measurements of Weight - Linearity Dn": 4,
+            "Number of measurements 5 or more": false
+        }
+    ],
+    "C349682": [
+        {
+            "Number of measurements of Peso - Linealidad Descendente": 4,
+            "Number of measurements 5 or more": false
         }
     ],
     "C349368": [
         {
-            "Max Nominal of Linearity UP": "25000.0g",
+            "Max Nominal of Weight - Linearity Dw": "25000.0g",
             "Repeatiblity STD": "2500.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        },
+        {
+            "Max Nominal of Weight - Linearity Up": "25000.0g",
+            "Repeatiblity STD": "2500.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
+    "C350246": [
+        {
+            "Max Nominal of Weight - Linearity Up": "100000.0g",
+            "Repeatiblity STD": "50000000.0g",
             "Repeatiblity Nominal 50-100 of Max Nominal": false
         }
     ]

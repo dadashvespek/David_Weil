@@ -18,29 +18,39 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
         results = [] 
         datasheets = json_data.get("Datasheet", [])
         CertNo = json_data.get("CertNo", "Unknown CertNo")
-        # print(colored(f"CertNo: {CertNo}", "blue"))
+        print(colored(f"CertNo: {CertNo}", "blue"))
         std_passed = False
         for datasheet in datasheets:
             group = datasheet.get("Group", "Unknown Group")
             group_values.append(group)
             if 'std' in group.lower() or 'desviación' in group.lower():
-    
                 std_passed = True
-                if std_passed:
-                    int_var = int(''.join(re.findall(r'\d+', group))) if any(char.isdigit() for char in group) else False
-                    if not int_var:
-                        result = {
+            print(colored(f"Group: {group}", "yellow"))
+            # repeatability or repeatibility in group.lower()
+            if 'repeatability' in group.lower():
+                
+                #check the Measurement key and derive std value from its nominal value
+                measure = datasheet.get("Measurements", [])
+                nominal = measure[0].get("Nominal")
+                print(colored(f"Nominal: {nominal}", "blue"))
+            not_present = []
+            for direction, parts in split_directions.items():
+                found = False
+                for part in parts:
+                    for element in group_values:
+                        if part.lower() in element.lower():
+                            # print(f"Direction '{direction}' found in group value element: {element}")
                             
-                            "STD_Has_Weight": False,
-                        }
-                        # print(colored(f"[Failed] No std weight found", "red"))
-                        results.append(result)
-                    else:
-                        std_value = int_var
-                        print(colored(f"[Passed] STD weight found: {std_value}g", "green"))
-            not_present = [direction for direction, parts in split_directions.items() if not any(part.lower() in element.lower() for part in parts for element in group_values)]
+                            found = True
+                            break  
+                    if found:
+                        break  
+                if not found:
+                    not_present.append(direction)
+
+
         if not_present != []:
-            print(colored(f"CerNo: {CertNo}", "blue"))
+            
             print(colored(f"Directions not present: {not_present}", "blue"))
             results.append({"Directions not present": not_present})
 

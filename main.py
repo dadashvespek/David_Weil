@@ -60,12 +60,14 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
             print(colored(f"[Failed] No std group found", "red"))
             results.append(result)
 
-
+        dict_of_noms = {}
+        total_measurements_up_dw = []
         for datasheet in datasheets:
             group = datasheet.get("Group", "Unknown Group")
+            
             measurements = datasheet.get("Measurements", [])
-
             if any(keyword in group.lower() for keyword in ['up', 'ascendente','down','dw','dn','descendente']):
+                total_measurements_up_dw.append(len(measurements))
                 max_nominal = None
                 for i in measurements:
                     nom = i.get("Nominal")
@@ -79,10 +81,9 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                     
                 print(colored(f"Max Nominal: {max_nominal}g", "yellow"))
                 nominal_std = float(nominal_std)
+            
                 nominal_std_converted = convert_to_grams(nominal_std, unitofnominal)
-                print(colored(f"Nominal: {nominal_std}g", "yellow"))
-                # max_nominal = float(max_nominal)
-                # max_nominal = convert_to_grams(max_nominal, unitofmaxnom)
+                print(colored(f"Nominal: {nominal_std_converted}g", "yellow"))
                 
                 if 0.5 * max_nominal <= nominal_std_converted <= max_nominal:
                     #print(colored(f"[Passed] Max Nominal: {max_nominal}g is within 0.5 * Nominal STD: {nominal_std}g", "green"))
@@ -90,11 +91,32 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                 else:
                     print(colored(f"[Failed] Max Nominal: {max_nominal}g is not within 0.5 * Nominal STD: {nominal_std_converted}g", "red"))
                     results.append({f"Max Nominal of {group}": f"{max_nominal}g", "Repeatiblity STD": f"{nominal_std_converted}g", "Repeatiblity Nominal 50-100 of Max Nominal":False })
-                if len(measurements) >= 5:
-                    print(colored(f"[Passed] Number of measurements: {len(measurements)}", "green"))
+                #add to dict of noms
+                if any(keyword in group.lower() for keyword in ['up', 'ascendente']):
+                    dict_of_noms['Weight - Linearity Up'] = max_nominal
                 else:
-                    print(colored(f"[Failed] Number of measurements: {len(measurements)}", "red"))
-                    results.append({f"Number of measurements of {group}": len(measurements), "Number of measurements 5 or more": False})
+                    dict_of_noms['Weight - Linearity Dw'] = max_nominal
+            else:
+                max_nominal = None
+                for i in measurements:
+                    nom = i.get("Nominal")
+                    unitofmaxnom = i.get("Units")
+                    nom = float(convert_to_grams(nom, unitofmaxnom))
+                    if max_nominal is None:
+                        max_nominal = nom
+                        
+                    elif nom > max_nominal:
+                        max_nominal = nom
+                dict_of_noms[group] = max_nominal
+            
+            if len(total_measurements_up_dw)>1:
+                total_measures = sum(total_measurements_up_dw)
+                if total_measures>= 9:
+                    # print(colored(f"[Passed] Number of measurements: {total_measures}", "green"))
+                    pass
+                else:
+                    print(colored(f"[Failed] Number of measurements: {total_measures}", "red"))
+                    results.append({f"Number of measurements of {group}": total_measures, "Number of measurements 5 or more": False})
        
 
             for measurement in measurements:
@@ -150,6 +172,21 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
 
         if results:
             results_by_certno[CertNo] = results
+        print(dict_of_noms)
+        linearity_up = dict_of_noms.get('Weight - Linearity Up', 0)
+        linearity_down = dict_of_noms.get('Weight - Linearity Dw', 0)
+        max_linearity = max(linearity_up, linearity_down)
+
+        for key, value in dict_of_noms.items():
+            if 'eccentricity' in key.lower() and not (0.3 * max_linearity <= value <= 0.5 * max_linearity):
+                error_message = f"Error: {key} value {value}g is not within 30% to 50% of max linearity {max_linearity}g"
+                print(colored(error_message, "red"))
+                result = {
+                    "group": key,
+                    "nominal": f"{value}g",
+                    "error_message": error_message,
+                }
+                results.append(result)
 
     return results_by_certno  
 

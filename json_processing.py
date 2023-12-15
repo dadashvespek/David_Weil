@@ -15,6 +15,10 @@ def save_json(data, name, folder_path):
     print(f"File '{name}.json' saved in '{folder_path}'.")
 
 def convert_to_grams(value, unit):
+    try:
+        if value.lower() =='n/a':
+            return 0
+    except:pass
     """
     Convert different mass units to grams.
     """

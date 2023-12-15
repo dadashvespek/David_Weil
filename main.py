@@ -79,17 +79,17 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                     
                 print(colored(f"Max Nominal: {max_nominal}g", "yellow"))
                 nominal_std = float(nominal_std)
-                nominal_std = convert_to_grams(nominal_std, unitofnominal)
+                nominal_std_converted = convert_to_grams(nominal_std, unitofnominal)
                 print(colored(f"Nominal: {nominal_std}g", "yellow"))
                 # max_nominal = float(max_nominal)
                 # max_nominal = convert_to_grams(max_nominal, unitofmaxnom)
                 
-                if 0.5 * max_nominal <= nominal_std <= max_nominal:
+                if 0.5 * max_nominal <= nominal_std_converted <= max_nominal:
                     #print(colored(f"[Passed] Max Nominal: {max_nominal}g is within 0.5 * Nominal STD: {nominal_std}g", "green"))
                     pass
                 else:
-                    print(colored(f"[Failed] Max Nominal: {max_nominal}g is not within 0.5 * Nominal STD: {nominal_std}g", "red"))
-                    results.append({f"Max Nominal of {group}": f"{max_nominal}g", "Repeatiblity STD": f"{nominal_std}g", "Repeatiblity Nominal 50-100 of Max Nominal":False })
+                    print(colored(f"[Failed] Max Nominal: {max_nominal}g is not within 0.5 * Nominal STD: {nominal_std_converted}g", "red"))
+                    results.append({f"Max Nominal of {group}": f"{max_nominal}g", "Repeatiblity STD": f"{nominal_std_converted}g", "Repeatiblity Nominal 50-100 of Max Nominal":False })
                 if len(measurements) >= 5:
                     print(colored(f"[Passed] Number of measurements: {len(measurements)}", "green"))
                 else:

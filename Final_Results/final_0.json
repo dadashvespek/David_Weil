@@ -15,6 +15,20 @@
             "weight_passed": false
         }
     ],
+    "C350228": [
+        {
+            "Max Nominal of Linearity UP": "6200.0g",
+            "Repeatiblity STD": "600.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
+    "C349473": [
+        {
+            "Max Nominal of Linearity UP": "220.0g",
+            "Repeatiblity STD": "100.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
+        }
+    ],
     "C349958": [
         {
             "Directions not present": [
@@ -35,6 +49,13 @@
                 "West",
                 "Center"
             ]
+        }
+    ],
+    "C349368": [
+        {
+            "Max Nominal of Linearity UP": "25000.0g",
+            "Repeatiblity STD": "2500.0g",
+            "Repeatiblity Nominal 50-100 of Max Nominal": false
         }
     ]
 }

@@ -25,4 +25,10 @@ def convert_to_grams(value, unit):
         'kg': 1e3,
         'lb': 453.592 
     }
-    return value * unit_converters.get(unit, 1) 
+
+    try:
+        numeric_value = float(value)
+    except ValueError:
+        raise ValueError(f"Value '{value}' is not a number and cannot be converted to grams.")
+
+    return numeric_value * unit_converters.get(unit, 1)

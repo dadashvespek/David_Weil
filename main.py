@@ -25,14 +25,13 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
             group_values.append(group)
             if 'std' in group.lower() or 'desviación' in group.lower():
                 std_passed = True
-            print(colored(f"Group: {group}", "yellow"))
+            # print(colored(f"Group: {group}", "yellow"))
             # repeatability or repeatibility in group.lower()
-            if 'repeatability' in group.lower():
-                
-                #check the Measurement key and derive std value from its nominal value
+            if any(word in group.lower() for word in ['repeatability', 'repeatibility','repetitividad','repetitibidad']):
                 measure = datasheet.get("Measurements", [])
-                nominal = measure[0].get("Nominal")
-                print(colored(f"Nominal: {nominal}", "blue"))
+                nominal_std = measure[0].get("Nominal")
+                unitofnominal = measure[0].get("Units")
+                
             not_present = []
             for direction, parts in split_directions.items():
                 found = False
@@ -65,7 +64,38 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
         for datasheet in datasheets:
             group = datasheet.get("Group", "Unknown Group")
             measurements = datasheet.get("Measurements", [])
-            
+
+            if 'up' in group.lower() or 'ascendente' in group.lower():
+                max_nominal = None
+                for i in measurements:
+                    nom = i.get("Nominal")
+                    unitofmaxnom = i.get("Units")
+                    nom = float(convert_to_grams(nom, unitofmaxnom))
+                    if max_nominal is None:
+                        max_nominal = nom
+                        
+                    elif nom > max_nominal:
+                        max_nominal = nom
+                    
+                print(colored(f"Max Nominal: {max_nominal}g", "yellow"))
+                nominal_std = float(nominal_std)
+                nominal_std = convert_to_grams(nominal_std, unitofnominal)
+                print(colored(f"Nominal: {nominal_std}g", "yellow"))
+                # max_nominal = float(max_nominal)
+                # max_nominal = convert_to_grams(max_nominal, unitofmaxnom)
+                
+                if 0.5 * max_nominal <= nominal_std <= max_nominal:
+                    #print(colored(f"[Passed] Max Nominal: {max_nominal}g is within 0.5 * Nominal STD: {nominal_std}g", "green"))
+                    pass
+                else:
+                    print(colored(f"[Failed] Max Nominal: {max_nominal}g is not within 0.5 * Nominal STD: {nominal_std}g", "red"))
+                    results.append({"Max Nominal of Linearity UP": f"{max_nominal}g", "Repeatiblity STD": f"{nominal_std}g", "Repeatiblity Nominal 50-100 of Max Nominal":False })
+                if len(measurements) >= 5:
+                    print(colored(f"[Passed] Number of measurements: {len(measurements)}", "green"))
+                else:
+                    print(colored(f"[Failed] Number of measurements: {len(measurements)}", "red"))
+                    results.append({"Number of measurements": len(measurements), "Number of measurements 5 or more": False})
+       
 
             for measurement in measurements:
                 nominal = measurement.get("Nominal")
@@ -80,6 +110,9 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                         nominal_value = float(nominal)
                         nominal_value = convert_to_grams(nominal_value, measurement.get("Units"))
                         test_nominal_value = nominal_value *0.99
+
+
+
 
                         if range_info["range"][0] <= test_nominal_value <= range_info["range"][1]:
                             fixed_uncertainty = convert_to_grams(range_info["fixed_uncertainty"], range_info["fixed_uncertainty_unit"])
@@ -111,6 +144,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                                     "weight_passed": weight_passed,
 
                                 }
+                                
                                 print(colored(f"[{status}] Group: {group}, Nominal: {nominal_value}g, Measured Uncertainty: {meas_uncert}g, Required Uncertainty: {total_uncertainty}g", color))
                                 results.append(result)
 

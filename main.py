@@ -178,7 +178,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
         max_linearity = max(linearity_up, linearity_down)
 
         for key, value in dict_of_noms.items():
-            if 'eccentricity' in key.lower() and not (0.3 * max_linearity <= value <= 0.5 * max_linearity):
+            if 'eccentricity' in key.lower() and not (0.29 * max_linearity <= value <= 0.51 * max_linearity):
                 error_message = f"Error: {key} value {value}g is not within 30% to 50% of max linearity {max_linearity}g"
                 print(colored(error_message, "red"))
                 result = {

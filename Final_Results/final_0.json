@@ -460,22 +460,6 @@
             "weight_passed": false
         }
     ],
-    "C346048": [
-        {
-            "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West",
-                "Center",
-                "Up",
-                "Down"
-            ]
-        },
-        {
-            "STD_Present": false
-        }
-    ],
     "C345218": [
         {
             "Directions not present": [

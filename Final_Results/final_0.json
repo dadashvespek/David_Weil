@@ -139,16 +139,6 @@
             ]
         }
     ],
-    "C346327": [
-        {
-            "Directions not present": [
-                "North",
-                "East",
-                "West",
-                "Center"
-            ]
-        }
-    ],
     "C345175": [
         {
             "Directions not present": [
@@ -460,17 +450,6 @@
             "weight_passed": false
         }
     ],
-    "C345218": [
-        {
-            "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West",
-                "Center"
-            ]
-        }
-    ],
     "C343701": [
         {
             "group": "Weight - Linearity Down",
@@ -531,19 +510,6 @@
                 "West",
                 "Center"
             ]
-        }
-    ],
-    "C343402": [
-        {
-            "Directions not present": [
-                "North",
-                "East",
-                "West",
-                "Center"
-            ]
-        },
-        {
-            "STD_Present": false
         }
     ],
     "C343633": [

@@ -22,8 +22,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
         #     continue
 
         asset_description = json_data.get("AssetDescription", "Unknown AssetDescription")
-        if any(keyword in asset_description.lower() for keyword in exclusion_list):
-            continue
+        excluded=any(keyword in asset_description.lower() for keyword in exclusion_list)
         
         print(colored(f"CertNo: {CertNo}", "blue"))
         
@@ -64,16 +63,17 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                     not_present.append(direction)
 
 
-        if not_present != []:
+        if not_present != [] and not excluded:
             
             print(colored(f"Directions not present: {not_present}", "blue"))
             results.append({"Directions not present": not_present})
 
-        if not std_passed:
+        if not std_passed and not excluded:
             result ={
                 "STD_Present": False,
             }
             print(colored(f"[Failed] No std group found", "red"))
+
             results.append(result)
 
         
@@ -185,7 +185,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                 results.append({f"Number of measurements": total_measures, "Number of measurements 9 or more": False})
 
         for key, value in dict_of_noms.items():
-            if key.split(' ')[-1].lower()=='weight' or key.split(' ')[-1].lower()=='peso' or key.lower=='weight' or 'rep' in key.lower():
+            if key.split(' ')[-1].lower()=='weight' or key.split(' ')[-1].lower()=='peso' or key.lower=='weight' or 'rep' in key.lower() and not excluded:
                 if not (lower_percent_of_max_rep * max_linearity <= value <= max_linearity * upper_percent_of_max_rep):
                     error_message = f"Error: {key} value {value}g is not within {lower_percent_of_max_rep*100}% to {round(upper_percent_of_max_rep*100)}% of max linearity {max_linearity}g"
                     result = {
@@ -197,7 +197,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                     if 'weight' not in key.lower().split(' ')[-1]:
                         print(colored(error_message, "red"))
                         results.append(result)
-            if 'eccentricity' in key.lower() and not ( lower_percent_of_max_ecce * max_linearity <= value <= upper_percent_of_max_ecce * max_linearity):
+            if 'eccentricity' in key.lower() and not ( lower_percent_of_max_ecce * max_linearity <= value <= upper_percent_of_max_ecce * max_linearity) and not excluded:
                 error_message = f"Error: {key} value {value}g is not within {lower_percent_of_max_ecce*100}% to {upper_percent_of_max_ecce*100}% of max linearity {max_linearity}g"
                 result = {
                     "group": key,

@@ -13,11 +13,6 @@
             "measured_uncertainty": "15.0g",
             "required_uncertainty": "16.0g",
             "weight_passed": false
-        },
-        {
-            "group": "Weight - Eccentricity",
-            "nominal": "0.0g",
-            "error_message": "Error: Weight - Eccentricity value 0.0g is not within 30% to 50% of max linearity 150000.0g"
         }
     ],
     "C350228": [
@@ -30,11 +25,6 @@
             "Max Nominal of Weight - Linearity Up": "6200.0g",
             "Repeatiblity STD": "600.0g",
             "Repeatiblity Nominal 50-100 of Max Nominal": false
-        },
-        {
-            "group": "Weight - Eccentricity",
-            "nominal": "0.0g",
-            "error_message": "Error: Weight - Eccentricity value 0.0g is not within 30% to 50% of max linearity 6200.0g"
         },
         {
             "group": "Weight - Eccentricity Center",
@@ -72,11 +62,6 @@
             "Max Nominal of Weight - Linearity Up": "220.0g",
             "Repeatiblity STD": "100.0g",
             "Repeatiblity Nominal 50-100 of Max Nominal": false
-        },
-        {
-            "group": "Weight - Eccentricity",
-            "nominal": "0.0g",
-            "error_message": "Error: Weight - Eccentricity value 0.0g is not within 30% to 50% of max linearity 220.0g"
         }
     ],
     "C349958": [
@@ -111,11 +96,6 @@
             "Max Nominal of Weight - Linearity Up": "25000.0g",
             "Repeatiblity STD": "2500.0g",
             "Repeatiblity Nominal 50-100 of Max Nominal": false
-        },
-        {
-            "group": "Weight - Eccentricity",
-            "nominal": "0.0g",
-            "error_message": "Error: Weight - Eccentricity value 0.0g is not within 30% to 50% of max linearity 25000.0g"
         }
     ]
 }

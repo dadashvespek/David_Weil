@@ -10,28 +10,51 @@ from directions import split_directions
 os.makedirs('Final_Results', exist_ok=True)
 
 import re
+# omit crane scale and belt scale , asset description truck as well
+#TODO add to config file
+exclusion_list = ['crane','belt','truck']
 
 def check_measurement_uncertainty_nested(json_data_list, certification):
     results_by_certno = {} 
+    nominal_std=0
+    unitofnominal='g'
     for json_data in json_data_list:
+        dict_of_noms = {}
         group_values = []
         results = [] 
         datasheets = json_data.get("Datasheet", [])
         CertNo = json_data.get("CertNo", "Unknown CertNo")
+        # if 'C343701' not in CertNo:
+        #     continue
+
+        asset_description = json_data.get("AssetDescription", "Unknown AssetDescription")
+        if any(keyword in asset_description.lower() for keyword in exclusion_list):
+            continue
+        
         print(colored(f"CertNo: {CertNo}", "blue"))
+        
         std_passed = False
         for datasheet in datasheets:
             group = datasheet.get("Group", "Unknown Group")
+            print(colored(f"Group: {group}", "blue"))
             group_values.append(group)
             if 'std' in group.lower() or 'desviación' in group.lower():
                 std_passed = True
-            # print(colored(f"Group: {group}", "yellow"))
-            # repeatability or repeatibility in group.lower()
-            if any(word in group.lower() for word in ['repeatability', 'repeatibility','repetitividad','repetitibidad']):
+            if group.split(' ')[-1].lower()=='weight' or group.split(' ')[-1].lower()=='peso' or group.lower=='weight' or 'rep' in group.lower():
                 measure = datasheet.get("Measurements", [])
-                nominal_std = measure[0].get("Nominal")
-                unitofnominal = measure[0].get("Units")
-                
+                max_nominal_std = None
+                for i in measure:
+                    nom = i.get("Nominal")
+                    unitofmaxnom = i.get("Units")
+                    nom = float(convert_to_grams(nom, unitofmaxnom))
+                    if max_nominal_std is None:
+                        max_nominal_std = nom
+                    elif nom > max_nominal_std:
+                        max_nominal_std = nom
+                nominal_std = max_nominal_std
+                print(nominal_std)
+                unitofnominal = unitofmaxnom
+                dict_of_noms['Group - Repeatability'] = max_nominal_std
             not_present = []
             for direction, parts in split_directions.items():
                 found = False
@@ -60,7 +83,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
             print(colored(f"[Failed] No std group found", "red"))
             results.append(result)
 
-        dict_of_noms = {}
+        
         total_measurements_up_dw = []
         for datasheet in datasheets:
             group = datasheet.get("Group", "Unknown Group")
@@ -84,18 +107,13 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
             
                 nominal_std_converted = convert_to_grams(nominal_std, unitofnominal)
                 print(colored(f"Nominal: {nominal_std_converted}g", "yellow"))
-                
-                if 0.5 * max_nominal <= nominal_std_converted <= max_nominal:
-                    #print(colored(f"[Passed] Max Nominal: {max_nominal}g is within 0.5 * Nominal STD: {nominal_std}g", "green"))
-                    pass
-                else:
-                    print(colored(f"[Failed] Max Nominal: {max_nominal}g is not within 0.5 * Nominal STD: {nominal_std_converted}g", "red"))
-                    results.append({f"Max Nominal of {group}": f"{max_nominal}g", "Repeatiblity STD": f"{nominal_std_converted}g", "Repeatiblity Nominal 50-100 of Max Nominal":False })
                 #add to dict of noms
                 if any(keyword in group.lower() for keyword in ['up', 'ascendente']):
                     dict_of_noms['Weight - Linearity Up'] = max_nominal
                 else:
                     dict_of_noms['Weight - Linearity Dw'] = max_nominal
+            elif group.split(' ')[-1].lower()=='weight' or group.split(' ')[-1].lower()=='peso' or group.lower=='weight' or 'rep' in group.lower():
+                continue
             else:
                 max_nominal = None
                 for i in measurements:
@@ -109,14 +127,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                         max_nominal = nom
                 dict_of_noms[group] = max_nominal
             
-            if len(total_measurements_up_dw)>1:
-                total_measures = sum(total_measurements_up_dw)
-                if total_measures>= 9:
-                    # print(colored(f"[Passed] Number of measurements: {total_measures}", "green"))
-                    pass
-                else:
-                    print(colored(f"[Failed] Number of measurements: {total_measures}", "red"))
-                    results.append({f"Number of measurements of {group}": total_measures, "Number of measurements 5 or more": False})
+
        
 
             for measurement in measurements:
@@ -132,9 +143,6 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                         nominal_value = float(nominal)
                         nominal_value = convert_to_grams(nominal_value, measurement.get("Units"))
                         test_nominal_value = nominal_value *0.99
-
-
-
 
                         if range_info["range"][0] <= test_nominal_value <= range_info["range"][1]:
                             fixed_uncertainty = convert_to_grams(range_info["fixed_uncertainty"], range_info["fixed_uncertainty_unit"])
@@ -172,12 +180,35 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
 
         if results:
             results_by_certno[CertNo] = results
-        print(dict_of_noms)
+
         linearity_up = dict_of_noms.get('Weight - Linearity Up', 0)
         linearity_down = dict_of_noms.get('Weight - Linearity Dw', 0)
         max_linearity = max(linearity_up, linearity_down)
-
+        if len(total_measurements_up_dw)>1:
+            total_measures = sum(total_measurements_up_dw)
+            if total_measures>= 9:
+                # print(colored(f"[Passed] Number of measurements: {total_measures}", "green"))
+                pass
+            else:
+                print(colored(f"[Failed] Number of measurements: {total_measures}", "red"))
+                results.append({f"Number of measurements": total_measures, "Number of measurements 9 or more": False})
+        lower_percent_of_max = 0.4
+        upper_percent_of_max = 1.1
+        print(dict_of_noms)
         for key, value in dict_of_noms.items():
+            if key.split(' ')[-1].lower()=='weight' or key.split(' ')[-1].lower()=='peso' or key.lower=='weight' or 'rep' in key.lower():
+                print(f"max linearity: {max_linearity}")
+                if not (lower_percent_of_max * max_linearity <= value <= max_linearity * upper_percent_of_max):
+                    error_message = f"Error: {key} value {value}g is not within {lower_percent_of_max*100}% to {round(upper_percent_of_max*100)}% of max linearity {max_linearity}g"
+                    result = {
+                        "group": key,
+                        "nominal": f"{value}g",
+                        "error_message": error_message,
+                    }
+                    
+                    if 'weight' not in key.lower().split(' ')[-1]:
+                        print(colored(error_message, "red"))
+                        results.append(result)
             if 'eccentricity' in key.lower() and not (0.29 * max_linearity <= value <= 0.51 * max_linearity):
                 error_message = f"Error: {key} value {value}g is not within 30% to 50% of max linearity {max_linearity}g"
                 result = {

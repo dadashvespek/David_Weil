@@ -5,15 +5,9 @@ import os
 import math
 from termcolor import colored
 from directions import split_directions
-
+from fileprocessing import lower_percent_of_max_ecce, lower_percent_of_max_rep, upper_percent_of_max_ecce, upper_percent_of_max_rep, exclusion_list
 
 os.makedirs('Final_Results', exist_ok=True)
-
-import re
-# omit crane scale and belt scale , asset description truck as well
-#TODO add to config file
-exclusion_list = ['crane','belt','truck']
-
 def check_measurement_uncertainty_nested(json_data_list, certification):
     results_by_certno = {} 
     nominal_std=0
@@ -36,7 +30,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
         std_passed = False
         for datasheet in datasheets:
             group = datasheet.get("Group", "Unknown Group")
-            print(colored(f"Group: {group}", "blue"))
+
             group_values.append(group)
             if 'std' in group.lower() or 'desviación' in group.lower():
                 std_passed = True
@@ -52,7 +46,6 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                     elif nom > max_nominal_std:
                         max_nominal_std = nom
                 nominal_std = max_nominal_std
-                print(nominal_std)
                 unitofnominal = unitofmaxnom
                 dict_of_noms['Group - Repeatability'] = max_nominal_std
             not_present = []
@@ -108,10 +101,9 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                 nominal_std_converted = convert_to_grams(nominal_std, unitofnominal)
                 print(colored(f"Nominal: {nominal_std_converted}g", "yellow"))
                 #add to dict of noms
-                if any(keyword in group.lower() for keyword in ['up', 'ascendente']):
-                    dict_of_noms['Weight - Linearity Up'] = max_nominal
-                else:
-                    dict_of_noms['Weight - Linearity Dw'] = max_nominal
+                if any(keyword in group.lower() for keyword in ['up', 'ascendente','down','dw','dn','descendente','descendente','descendete']):
+                    dict_of_noms['Weight - Linearity'] = max_nominal
+
             elif group.split(' ')[-1].lower()=='weight' or group.split(' ')[-1].lower()=='peso' or group.lower=='weight' or 'rep' in group.lower():
                 continue
             else:
@@ -181,9 +173,8 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
         if results:
             results_by_certno[CertNo] = results
 
-        linearity_up = dict_of_noms.get('Weight - Linearity Up', 0)
-        linearity_down = dict_of_noms.get('Weight - Linearity Dw', 0)
-        max_linearity = max(linearity_up, linearity_down)
+
+        max_linearity = dict_of_noms.get('Weight - Linearity', 0)
         if len(total_measurements_up_dw)>1:
             total_measures = sum(total_measurements_up_dw)
             if total_measures>= 9:
@@ -192,14 +183,11 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
             else:
                 print(colored(f"[Failed] Number of measurements: {total_measures}", "red"))
                 results.append({f"Number of measurements": total_measures, "Number of measurements 9 or more": False})
-        lower_percent_of_max = 0.4
-        upper_percent_of_max = 1.1
-        print(dict_of_noms)
+
         for key, value in dict_of_noms.items():
             if key.split(' ')[-1].lower()=='weight' or key.split(' ')[-1].lower()=='peso' or key.lower=='weight' or 'rep' in key.lower():
-                print(f"max linearity: {max_linearity}")
-                if not (lower_percent_of_max * max_linearity <= value <= max_linearity * upper_percent_of_max):
-                    error_message = f"Error: {key} value {value}g is not within {lower_percent_of_max*100}% to {round(upper_percent_of_max*100)}% of max linearity {max_linearity}g"
+                if not (lower_percent_of_max_rep * max_linearity <= value <= max_linearity * upper_percent_of_max_rep):
+                    error_message = f"Error: {key} value {value}g is not within {lower_percent_of_max_rep*100}% to {round(upper_percent_of_max_rep*100)}% of max linearity {max_linearity}g"
                     result = {
                         "group": key,
                         "nominal": f"{value}g",
@@ -209,8 +197,8 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                     if 'weight' not in key.lower().split(' ')[-1]:
                         print(colored(error_message, "red"))
                         results.append(result)
-            if 'eccentricity' in key.lower() and not (0.29 * max_linearity <= value <= 0.51 * max_linearity):
-                error_message = f"Error: {key} value {value}g is not within 30% to 50% of max linearity {max_linearity}g"
+            if 'eccentricity' in key.lower() and not ( lower_percent_of_max_ecce * max_linearity <= value <= upper_percent_of_max_ecce * max_linearity):
+                error_message = f"Error: {key} value {value}g is not within {lower_percent_of_max_ecce*100}% to {upper_percent_of_max_ecce*100}% of max linearity {max_linearity}g"
                 result = {
                     "group": key,
                     "nominal": f"{value}g",

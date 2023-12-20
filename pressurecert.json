@@ -1,0 +1,85 @@
+{
+    "measurement_uncertainty": [
+      {
+        "range": [-14, 0],
+        "unit": "psig",
+        "fixed_uncertainty": 0.0041,
+        "fixed_uncertainty_unit": "psig"
+      },
+      {
+        "range": [-1, 1],
+        "unit": "inH2O",
+        "fixed_uncertainty": 0.0037,
+        "fixed_uncertainty_unit": "inH2O"
+      },
+      {
+        "range": [-5, 5],
+        "unit": "inH2O",
+        "fixed_uncertainty": 0.0072,
+        "fixed_uncertainty_unit": "inH2O",
+        "variable_uncertainty": 2.9,
+        "variable_uncertainty_unit": "μinH2O/inH2O"
+      },
+      {
+        "range": [0, 10],
+        "unit": "inH2O",
+        "fixed_uncertainty": 0.0035,
+        "fixed_uncertainty_unit": "inH2O",
+        "variable_uncertainty": 0.091,
+        "variable_uncertainty_unit": "μinH2O/inH2O"
+      },
+      {
+        "range": [10, 300],
+        "unit": "mmHg",
+        "fixed_uncertainty": 0.0057,
+        "fixed_uncertainty_unit": "mmHg",
+        "variable_uncertainty": 0.064,
+        "variable_uncertainty_unit": "%"
+      },
+      {
+        "range": [1, 300],
+        "unit": "psig",
+        "fixed_uncertainty": 0.00042,
+        "fixed_uncertainty_unit": "psig",
+        "variable_uncertainty": 0.024,
+        "variable_uncertainty_unit": "%"
+      },
+      {
+        "range": [0, 1000],
+        "unit": "psia",
+        "fixed_uncertainty": 0.009,
+        "fixed_uncertainty_unit": "psia",
+        "variable_uncertainty": 0.012,
+        "variable_uncertainty_unit": "%"
+      },
+      {
+        "range": [14.5, 530],
+        "unit": "psig",
+        "fixed_uncertainty": 0.098,
+        "fixed_uncertainty_unit": "psig",
+        "variable_uncertainty": 0.011,
+        "variable_uncertainty_unit": "%"
+      },
+      {
+        "range": [530, 10150],
+        "unit": "psig",
+        "fixed_uncertainty": 0.062,
+        "fixed_uncertainty_unit": "psig",
+        "variable_uncertainty": 0.022,
+        "variable_uncertainty_unit": "%"
+      },
+      {
+        "range": [10150, 36000],
+        "unit": "psig",
+        "fixed_uncertainty": 11,
+        "fixed_uncertainty_unit": "psig"
+      },
+      {
+        "range": [60, 110],
+        "unit": "kPa",
+        "fixed_uncertainty": 0.048,
+        "fixed_uncertainty_unit": "kPa"
+      }
+    ]
+  }
+  

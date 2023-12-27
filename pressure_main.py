@@ -62,7 +62,7 @@ for i in json_data_list:
                             variable_uncertainty = range_info["variable_uncertainty"]
                             variable_uncertainty_unit = range_info["variable_uncertainty_unit"]
                             if variable_uncertainty_unit == "%":
-                                variable_uncertainty = float(nominal) * float(variable_uncertainty)
+                                variable_uncertainty = float(nominal) * (float(variable_uncertainty)/100)
                                 
                             elif variable_uncertainty_unit == "μinH2O/inH2O":
                                 variable_uncertainty = float(variable_uncertainty) * float(nominal)

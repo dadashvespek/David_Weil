@@ -20,7 +20,7 @@ def convert_to_grams(value, unit):
             return 0
     except:pass
     """
-    Convert different mass units to grams.
+    Convert different mass units torams.
     """
     unit_converters = {
         'µg': 1e-6,
@@ -33,7 +33,7 @@ def convert_to_grams(value, unit):
     try:
         numeric_value = float(value)
     except ValueError:
-        raise ValueError(f"Value '{value}' is not a number and cannot be converted to grams.")
+        raise ValueError(f"Value '{value}' is not a number and cannot be converted torams.")
 
     return numeric_value * unit_converters.get(unit, 1)
 
@@ -43,18 +43,18 @@ def convert_to_psig(value, unit):
     atmospheric_pressure_mmHg = 760
 
     unit_converters = {
-        'mmHg g': 0.0193368,
+        'mmHg': 0.0193368,
         'mmHg': 0.0193368,
         'bar': 14.5038,
         'psi': 1,
         'psig': 1,
         'psia': lambda psia: psia - atmospheric_pressure_psi,
-        'inH2O g': 0.0361,
         'inH2O': 0.0361,
-        'inHg g': 0.4912,
-        'MPa g': 145.038,
+        'inH2O': 0.0361,
+        'inHg': 0.4912,
+        'MPa': 145.038,
         'mmHg a': lambda mmHg_a: (mmHg_a - atmospheric_pressure_mmHg) * 0.0193368, 
-        'kPa g': 0.145038
+        'kPa': 0.145038
     }
 
     try:
@@ -63,7 +63,10 @@ def convert_to_psig(value, unit):
         raise ValueError(f"Value '{value}' is not a number and cannot be converted to psig.")
 
     converter = unit_converters.get(unit)
-    if callable(converter):  # Check if the converter is a function
+    if converter is None:
+        raise ValueError(f"Unit '{unit}' is not recognized and cannot be converted to psig.")
+
+    if callable(converter):  
         return converter(numeric_value)
     else:
         return numeric_value * converter

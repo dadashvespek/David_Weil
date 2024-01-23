@@ -8,7 +8,8 @@ os.makedirs('Final_Results', exist_ok=True)
 list_of_all_json = glob.glob(os.path.join('pressure_input_jsons', '*.json'))
 json_data_list = json.load(open(list_of_all_json[0], 'r', encoding='utf-8'))
 accreditation = json.load(open('pressurecert.json', 'r', encoding='utf-8'))
-results = []
+failed_results = []
+passed_results = []
 
 for i in json_data_list:
     certno = i.get("CertNo", "Unknown CertNo")
@@ -66,6 +67,20 @@ for i in json_data_list:
                     "Converted Measured Uncertainty": measure_cert,
                     "Result": f"Failed because {smallest_required_uncertainty} > {measure_cert}"
                 }
-                results.append(result)
+                failed_results.append(result)
+            else:
+                print(colored(f"Passed: {measure_cert} {measure_cert_unit} > {smallest_required_uncertainty} {nominal_unit}", "green"))
+                result = {
+                    "CertNo": certno,
+                    "Unconverted Nominal": f"{nominal_o} {nominal_unit}",
+                    "Converted nominal": f"{nominal} psig",
+                    "Required Uncertainty": smallest_required_uncertainty,
+                    "Uncertainty Range": largest_uncertainty_range,
+                    "Unconverted Measured Uncertainty": measure_cert_o,
+                    "Converted Measured Uncertainty": measure_cert,
+                    "Result": f"Passed because {measure_cert} > {smallest_required_uncertainty}"
+                }
+                passed_results.append(result)
 
-save_json(results, 'pressure_results', 'Final_Pressure_Results')
+save_json(failed_results, 'Failed_Results', 'Failed_Pressure_Results')
+save_json(passed_results, 'Passed_Results', 'Passed_Pressure_Results')

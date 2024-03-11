@@ -1,583 +1,64 @@
 {
-    "C344246": [
+    "C358173": [
         {
-            "group": "Peso - Linealidad Ascendente",
-            "nominal": "110.000082g",
-            "measured_uncertainty": "5.8e-05g",
-            "required_uncertainty": "6.5e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Peso - Linealidad Ascendente",
-            "nominal": "164.999961g",
-            "measured_uncertainty": "5.8e-05g",
-            "required_uncertainty": "7.2e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Peso - Linealidad Ascendente",
-            "nominal": "219.999692g",
-            "measured_uncertainty": "0.00018g",
-            "required_uncertainty": "0.00027g",
-            "weight_passed": false
-        },
-        {
-            "group": "Peso - Linealidad Descendente",
-            "nominal": "164.999961g",
-            "measured_uncertainty": "5.8e-05g",
-            "required_uncertainty": "7.2e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Peso - Linealidad Descendente",
-            "nominal": "110.000082g",
-            "measured_uncertainty": "5.8e-05g",
-            "required_uncertainty": "6.5e-05g",
-            "weight_passed": false
+            "group": "Group - Repeatability",
+            "nominal": "20.0000048g",
+            "error_message": "Group - Repeatability with a maximum value of 20.0000048g is not within 29.0% to 120% of max linearity 52.000007g"
         }
     ],
-    "C341345": [
+    "C358211": [
         {
             "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West",
-                "Down"
-            ]
-        }
-    ],
-    "R342093": [
-        {
-            "STD_Present": false
-        },
-        {
-            "group": "Peso - Eccentricity Center",
-            "nominal": "80000.0g",
-            "error_message": "Error: Peso - Eccentricity Center value 80000.0g is not within 28.999999999999996% to 51.0% of max linearity 22000.0g"
-        },
-        {
-            "group": "Peso - Eccentricity East",
-            "nominal": "80000.0g",
-            "error_message": "Error: Peso - Eccentricity East value 80000.0g is not within 28.999999999999996% to 51.0% of max linearity 22000.0g"
-        },
-        {
-            "group": "Peso - Eccentricity North",
-            "nominal": "80000.0g",
-            "error_message": "Error: Peso - Eccentricity North value 80000.0g is not within 28.999999999999996% to 51.0% of max linearity 22000.0g"
-        },
-        {
-            "group": "Peso - Eccentricity South",
-            "nominal": "80000.0g",
-            "error_message": "Error: Peso - Eccentricity South value 80000.0g is not within 28.999999999999996% to 51.0% of max linearity 22000.0g"
-        },
-        {
-            "group": "Peso - Eccentricity West",
-            "nominal": "80000.0g",
-            "error_message": "Error: Peso - Eccentricity West value 80000.0g is not within 28.999999999999996% to 51.0% of max linearity 22000.0g"
-        }
-    ],
-    "C346318": [
-        {
-            "Directions not present": [
-                "South"
-            ]
-        }
-    ],
-    "C345169": [
-        {
-            "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West",
-                "Center"
-            ]
-        }
-    ],
-    "C341199": [
-        {
-            "group": "Weight - Linearity Down",
-            "nominal": "135000.0g",
-            "measured_uncertainty": "10.0g",
-            "required_uncertainty": "21.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Down",
-            "nominal": "90000.0g",
-            "measured_uncertainty": "10.0g",
-            "required_uncertainty": "16.0g",
-            "weight_passed": false
-        }
-    ],
-    "C344798": [
-        {
-            "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West",
-                "Center"
-            ]
-        }
-    ],
-    "C346326": [
-        {
-            "Directions not present": [
-                "East"
-            ]
-        }
-    ],
-    "C341711": [
-        {
-            "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West"
-            ]
-        }
-    ],
-    "C345175": [
-        {
-            "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West",
-                "Center"
-            ]
-        }
-    ],
-    "C344874": [
-        {
-            "STD_Present": false
-        }
-    ],
-    "C341677": [
-        {
-            "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West"
-            ]
-        }
-    ],
-    "C341342": [
-        {
-            "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West",
                 "Up"
             ]
-        },
-        {
-            "group": "Group - Repeatability",
-            "nominal": "1500.0g",
-            "error_message": "Error: Group - Repeatability value 1500.0g is not within 40.0% to 120% of max linearity 1125.0g"
         }
     ],
-    "C341294": [
-        {
-            "Directions not present": [
-                "North",
-                "East",
-                "West",
-                "Center"
-            ]
-        },
+    "C358451": [
         {
             "STD_Present": false
         }
     ],
-    "C341297": [
+    "C358558": [
         {
             "Directions not present": [
                 "North",
                 "South",
                 "East",
                 "West",
-                "Up",
-                "Down"
-            ]
-        },
-        {
-            "group": "Group - Repeatability",
-            "nominal": "15000.0g",
-            "error_message": "Error: Group - Repeatability value 15000.0g is not within 40.0% to 120% of max linearity 0g"
-        },
-        {
-            "group": "Weight - Eccentricity Center",
-            "nominal": "5000.0g",
-            "error_message": "Error: Weight - Eccentricity Center value 5000.0g is not within 28.999999999999996% to 51.0% of max linearity 0g"
-        }
-    ],
-    "C345521": [
-        {
-            "group": "Weight - Linearity Dw",
-            "nominal": "600000.0g",
-            "measured_uncertainty": "15.0g",
-            "required_uncertainty": "73.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Dw",
-            "nominal": "450000.0g",
-            "measured_uncertainty": "14.0g",
-            "required_uncertainty": "56.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Dw",
-            "nominal": "300000.0g",
-            "measured_uncertainty": "11.0g",
-            "required_uncertainty": "39.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Dw",
-            "nominal": "150000.0g",
-            "measured_uncertainty": "8.7g",
-            "required_uncertainty": "22.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "150000.0g",
-            "measured_uncertainty": "8.7g",
-            "required_uncertainty": "22.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "300000.0g",
-            "measured_uncertainty": "11.0g",
-            "required_uncertainty": "39.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "450000.0g",
-            "measured_uncertainty": "14.0g",
-            "required_uncertainty": "56.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "600000.0g",
-            "measured_uncertainty": "15.0g",
-            "required_uncertainty": "73.0g",
-            "weight_passed": false
-        }
-    ],
-    "C341803": [
-        {
-            "group": "Peso - Linealidad Ascendente",
-            "nominal": "219.999981g",
-            "measured_uncertainty": "0.00015g",
-            "required_uncertainty": "0.00027g",
-            "weight_passed": false
-        }
-    ],
-    "C343962": [
-        {
-            "group": "Peso - Linealidad ascendente",
-            "nominal": "100.0001g",
-            "measured_uncertainty": "5.5e-05g",
-            "required_uncertainty": "6.4e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Peso - Linealidad ascendente",
-            "nominal": "149.99998g",
-            "measured_uncertainty": "5.5e-05g",
-            "required_uncertainty": "7e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Peso - Linealidad ascendente",
-            "nominal": "199.99995g",
-            "measured_uncertainty": "5.5e-05g",
-            "required_uncertainty": "7.7e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Peso - Linealidad descendente",
-            "nominal": "149.99998g",
-            "measured_uncertainty": "5.5e-05g",
-            "required_uncertainty": "7e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Peso - Linealidad descendente",
-            "nominal": "100.0001g",
-            "measured_uncertainty": "5.5e-05g",
-            "required_uncertainty": "6.4e-05g",
-            "weight_passed": false
-        }
-    ],
-    "C346320": [
-        {
-            "Directions not present": [
-                "South"
+                "Center"
             ]
         }
     ],
-    "C346150": [
-        {
-            "group": "Weight - Linearity Down",
-            "nominal": "52.000007g",
-            "measured_uncertainty": "3.8e-05g",
-            "required_uncertainty": "5.8e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Down",
-            "nominal": "25.0000161g",
-            "measured_uncertainty": "3.5e-05g",
-            "required_uncertainty": "5.4e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "25.0000161g",
-            "measured_uncertainty": "3.5e-05g",
-            "required_uncertainty": "5.4e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "52.000007g",
-            "measured_uncertainty": "3.8e-05g",
-            "required_uncertainty": "5.8e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Group - Repeatability",
-            "nominal": "20.0000048g",
-            "error_message": "Error: Group - Repeatability value 20.0000048g is not within 40.0% to 120% of max linearity 52.000007g"
-        }
-    ],
-    "C341210": [
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "50000.0g",
-            "measured_uncertainty": "0.13999999999999999g",
-            "required_uncertainty": "0.14g",
-            "weight_passed": false
-        }
-    ],
-    "C343641": [
-        {
-            "group": "Weight - Linearity Down",
-            "nominal": "21.000011g",
-            "measured_uncertainty": "3.2e-05g",
-            "required_uncertainty": "5.4e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "21.000011g",
-            "measured_uncertainty": "3.2e-05g",
-            "required_uncertainty": "5.4e-05g",
-            "weight_passed": false
-        }
-    ],
-    "C343586": [
+    "C358506": [
         {
             "STD_Present": false
         }
     ],
-    "C341141": [
-        {
-            "group": "Weight - Linearity Dw",
-            "nominal": "600000.0g",
-            "measured_uncertainty": "15.0g",
-            "required_uncertainty": "73.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Dw",
-            "nominal": "450000.0g",
-            "measured_uncertainty": "14.0g",
-            "required_uncertainty": "56.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Dw",
-            "nominal": "300000.0g",
-            "measured_uncertainty": "12.0g",
-            "required_uncertainty": "39.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Dw",
-            "nominal": "150000.0g",
-            "measured_uncertainty": "9.2g",
-            "required_uncertainty": "22.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "150000.0g",
-            "measured_uncertainty": "9.2g",
-            "required_uncertainty": "22.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "300000.0g",
-            "measured_uncertainty": "12.0g",
-            "required_uncertainty": "39.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "450000.0g",
-            "measured_uncertainty": "14.0g",
-            "required_uncertainty": "56.0g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "600000.0g",
-            "measured_uncertainty": "15.0g",
-            "required_uncertainty": "73.0g",
-            "weight_passed": false
-        }
-    ],
-    "C343701": [
-        {
-            "group": "Weight - Linearity Down",
-            "nominal": "52.000007g",
-            "measured_uncertainty": "3.8e-05g",
-            "required_uncertainty": "5.8e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Down",
-            "nominal": "25.0000161g",
-            "measured_uncertainty": "3.5e-05g",
-            "required_uncertainty": "5.4e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "25.0000161g",
-            "measured_uncertainty": "3.5e-05g",
-            "required_uncertainty": "5.4e-05g",
-            "weight_passed": false
-        },
-        {
-            "group": "Weight - Linearity Up",
-            "nominal": "52.000007g",
-            "measured_uncertainty": "3.8e-05g",
-            "required_uncertainty": "5.8e-05g",
-            "weight_passed": false
-        },
+    "C358261": [
         {
             "group": "Group - Repeatability",
-            "nominal": "20.0000048g",
-            "error_message": "Error: Group - Repeatability value 20.0000048g is not within 40.0% to 120% of max linearity 52.000007g"
-        }
-    ],
-    "C343643": [
-        {
-            "group": "Weight - Linearity Down",
-            "nominal": "21.000009g",
-            "measured_uncertainty": "3.2e-05g",
-            "required_uncertainty": "5.4e-05g",
-            "weight_passed": false
+            "nominal": "60.0g",
+            "error_message": "Group - Repeatability with a maximum value of 60.0g is not within 29.0% to 120% of max linearity 600.0g"
         },
         {
-            "group": "Weight - Linearity Up",
-            "nominal": "21.000009g",
-            "measured_uncertainty": "3.2e-05g",
-            "required_uncertainty": "5.4e-05g",
-            "weight_passed": false
-        }
-    ],
-    "C341846": [
-        {
-            "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West",
-                "Center"
-            ]
-        }
-    ],
-    "C343633": [
-        {
-            "group": "Weight - Linearity Down",
-            "nominal": "150.00002g",
-            "measured_uncertainty": "7e-05g",
-            "required_uncertainty": "7.1e-05g",
-            "weight_passed": false
+            "group": "Weight - Eccentricity  Northwest",
+            "nominal": "40.0g",
+            "error_message": "Error2: Weight - Eccentricity  Northwest value 40.0g is not within 29.0% to 51.0% of max linearity 600.0g"
         },
         {
-            "group": "Weight - Linearity Up",
-            "nominal": "150.00002g",
-            "measured_uncertainty": "7e-05g",
-            "required_uncertainty": "7.1e-05g",
-            "weight_passed": false
-        }
-    ],
-    "C341687": [
-        {
-            "Directions not present": [
-                "North",
-                "South",
-                "East",
-                "West"
-            ]
-        }
-    ],
-    "C345031": [
-        {
-            "group": "Peso - Linealidad Ascendente",
-            "nominal": "6100.0g",
-            "measured_uncertainty": "0.019g",
-            "required_uncertainty": "0.032g",
-            "weight_passed": false
-        }
-    ],
-    "C341286": [
-        {
-            "Directions not present": [
-                "North",
-                "East",
-                "West",
-                "Center"
-            ]
-        }
-    ],
-    "C345011": [
-        {
-            "group": "Peso - Linealidad Ascendente",
-            "nominal": "45000.0g",
-            "measured_uncertainty": "0.12999999999999998g",
-            "required_uncertainty": "0.13g",
-            "weight_passed": false
+            "group": "Weight - Eccentricity Northeast",
+            "nominal": "40.0g",
+            "error_message": "Error2: Weight - Eccentricity Northeast value 40.0g is not within 29.0% to 51.0% of max linearity 600.0g"
         },
         {
-            "group": "Peso - Linealidad Ascendente",
-            "nominal": "60000.0g",
-            "measured_uncertainty": "0.12999999999999998g",
-            "required_uncertainty": "0.14g",
-            "weight_passed": false
+            "group": "Weight - Eccentricity Southeast",
+            "nominal": "40.0g",
+            "error_message": "Error2: Weight - Eccentricity Southeast value 40.0g is not within 29.0% to 51.0% of max linearity 600.0g"
         },
         {
-            "group": "Peso - Linealidad Descendente",
-            "nominal": "45000.0g",
-            "measured_uncertainty": "0.12999999999999998g",
-            "required_uncertainty": "0.13g",
-            "weight_passed": false
+            "group": "Weight - Eccentricity Southwest",
+            "nominal": "40.0g",
+            "error_message": "Error2: Weight - Eccentricity Southwest value 40.0g is not within 29.0% to 51.0% of max linearity 600.0g"
         }
     ]
 }

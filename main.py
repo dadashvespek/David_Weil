@@ -6,6 +6,8 @@ import math
 from termcolor import colored
 from directions import split_directions
 from fileprocessing import lower_percent_of_max_ecce, lower_percent_of_max_rep, upper_percent_of_max_ecce, upper_percent_of_max_rep, exclusion_list
+from data_retriever import retrieve_data
+from report_generator import generate_pdf
 
 os.makedirs('Final_Results', exist_ok=True)
 def check_measurement_uncertainty_nested(json_data_list, certification):
@@ -130,11 +132,15 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
 
                 meas_uncert = convert_to_grams(float(meas_uncert_str), measurement.get("MeasUnit"))
 
-                if meas_uncert != 'n/a':
+                if meas_uncert != 'n/a' and meas_uncert != 'N/A':
                     for range_info in certification["measurement_uncertainty"]:
-                        nominal_value = float(nominal)
-                        nominal_value = convert_to_grams(nominal_value, measurement.get("Units"))
-                        test_nominal_value = nominal_value *0.99
+                        if nominal != 'N/A':
+                            nominal_value = float(nominal)
+                            nominal_value = convert_to_grams(nominal_value, measurement.get("Units"))
+                            test_nominal_value = nominal_value *0.99
+                        else:
+                            continue
+
 
                         if range_info["range"][0] <= test_nominal_value <= range_info["range"][1]:
                             fixed_uncertainty = convert_to_grams(range_info["fixed_uncertainty"], range_info["fixed_uncertainty_unit"])
@@ -187,36 +193,97 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
         for key, value in dict_of_noms.items():
             if key.split(' ')[-1].lower()=='weight' or key.split(' ')[-1].lower()=='peso' or key.lower=='weight' or 'rep' in key.lower() and not excluded:
                 if not (lower_percent_of_max_rep * max_linearity <= value <= max_linearity * upper_percent_of_max_rep):
-                    error_message = f"Error: {key} value {value}g is not within {lower_percent_of_max_rep*100}% to {round(upper_percent_of_max_rep*100)}% of max linearity {max_linearity}g"
+                    error_message = f"{key} with a maximum value of {value}g is not within {round(lower_percent_of_max_ecce*100,1)}% to {round(upper_percent_of_max_rep*100)}% of max linearity {max_linearity}g"
                     result = {
                         "group": key,
                         "nominal": f"{value}g",
                         "error_message": error_message,
                     }
-                    
-                    if 'weight' not in key.lower().split(' ')[-1]:
-                        print(colored(error_message, "red"))
-                        results.append(result)
+                    print(colored(error_message, "red"))
+                    if CertNo in results_by_certno:
+                        results_by_certno[CertNo].append(result)
+                    else:
+                        results_by_certno[CertNo] = [result]
             if 'eccentricity' in key.lower() and not ( lower_percent_of_max_ecce * max_linearity <= value <= upper_percent_of_max_ecce * max_linearity) and not excluded:
-                error_message = f"Error: {key} value {value}g is not within {lower_percent_of_max_ecce*100}% to {upper_percent_of_max_ecce*100}% of max linearity {max_linearity}g"
+                error_message = f"Error2: {key} value {value}g is not within {round(lower_percent_of_max_ecce*100,1)}% to {upper_percent_of_max_ecce*100}% of max linearity {max_linearity}g"
                 result = {
                     "group": key,
                     "nominal": f"{value}g",
                     "error_message": error_message,
                 }
-                
-                if 'eccentricity' not in key.lower().split(' ')[-1]:
+                if value > 0:
                     print(colored(error_message, "red"))
-                    results.append(result)
-
+                    if CertNo in results_by_certno:
+                        results_by_certno[CertNo].append(result)
+                    else:
+                        results_by_certno[CertNo] = [result]
 
     return results_by_certno  
 
 
+import os
+import pickle
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from googleapiclient.discovery import build
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
+import base64
 
+SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 
-list_of_all_json = glob.glob(os.path.join('inputjson', '*.json'))
-for i,ajson in enumerate(list_of_all_json):
-    final_results = check_measurement_uncertainty_nested(json.load(open(list_of_all_json[0], 'r', encoding='utf-8')), json.load(open('certjson.json','r', encoding='utf-8')))
-    save_json(final_results, f'final_{i}','Final_Results')
+def get_gmail_service():
+    creds = None
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
 
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+
+    service = build('gmail', 'v1', credentials=creds)
+    return service
+
+def send_email(pdf_path):
+    service = get_gmail_service()
+
+    # Create the email message
+    message = MIMEMultipart()
+    message['to'] = 'labsupport@phoenixcalibrationdr.com, quality@phoenixcalibrationdr.com'
+    message['subject'] = 'Measurement Uncertainty Report'
+
+    # Attach the PDF report
+    with open(pdf_path, 'rb') as f:
+        attachment = MIMEApplication(f.read(), _subtype='pdf')
+        attachment.add_header('Content-Disposition', 'attachment', filename='report.pdf')
+        message.attach(attachment)
+
+    # Send the email
+    create_message = {'raw': base64.urlsafe_b64encode(message.as_bytes()).decode()}
+    send_message = (service.users().messages().send(userId="me", body=create_message).execute())
+    print(F'sent message to {message["to"]} Message Id: {send_message["id"]}')
+
+def main():
+    # Load the certjson.json file
+    with open('certjson.json', 'r', encoding='utf-8') as f:
+        cert_data = json.load(f)
+
+    # Retrieve the data from the data_retriever module
+    data = retrieve_data()
+
+    # Call the check_measurement_uncertainty_nested function with the retrieved data and cert_data
+    processed_data = check_measurement_uncertainty_nested(data, cert_data)
+
+    # Generate the PDF report using the processed data
+    generate_pdf(processed_data)
+    # send_email('report.pdf')
+
+if __name__ == "__main__":
+    main()

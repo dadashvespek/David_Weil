@@ -14,6 +14,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
     results_by_certno = {} 
     nominal_std=0
     unitofnominal='g'
+    passed_certificates = set()
     for json_data in json_data_list:
         dict_of_noms = {}
         group_values = []
@@ -170,6 +171,7 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                                     "measured_uncertainty": f"{meas_uncert}g",
                                     "required_uncertainty": f"{total_uncertainty}g",
                                     "weight_passed": weight_passed,
+                                    "error_message": f"Measured uncertainty {meas_uncert}g is not within required uncertainty {total_uncertainty}g"
 
                                 }
                                 
@@ -178,6 +180,9 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
 
         if results:
             results_by_certno[CertNo] = results
+        else:
+            print(colored(f"=========================================\n[Passed] All measurements are within the required uncertainty\n=========================================\n", "green"))
+            passed_certificates.add(CertNo)
 
 
         max_linearity = dict_of_noms.get('Weight - Linearity', 0)
@@ -218,7 +223,9 @@ def check_measurement_uncertainty_nested(json_data_list, certification):
                     else:
                         results_by_certno[CertNo] = [result]
 
-    return results_by_certno  
+    
+
+    return results_by_certno, passed_certificates
 
 
 import os
@@ -279,10 +286,12 @@ def main():
     data = retrieve_data()
 
     # Call the check_measurement_uncertainty_nested function with the retrieved data and cert_data
-    processed_data = check_measurement_uncertainty_nested(data, cert_data)
+    # processed_data = check_measurement_uncertainty_nested(data, cert_data)
+    processed_data, passed_certificates = check_measurement_uncertainty_nested(data, cert_data)
 
     # Generate the PDF report using the processed data
-    generate_pdf(processed_data)
+    # generate_pdf(processed_data)
+    generate_pdf(processed_data, passed_certificates)
     # send_email('report.pdf')
 
 if __name__ == "__main__":

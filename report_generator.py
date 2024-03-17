@@ -1,14 +1,15 @@
 import json
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, ListFlowable, ListItem
 from reportlab.lib.styles import getSampleStyleSheet
 
-def generate_pdf(json_data):
+def generate_pdf(json_data, passed_certificates):
     doc = SimpleDocTemplate("report.pdf", pagesize=letter)
     elements = []
     styles = getSampleStyleSheet()
+
     for key, value in json_data.items():
-        elements.append(Paragraph(f"Key: {key}", styles["Heading2"]))
+        elements.append(Paragraph(f"Certificate No: {key}", styles["Heading2"]))
         elements.append(Spacer(1, 2))
 
         for item in value:
@@ -31,9 +32,14 @@ def generate_pdf(json_data):
                 elements.append(Spacer(1, 12))
 
         elements.append(Spacer(1, 24))
-    doc.build(elements)
+    if passed_certificates:
+        elements.append(Paragraph("List of Certificates That Passed:", styles["Heading1"]))
+        elements.append(Spacer(1, 6))
+        
+        pass_list = ListFlowable([
+            ListItem(Paragraph(cert_no, styles["BodyText"])) for cert_no in passed_certificates
+        ], bulletType='bullet')
+        
+        elements.append(pass_list)
 
-if __name__ == "__main__":
-    with open(r"Final_Results\final_0.json") as file:
-        json_data = json.load(file)
-    generate_pdf(json_data)
+    doc.build(elements)

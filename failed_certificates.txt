@@ -1,0 +1,16 @@
+Certificates that failed one or more checks:
+Certificate: C371699
+Errors: tur: 2.1:1, 1.5:1, 1.5:1, 1.5:1, 1.5:1, 1.5:1, 1.5:1, 2.1:1
+
+Certificate: C371702
+Errors: accreditation
+
+Certificate: C370662
+Errors: tur: 1.5:1, 1.5:1, 1.5:1, 1.5:1, 1.5:1, 1.5:1
+
+Certificate: C369543
+Errors: tur: 3.2:1, 1.7:1, 1.5:1, 0.7:1, 0.7:1, 0.7:1, 1.5:1, 1.7:1, 3.2:1
+
+Certificate: C371711
+Errors: tur: 0.8:1, 0.8:1, 2.1:1, 1.1:1, 0.8:1, 2.3:1, 1.4:1, 1.4:1, 0.7:1, 0.8:1, 0.3:1, 0.3:1, 0.3:1, 0.8:1, 0.7:1, 1.4:1, 1.4:1, 2.3:1, 1.1:1, 0.8:1, 2.1:1, 0.8:1, 0.8:1
+

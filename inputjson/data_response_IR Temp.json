@@ -1,0 +1,154 @@
+[
+    {
+        "IsAccredited": true,
+        "CustomerRequirements": [
+            "#Cert.Language: ingl\u00e9s.",
+            "#CalibrationReqs.:Nombre y Email del Encargado de Calibraci\u00f3n valerie de moya valeriedemoyamiranda@gmail.com"
+        ],
+        "LastQuotedPrice": 0.0,
+        "EnvironmentalTemperature": "66.2\u00b0F",
+        "EnvironmentalRelativeHumidity": "61%RH",
+        "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
+        "Procedures": [
+            "DR-WI-0077"
+        ],
+        "Standards": [
+            {
+                "IdInst": "9796",
+                "Description": "IR Temperature Calibrator (35 to 500\u00b0C)",
+                "SerialNo": "B97038",
+                "CalDate": "12/20/2023",
+                "DueDate": "12/31/2024"
+            },
+            {
+                "IdInst": "9795",
+                "Description": "IR Temperature Calibrator (-15 to 120\u00b0C)",
+                "SerialNo": "B97237",
+                "CalDate": "01/31/2024",
+                "DueDate": "01/31/2025"
+            }
+        ],
+        "CertNo": "C373126",
+        "CustomerCode": "CDR01962",
+        "EquipmentType": "Infrared Thermometer",
+        "AssetDescription": "Infrared Thermometer",
+        "Manufacturer": "VEVOR",
+        "Model": "NMN",
+        "OperatingRange": "-40 to 1500 C",
+        "AccreditationInfo": "This calibration is traceable to the International System of Units (SI), through National Metrology Institutes (NIST, PTB, NRC, NPL, etc.). This calibration conforms to the requirements of ISO/IEC 17025:2017. Results contained in this document relate only to the items tested or calibrated. The reported expanded uncertainty of measurement is stated as the standard uncertainty of measurement multiplied by the coverage factor k=2, such that the confidence level approximates 95%. The customer is responsible for assigning the calibration frequency if needed, and it does not imply that the conformity of the equipment with the specifications is maintained. This certificate shall not be reproduced except in full and with the written consent of Phoenix Calibration. The statement of conformity is based on simple acceptance, whether the calibration result is within or outside the manufacturer\u2019s specification/acceptance limits, with the TUR expressed on the datasheet. It is the responsibility of the end user to determine if it is appropriate for your specific application. Pass: Results within limits. Fail: Results exceed limits. ",
+        "Remarks": "Performed the routine of calibration,  the instrument was received out of tolerance. The calibration result is limited as several parameters could not be adjusted or calibrated (See datasheet). Limited equipment, do not use this for a range greater than 375\u00b0C. Emissivity at 0.95 at a distance of 11 inches. ",
+        "Datasheet": [
+            {
+                "Group": "Temperature - Non-Contact",
+                "Measurements": [
+                    {
+                        "RowId": 1,
+                        "Units": "\u00b0C",
+                        "MaximumPermissibleError": "3",
+                        "Nominal": "-15.00",
+                        "LowLimit": "-18.0",
+                        "HighLimit": "-12.0",
+                        "AsFound": "-14.0",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "0.55",
+                        "MeasUnit": "\u00b0C",
+                        "MeasParameter": "Temperature",
+                        "MeasSubParameter": "Non-Contact",
+                        "TUR": "6:1",
+                        "IsVisible": true,
+                        "FormattedComment": "Non-Contact"
+                    },
+                    {
+                        "RowId": 2,
+                        "Units": "\u00b0C",
+                        "MaximumPermissibleError": "1.5%RDG + 2",
+                        "Nominal": "50.00",
+                        "LowLimit": "47.3",
+                        "HighLimit": "52.8",
+                        "AsFound": "49.5",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "0.62",
+                        "MeasUnit": "\u00b0C",
+                        "MeasParameter": "Temperature",
+                        "MeasSubParameter": "Non-Contact",
+                        "TUR": "4.5:1",
+                        "IsVisible": true,
+                        "FormattedComment": "Non-Contact"
+                    },
+                    {
+                        "RowId": 3,
+                        "Units": "\u00b0C",
+                        "MaximumPermissibleError": "1.5%RDG + 2",
+                        "Nominal": "100.00",
+                        "LowLimit": "96.5",
+                        "HighLimit": "103.5",
+                        "AsFound": "98.9",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "0.62",
+                        "MeasUnit": "\u00b0C",
+                        "MeasParameter": "Temperature",
+                        "MeasSubParameter": "Non-Contact",
+                        "TUR": "5.7:1",
+                        "IsVisible": true,
+                        "FormattedComment": "Non-Contact"
+                    },
+                    {
+                        "RowId": 4,
+                        "Units": "\u00b0C",
+                        "MaximumPermissibleError": "1.5%RDG + 2",
+                        "Nominal": "200.00",
+                        "LowLimit": "195.0",
+                        "HighLimit": "205.0",
+                        "AsFound": "197.6",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "0.96",
+                        "MeasUnit": "\u00b0C",
+                        "MeasParameter": "Temperature",
+                        "MeasSubParameter": "Non-Contact",
+                        "TUR": "5.7:1",
+                        "IsVisible": true,
+                        "FormattedComment": "Non-Contact"
+                    },
+                    {
+                        "RowId": 5,
+                        "Units": "\u00b0C",
+                        "MaximumPermissibleError": "1.5%RDG + 2",
+                        "Nominal": "375.00",
+                        "LowLimit": "367",
+                        "HighLimit": "383",
+                        "AsFound": "367",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "2.2",
+                        "MeasUnit": "\u00b0C",
+                        "MeasParameter": "Temperature",
+                        "MeasSubParameter": "Non-Contact",
+                        "TUR": "3.8:1",
+                        "IsVisible": true,
+                        "FormattedComment": "Non-Contact"
+                    },
+                    {
+                        "RowId": 6,
+                        "Units": "\u00b0C",
+                        "MaximumPermissibleError": "1.5%RDG + 2",
+                        "Nominal": "500.00",
+                        "LowLimit": "491",
+                        "HighLimit": "510",
+                        "AsFound": "484",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "2.2",
+                        "MeasUnit": "\u00b0C",
+                        "MeasParameter": "Temperature",
+                        "MeasSubParameter": "Non-Contact",
+                        "TUR": "4.8:1",
+                        "IsVisible": true,
+                        "FormattedComment": "Non-Contact"
+                    }
+                ]
+            }
+        ]
+    }
+]

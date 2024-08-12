@@ -1,0 +1,3 @@
+Certificates that passed all checks:
+
+No certificates passed all checks.

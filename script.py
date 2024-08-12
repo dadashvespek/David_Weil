@@ -1,5 +1,7 @@
 import json
+import os
 import re
+from collections import defaultdict
 
 def parse_numeric_value(value):
     if isinstance(value, (int, float)):
@@ -126,71 +128,135 @@ def check_certificate(cert_data):
     
     return results
 
-def main(json_data):
-    passed_certs = []
-    failed_certs = []
 
-    if isinstance(json_data, list):
-        certs = json_data
-    elif isinstance(json_data, dict):
-        certs = [json_data]
-    else:
-        raise ValueError("Input must be a JSON object or array of objects")
-    
-    for cert in certs:
+def retrieve_data():
+    all_data = []
+    input_dir = './inputjson'
+    file_patterns = [
+        'data_response_IR Temp.json',
+        'data_response_Ambient Temp_Hum.json',
+        'data_response_scales.json'
+    ]
+
+    for file_name in file_patterns:
+        file_path = os.path.join(input_dir, file_name)
         try:
-            result = check_certificate(cert)
-            cert_no = cert.get("CertNo", "Unknown")
-            
-            if all(value if isinstance(value, bool) else value[0] for value in result.values()):
-                passed_certs.append(cert_no)
-            else:
-                errors = []
-                for key, value in result.items():
-                    if key == "tur":
-                        if not value[0]:
-                            errors.append(f"tur: {', '.join(value[1])}")
-                    elif key == "additional_fields":
-                        if not value[0] and value[1]:  # Only add if there are actually missing fields
-                            errors.append(f"missing fields: {', '.join(value[1])}")
-                    elif key == "front_page_complete":
-                        if not value[0]:
-                            errors.append(f"front page incomplete: {', '.join(value[1])}")
-                    elif not value:
-                        errors.append(key)
-                if errors:  # Only add to failed_certs if there are actual errors
-                    failed_certs.append({"CertNo": cert_no, "Errors": errors})
-        except Exception as e:
-            cert_no = cert.get("CertNo", "Unknown")
-            failed_certs.append({"CertNo": cert_no, "Errors": [f"Unexpected error: {str(e)}"]})
+            with open(file_path, 'r') as file:
+                data = json.load(file)
+                all_data.append(data)
+                print(f"Successfully loaded data from {file_name}")
+                print(f"Number of certificates in {file_name}: {len(data) if isinstance(data, list) else 1}")
+        except FileNotFoundError:
+            print(f"Warning: File '{file_path}' not found.")
+        except json.JSONDecodeError:
+            print(f"Error: Invalid JSON in file '{file_path}'.")
+
+    return all_data
+
+def check_certificate(cert_data):
+    print(f"\nChecking certificate: {cert_data.get('CertNo', 'Unknown')}")
+    print(f"Equipment Type: {cert_data.get('EquipmentType', 'Unknown')}")
+
+    env_conditions = check_environmental_conditions(cert_data)
+    print(f"Environmental conditions check: {env_conditions}")
+
+    front_page_check, front_page_missing = check_front_page(cert_data)
+    print(f"Front page check: {front_page_check}, Missing: {front_page_missing}")
+
+    accreditation = check_accreditation(cert_data)
+    print(f"Accreditation check: {accreditation}")
+
+    tur_check, tur_values = check_tur(cert_data)
+    print(f"TUR check: {tur_check}, Values: {tur_values}")
+
+    additional_fields_check, missing_fields = check_additional_fields(cert_data)
+    print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
+
+    results = {
+        "environmental_conditions": env_conditions,
+        "front_page_complete": (front_page_check, front_page_missing),
+        "accreditation": accreditation,
+        "tur": (tur_check, tur_values),
+        "additional_fields": (additional_fields_check, missing_fields)
+    }
     
+    return results
+
+def main(all_data):
+    passed_certs = defaultdict(list)
+    failed_certs = defaultdict(list)
+
+    for data_set in all_data:
+        if isinstance(data_set, list):
+            certs = data_set
+        elif isinstance(data_set, dict):
+            certs = [data_set]
+        else:
+            print(f"Skipping invalid data set: {data_set}")
+            continue
+
+        print(f"\nProcessing {len(certs)} certificates")
+
+        for cert in certs:
+            try:
+                result = check_certificate(cert)
+                cert_no = cert.get("CertNo", "Unknown")
+                equipment_type = cert.get("EquipmentType", "Unknown")
+                
+                if all(value if isinstance(value, bool) else value[0] for value in result.values()):
+                    passed_certs[equipment_type].append(cert_no)
+                    print(f"Certificate {cert_no} passed all checks")
+                else:
+                    errors = []
+                    for key, value in result.items():
+                        if isinstance(value, tuple):
+                            if not value[0] and value[1]:
+                                errors.append(f"{key}: {', '.join(value[1])}")
+                        elif not value:
+                            errors.append(key)
+                    if errors:
+                        failed_certs[equipment_type].append({"CertNo": cert_no, "Errors": errors})
+                        print(f"Certificate {cert_no} failed checks: {', '.join(errors)}")
+            except Exception as e:
+                cert_no = cert.get("CertNo", "Unknown")
+                equipment_type = cert.get("EquipmentType", "Unknown")
+                failed_certs[equipment_type].append({"CertNo": cert_no, "Errors": [f"Unexpected error: {str(e)}"]})
+                print(f"Unexpected error processing certificate {cert_no}: {str(e)}")
+
     return passed_certs, failed_certs
 
-# Read JSON data from file
-file_path = './inputjson/data_response1.json'
-try:
-    with open(file_path, 'r') as file:
-        json_data = json.load(file)
-except FileNotFoundError:
-    print(f"Error: File '{file_path}' not found.")
-    exit(1)
-except json.JSONDecodeError:
-    print(f"Error: Invalid JSON in file '{file_path}'.")
-    exit(1)
+# Retrieve data from local files
+all_data = retrieve_data()
 
 # Process the JSON data
-passed_certs, failed_certs = main(json_data)
+passed_certs, failed_certs = main(all_data)
+
+print("\nSummary:")
+print(f"Passed certificates: {sum(len(certs) for certs in passed_certs.values())}")
+print(f"Failed certificates: {sum(len(certs) for certs in failed_certs.values())}")
 
 # Write results to files
 with open('passed_certificates.txt', 'w') as f:
     f.write("Certificates that passed all checks:\n")
-    for cert in passed_certs:
-        f.write(f"{cert}\n")
+    if not any(passed_certs.values()):
+        f.write("\nNo certificates passed all checks.\n")
+    else:
+        for equipment_type, certs in passed_certs.items():
+            if certs:
+                f.write(f"\nEquipment Type: {equipment_type}\n")
+                for cert in certs:
+                    f.write(f"{cert}\n")
 
 with open('failed_certificates.txt', 'w') as f:
     f.write("Certificates that failed one or more checks:\n")
-    for cert in failed_certs:
-        f.write(f"Certificate: {cert['CertNo']}\n")
-        f.write(f"Errors: {', '.join(cert['Errors'])}\n\n")
+    if not any(failed_certs.values()):
+        f.write("\nNo certificates failed any checks.\n")
+    else:
+        for equipment_type, certs in failed_certs.items():
+            if certs:
+                f.write(f"\nEquipment Type: {equipment_type}\n")
+                for cert in certs:
+                    f.write(f"Certificate: {cert['CertNo']}\n")
+                    f.write(f"Errors: {', '.join(cert['Errors'])}\n\n")
 
 print(f"Results have been written to 'passed_certificates.txt' and 'failed_certificates.txt'")

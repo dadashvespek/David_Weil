@@ -2,6 +2,7 @@ import json
 import os
 import re
 from collections import defaultdict
+from google_sheets_handler import send_results_to_sheets
 
 def parse_numeric_value(value):
     if isinstance(value, (int, float)):
@@ -222,6 +223,11 @@ def main(all_data):
                 equipment_type = cert.get("EquipmentType", "Unknown")
                 failed_certs[equipment_type].append({"CertNo": cert_no, "Errors": [f"Unexpected error: {str(e)}"]})
                 print(f"Unexpected error processing certificate {cert_no}: {str(e)}")
+
+    # Send results to Google Sheets
+    send_results_to_sheets(passed_certs, failed_certs)
+
+    print(f"Results have been written to 'passed_certificates.txt', 'failed_certificates.txt', and sent to Google Sheets")
 
     return passed_certs, failed_certs
 

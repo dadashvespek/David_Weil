@@ -1,8 +1,0 @@
-{
-    "exclusion_list": ["crane", "belt", "truck","dynamometer","poultry","moisture"],
-    "lower_percent_of_max_rep": 0.4,
-    "upper_percent_of_max_rep": 1.2,
-    "lower_percent_of_max_ecce": 0.29,
-    "upper_percent_of_max_ecce": 0.51
-  }
-  

@@ -632,9 +632,10 @@ TUR check: True, Values: []
 Additional fields check: True, Missing: []
 Certificate C372995 passed all checks
 Opened existing sheet: QA Bot Results
+Shared sheet with zakirzhangozin@gmail.com
 Results have been sent to Google Sheets successfully.
 Sheet URL: https://docs.google.com/spreadsheets/d/1_ExYBvkxhFVpOXXL8-0uC4scSGNxFGA3pPLripKonJA
-Results have been written to 'passed_certificates.txt', 'failed_certificates.txt', and sent to Google Sheets
+You can access the Google Sheet at: https://docs.google.com/spreadsheets/d/1_ExYBvkxhFVpOXXL8-0uC4scSGNxFGA3pPLripKonJA
 
 Summary:
 Passed certificates: 53

@@ -2,7 +2,7 @@ import pygsheets
 import pandas as pd
 from pygsheets.exceptions import SpreadsheetNotFound
 
-def send_results_to_sheets(passed_certs, failed_certs):
+def send_results_to_sheets(passed_certs, failed_certs, user_email):
     # Authorization
     gc = pygsheets.authorize(service_file='future-datum-432413-b9-41e0f202bcba.json')
 
@@ -16,6 +16,10 @@ def send_results_to_sheets(passed_certs, failed_certs):
         # If the sheet doesn't exist, create it
         sh = gc.create(sheet_name)
         print(f"Created new sheet: {sheet_name}")
+    
+    # Share the sheet with the user's personal account
+    sh.share(user_email, role='writer', type='user')
+    print(f"Shared sheet with {user_email}")
 
     # Select the first sheet
     wks = sh[0]

@@ -225,9 +225,9 @@ def main(all_data):
                 print(f"Unexpected error processing certificate {cert_no}: {str(e)}")
 
     # Send results to Google Sheets
-    send_results_to_sheets(passed_certs, failed_certs)
-
-    print(f"Results have been written to 'passed_certificates.txt', 'failed_certificates.txt', and sent to Google Sheets")
+    user_email = "zakirzhangozin@gmail.com"  # Replace with your actual email
+    sheet_url = send_results_to_sheets(passed_certs, failed_certs, user_email)
+    print(f"You can access the Google Sheet at: {sheet_url}")
 
     return passed_certs, failed_certs
 

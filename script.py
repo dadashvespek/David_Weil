@@ -154,6 +154,52 @@ def retrieve_data():
 
     return all_data
 
+def format_errors(result, cert_data):
+    formatted_errors = {
+        "FrontPageErrors": [],
+        "AdditionalFieldsErrors": [],
+        "DatasheetErrors": []
+    }
+
+    # Process front page errors
+    if not result["front_page_complete"][0]:
+        formatted_errors["FrontPageErrors"].extend(result["front_page_complete"][1])
+
+    # Process accreditation error
+    if not result["accreditation"]:
+        formatted_errors["FrontPageErrors"].append("AccreditationInfo")
+
+    # Process additional fields errors
+    if not result["additional_fields"][0]:
+        formatted_errors["AdditionalFieldsErrors"].extend(result["additional_fields"][1])
+
+    # Process TUR errors
+    if not result["tur"][0]:
+        for group in cert_data.get("Datasheet", []):
+            group_errors = []
+            for measurement in group.get("Measurements", []):
+                tur = measurement.get("TUR", "")
+                if tur and ":" in tur:
+                    ratio_str, _ = tur.split(":")
+                    ratio = parse_numeric_value(ratio_str)
+                    if ratio is not None and ratio < 4:
+                        group_errors.append({
+                            "RowId": measurement["RowId"],
+                            "Error": f"Low TUR: {tur}"
+                        })
+            if group_errors:
+                formatted_errors["DatasheetErrors"].append({
+                    "Group": group["Group"],
+                    "Errors": group_errors
+                })
+
+    # Process environmental conditions error
+    if not result["environmental_conditions"]:
+        formatted_errors["FrontPageErrors"].append("EnvironmentalConditions")
+
+    return formatted_errors
+
+
 def check_certificate(cert_data):
     print(f"\nChecking certificate: {cert_data.get('CertNo', 'Unknown')}")
     print(f"Equipment Type: {cert_data.get('EquipmentType', 'Unknown')}")
@@ -173,6 +219,7 @@ def check_certificate(cert_data):
     additional_fields_check, missing_fields = check_additional_fields(cert_data)
     print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
 
+
     results = {
         "environmental_conditions": env_conditions,
         "front_page_complete": (front_page_check, front_page_missing),
@@ -180,8 +227,11 @@ def check_certificate(cert_data):
         "tur": (tur_check, tur_values),
         "additional_fields": (additional_fields_check, missing_fields)
     }
+
+    formatted_errors = format_errors(results, cert_data)
+    return results, formatted_errors
     
-    return results
+
 
 def main(all_data):
     passed_certs = defaultdict(list)
@@ -200,28 +250,26 @@ def main(all_data):
 
         for cert in certs:
             try:
-                result = check_certificate(cert)
+                result, formatted_errors = check_certificate(cert)
                 cert_no = cert.get("CertNo", "Unknown")
                 equipment_type = cert.get("EquipmentType", "Unknown")
-                
+
                 if all(value if isinstance(value, bool) else value[0] for value in result.values()):
                     passed_certs[equipment_type].append(cert_no)
                     print(f"Certificate {cert_no} passed all checks")
                 else:
-                    errors = []
-                    for key, value in result.items():
-                        if isinstance(value, tuple):
-                            if not value[0] and value[1]:
-                                errors.append(f"{key}: {', '.join(value[1])}")
-                        elif not value:
-                            errors.append(key)
-                    if errors:
-                        failed_certs[equipment_type].append({"CertNo": cert_no, "Errors": errors})
-                        print(f"Certificate {cert_no} failed checks: {', '.join(errors)}")
+                    failed_certs[equipment_type].append({
+                        "CertNo": cert_no,
+                        "Errors": formatted_errors
+                    })
+                    print(f"Certificate {cert_no} failed checks: {formatted_errors}")
             except Exception as e:
                 cert_no = cert.get("CertNo", "Unknown")
                 equipment_type = cert.get("EquipmentType", "Unknown")
-                failed_certs[equipment_type].append({"CertNo": cert_no, "Errors": [f"Unexpected error: {str(e)}"]})
+                failed_certs[equipment_type].append({
+                    "CertNo": cert_no,
+                    "Errors": {"UnexpectedError": [str(e)]}
+                })
                 print(f"Unexpected error processing certificate {cert_no}: {str(e)}")
 
     # Send results to Google Sheets
@@ -253,16 +301,27 @@ with open('passed_certificates.txt', 'w') as f:
                 for cert in certs:
                     f.write(f"{cert}\n")
 
-with open('failed_certificates.txt', 'w') as f:
-    f.write("Certificates that failed one or more checks:\n")
-    if not any(failed_certs.values()):
-        f.write("\nNo certificates failed any checks.\n")
-    else:
-        for equipment_type, certs in failed_certs.items():
-            if certs:
-                f.write(f"\nEquipment Type: {equipment_type}\n")
-                for cert in certs:
-                    f.write(f"Certificate: {cert['CertNo']}\n")
-                    f.write(f"Errors: {', '.join(cert['Errors'])}\n\n")
+    with open('failed_certificates.txt', 'w') as f:
+        f.write("Certificates that failed one or more checks:\n")
+        if not any(failed_certs.values()):
+            f.write("\nNo certificates failed any checks.\n")
+        else:
+            for equipment_type, certs in failed_certs.items():
+                if certs:
+                    f.write(f"\nEquipment Type: {equipment_type}\n")
+                    for cert in certs:
+                        f.write(f"Certificate: {cert['CertNo']}\n")
+                        errors = cert['Errors']
+                        if errors.get("FrontPageErrors"):
+                            f.write("Front Page Errors: " + ", ".join(errors["FrontPageErrors"]) + "\n")
+                        if errors.get("AdditionalFieldsErrors"):
+                            f.write("Additional Fields Errors: " + ", ".join(errors["AdditionalFieldsErrors"]) + "\n")
+                        if errors.get("DatasheetErrors"):
+                            f.write("Datasheet Errors:\n")
+                            for group in errors["DatasheetErrors"]:
+                                f.write(f"  Group: {group['Group']}\n")
+                                for error in group['Errors']:
+                                    f.write(f"    Row {error['RowId']}: {error['Error']}\n")
+                        f.write("\n")
 
 print(f"Results have been written to 'passed_certificates.txt' and 'failed_certificates.txt'")

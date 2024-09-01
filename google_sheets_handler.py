@@ -19,7 +19,7 @@ def send_results_to_sheets(passed_certs, failed_certs, user_email):
     print(f"Shared sheet with {user_email}")
 
     # Create or clear sheets
-    sheets = ["Passed Certificates", "Failed Certificates - Front Page", "Failed Certificates - Datasheet"]
+    sheets = ["Passed Certificates", "Failed Certificates - Front Page", "Failed Certificates - Datasheet", "Failed Certificates - Template Status"]
     for sheet_name in sheets:
         try:
             worksheet = sh.worksheet_by_title(sheet_name)
@@ -35,12 +35,14 @@ def send_results_to_sheets(passed_certs, failed_certs, user_email):
     # Failed Certificates
     front_page_fails = []
     datasheet_fails = []
+    template_status_fails = []
 
     for eq_type, certs in failed_certs.items():
         for cert in certs:
             front_page_errors = cert['Errors'].get('FrontPageErrors', [])
             additional_fields_errors = cert['Errors'].get('AdditionalFieldsErrors', [])
             datasheet_errors = cert['Errors'].get('DatasheetErrors', [])
+            template_status_error = cert['Errors'].get('TemplateStatusError')
 
             if front_page_errors or additional_fields_errors:
                 front_page_fails.append({
@@ -61,6 +63,13 @@ def send_results_to_sheets(passed_certs, failed_certs, user_email):
                             'Error': error['Error']
                         })
 
+            if template_status_error:
+                template_status_fails.append({
+                    'Equipment Type': eq_type,
+                    'Certificate Number': cert['CertNo'],
+                    'Template Status Error': template_status_error
+                })
+
     if front_page_fails:
         front_page_df = pd.DataFrame(front_page_fails)
         sh.worksheet_by_title("Failed Certificates - Front Page").set_dataframe(front_page_df, (1, 1))
@@ -68,6 +77,10 @@ def send_results_to_sheets(passed_certs, failed_certs, user_email):
     if datasheet_fails:
         datasheet_df = pd.DataFrame(datasheet_fails)
         sh.worksheet_by_title("Failed Certificates - Datasheet").set_dataframe(datasheet_df, (1, 1))
+
+    if template_status_fails:
+        template_status_df = pd.DataFrame(template_status_fails)
+        sh.worksheet_by_title("Failed Certificates - Template Status").set_dataframe(template_status_df, (1, 1))
 
     print(f"Results have been sent to Google Sheets successfully.")
     print(f"Sheet URL: {sh.url}")

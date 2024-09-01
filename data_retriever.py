@@ -22,7 +22,8 @@ def retrieve_data():
     equipment_types = [
         {"EquipmentType": "IR Temp", "ProcedureCode": "DR-WI-0077"},
         {"EquipmentType": "Ambient Temp/Hum", "ProcedureCode": "DR-WI-0078"},
-        {"EquipmentType": "scales", "ProcedureCode": "DR-WI-0126"}
+        {"EquipmentType": "scales", "ProcedureCode": "DR-WI-0126"},
+        {"EquipmentType": "", "ProcedureCode": "", "UseTemplate": "True"}
     ]
 
     for params in equipment_types:
@@ -31,7 +32,10 @@ def retrieve_data():
         all_data.append(data)
 
         # Save individual JSON files
-        file_name = f"data_response_{params['EquipmentType'].replace('/', '_')}.json"
+        if params["EquipmentType"] == "" and params.get("UseTemplate") == "True":
+            file_name = "data_response_UseTemplate_True.json"
+        else:
+            file_name = f"data_response_{params['EquipmentType'].replace('/', '_')}.json"
         file_path = os.path.join("./inputjson", file_name)
         with open(file_path, "w") as file:
             json.dump(data, file, indent=4)

@@ -112,19 +112,32 @@ def check_additional_fields(data):
     missing_fields = [field for field, check in required_fields.items() if not check(data)]
     return len(missing_fields) == 0, missing_fields
 
+def check_template_status(data):
+    return data.get("TemplateUsedStatus") == "Not Edited"
+
 def check_certificate(cert_data):
     env_conditions = check_environmental_conditions(cert_data)
+    
     front_page_check, front_page_missing = check_front_page(cert_data)
+    
     accreditation = check_accreditation(cert_data)
+    
     tur_check, tur_values = check_tur(cert_data)
+    
     additional_fields_check, missing_fields = check_additional_fields(cert_data)
+
+    template_status = True
+    if cert_data.get("UseTemplate") == "True":
+        template_status = check_template_status(cert_data)
+        print(f"Template status check: {template_status}")
 
     results = {
         "environmental_conditions": env_conditions,
         "front_page_complete": (front_page_check, front_page_missing),
         "accreditation": accreditation,
         "tur": (tur_check, tur_values),
-        "additional_fields": (additional_fields_check, missing_fields)
+        "additional_fields": (additional_fields_check, missing_fields),
+        "template_status": template_status
     }
     
     return results
@@ -158,7 +171,8 @@ def format_errors(result, cert_data):
     formatted_errors = {
         "FrontPageErrors": [],
         "AdditionalFieldsErrors": [],
-        "DatasheetErrors": []
+        "DatasheetErrors": [],
+        "TemplateStatusError": None
     }
 
     # Process front page errors
@@ -197,6 +211,11 @@ def format_errors(result, cert_data):
     if not result["environmental_conditions"]:
         formatted_errors["FrontPageErrors"].append("EnvironmentalConditions")
 
+    # Add template status error
+    # Add template status error only if UseTemplate is True
+    if cert_data.get("UseTemplate") == "True" and not result["template_status"]:
+        formatted_errors["TemplateStatusError"] = "Template has been edited"
+
     return formatted_errors
 
 
@@ -219,13 +238,16 @@ def check_certificate(cert_data):
     additional_fields_check, missing_fields = check_additional_fields(cert_data)
     print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
 
+    template_status = check_template_status(cert_data)
+    print(f"Template status check: {template_status}")
 
     results = {
         "environmental_conditions": env_conditions,
         "front_page_complete": (front_page_check, front_page_missing),
         "accreditation": accreditation,
         "tur": (tur_check, tur_values),
-        "additional_fields": (additional_fields_check, missing_fields)
+        "additional_fields": (additional_fields_check, missing_fields),
+        "template_status": template_status
     }
 
     formatted_errors = format_errors(results, cert_data)

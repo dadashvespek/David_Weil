@@ -33,22 +33,24 @@ def send_results_to_sheets(passed_certs, failed_certs, user_email):
 
     # Process passed certificates
     passed_ws = worksheets["Passed Certificates"]
-    existing_passed = passed_ws.get_as_df()
+    passed_data = []
     for eq_type, certs in passed_certs.items():
         for cert_no in certs:
-            new_row = pd.DataFrame({
-                'Equipment Type': [eq_type],
-                'Certificate Number': [cert_no],
-                'Test Date': [current_date]
+            passed_data.append({
+                'Equipment Type': eq_type,
+                'Certificate Number': cert_no,
+                'Test Date': current_date
             })
-            existing_passed = pd.concat([existing_passed, new_row]).drop_duplicates(subset=['Certificate Number'], keep='last')
-    passed_ws.set_dataframe(existing_passed, (1,1))
+    passed_df = pd.DataFrame(passed_data)
+    passed_ws.clear()
+    if not passed_df.empty:
+        passed_ws.set_dataframe(passed_df, (1,1))
 
     # Process failed certificates
     for sheet_name in ["Failed Certificates - Front Page", "Failed Certificates - Datasheet", "Failed Certificates - Template Status"]:
         ws = worksheets[sheet_name]
-        existing_data = ws.get_as_df()
-        new_data = []
+        ws.clear()
+        failed_data = []
 
         for eq_type, certs in failed_certs.items():
             for cert in certs:
@@ -56,7 +58,7 @@ def send_results_to_sheets(passed_certs, failed_certs, user_email):
                     front_page_errors = cert['Errors'].get('FrontPageErrors', [])
                     additional_fields_errors = cert['Errors'].get('AdditionalFieldsErrors', [])
                     if front_page_errors or additional_fields_errors:
-                        new_data.append({
+                        failed_data.append({
                             'Equipment Type': eq_type,
                             'Certificate Number': cert['CertNo'],
                             'Front Page Errors': ', '.join(front_page_errors),
@@ -67,7 +69,7 @@ def send_results_to_sheets(passed_certs, failed_certs, user_email):
                     datasheet_errors = cert['Errors'].get('DatasheetErrors', [])
                     for group in datasheet_errors:
                         for error in group['Errors']:
-                            new_data.append({
+                            failed_data.append({
                                 'Equipment Type': eq_type,
                                 'Certificate Number': cert['CertNo'],
                                 'Group': group['Group'],
@@ -78,17 +80,16 @@ def send_results_to_sheets(passed_certs, failed_certs, user_email):
                 elif sheet_name == "Failed Certificates - Template Status":
                     template_status_error = cert['Errors'].get('TemplateStatusError')
                     if template_status_error:
-                        new_data.append({
+                        failed_data.append({
                             'Equipment Type': eq_type,
                             'Certificate Number': cert['CertNo'],
                             'Template Status Error': template_status_error,
                             'Test Date': current_date
                         })
 
-        if new_data:
-            new_df = pd.DataFrame(new_data)
-            updated_data = pd.concat([existing_data, new_df]).drop_duplicates(subset=['Certificate Number'], keep='last')
-            ws.set_dataframe(updated_data, (1,1))
+        if failed_data:
+            failed_df = pd.DataFrame(failed_data)
+            ws.set_dataframe(failed_df, (1,1))
 
     print(f"Results have been sent to Google Sheets successfully.")
     print(f"Sheet URL: {sh.url}")

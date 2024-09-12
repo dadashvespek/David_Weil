@@ -256,6 +256,7 @@ def check_certificate(cert_data):
 
 
 def main(all_data):
+    retrieve_data()
     passed_certs = defaultdict(list)
     failed_certs = defaultdict(list)
 

@@ -1,47 +1,7 @@
 Certificates that failed one or more checks:
 
 Equipment Type: Datalogger
-Certificate: C374378
-Datasheet Errors:
-  Group: Humedad Relativa
-    Row 1: Low TUR: 1.9:1
-    Row 2: Low TUR: 1.9:1
-    Row 3: Low TUR: 1.9:1
-    Row 4: Low TUR: 1.9:1
-    Row 5: Low TUR: 1.9:1
-  Group: Temperatura - Medición
-    Row 6: Low TUR: 2.1:1
-    Row 7: Low TUR: 2.1:1
-    Row 8: Low TUR: 2.1:1
-    Row 9: Low TUR: 2.1:1
-    Row 10: Low TUR: 3.3:1
-
-Certificate: C369030
-Datasheet Errors:
-  Group: Humedad Relativa
-    Row 6: Low TUR: 1.9:1
-    Row 7: Low TUR: 1.9:1
-    Row 8: Low TUR: 1.9:1
-    Row 9: Low TUR: 1.9:1
-    Row 10: Low TUR: 1.9:1
-  Group: Temperatura - Medición
-    Row 1: Low TUR: 2.1:1
-    Row 2: Low TUR: 2.1:1
-    Row 3: Low TUR: 2.1:1
-    Row 4: Low TUR: 2.1:1
-
-Certificate: C374381
-Datasheet Errors:
-  Group: Humedad Relativa
-    Row 6: Low TUR: 1.9:1
-    Row 7: Low TUR: 1.9:1
-    Row 8: Low TUR: 1.9:1
-    Row 9: Low TUR: 1.9:1
-    Row 10: Low TUR: 1.9:1
-  Group: Temperatura - Medición
-    Row 2: Low TUR: 2.1:1
-    Row 3: Low TUR: 2.1:1
-    Row 4: Low TUR: 2.1:1
+Certificate: C376391
 
 Certificate: C374386
 Datasheet Errors:
@@ -58,63 +18,24 @@ Datasheet Errors:
     Row 9: Low TUR: 2.1:1
     Row 10: Low TUR: 3.3:1
 
-Certificate: C374388
-Datasheet Errors:
-  Group: Humedad Relativa
-    Row 1: Low TUR: 1.9:1
-    Row 2: Low TUR: 1.9:1
-    Row 3: Low TUR: 1.9:1
-    Row 4: Low TUR: 1.9:1
-    Row 5: Low TUR: 1.9:1
-  Group: Temperatura - Medición
-    Row 6: Low TUR: 2.1:1
-    Row 7: Low TUR: 2.1:1
-    Row 8: Low TUR: 2.1:1
-    Row 9: Low TUR: 2.1:1
-    Row 10: Low TUR: 3.3:1
+Certificate: C376392
 
-Certificate: C374389
+Certificate: C375519
 Datasheet Errors:
   Group: Humedad Relativa
-    Row 1: Low TUR: 1.9:1
-    Row 2: Low TUR: 1.9:1
-    Row 3: Low TUR: 1.9:1
-    Row 4: Low TUR: 1.9:1
-    Row 5: Low TUR: 1.9:1
-  Group: Temperatura - Medición
-    Row 6: Low TUR: 2.1:1
-    Row 7: Low TUR: 2.1:1
-    Row 8: Low TUR: 2.1:1
-    Row 9: Low TUR: 2.1:1
-    Row 10: Low TUR: 3.3:1
-
-Certificate: C374397
-Datasheet Errors:
-  Group: Humedad Relativa
-    Row 6: Low TUR: 1.9:1
-    Row 7: Low TUR: 1.9:1
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 2.0:1
     Row 8: Low TUR: 1.9:1
     Row 9: Low TUR: 1.9:1
     Row 10: Low TUR: 1.9:1
   Group: Temperatura - Medición
-    Row 2: Low TUR: 2.1:1
-    Row 3: Low TUR: 2.1:1
-    Row 4: Low TUR: 2.1:1
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
 
-Certificate: C374399
-Datasheet Errors:
-  Group: Humedad Relativa
-    Row 6: Low TUR: 1.9:1
-    Row 7: Low TUR: 1.9:1
-    Row 8: Low TUR: 1.9:1
-    Row 9: Low TUR: 1.9:1
-    Row 10: Low TUR: 1.9:1
-  Group: Temperatura - Medición
-    Row 2: Low TUR: 2.1:1
-    Row 3: Low TUR: 2.1:1
-    Row 4: Low TUR: 2.1:1
-
-Certificate: C374404
+Certificate: C374990
 Datasheet Errors:
   Group: Humedad Relativa
     Row 1: Low TUR: 1.9:1
@@ -129,23 +50,48 @@ Datasheet Errors:
     Row 9: Low TUR: 2.1:1
     Row 10: Low TUR: 3.3:1
 
-Certificate: C374406
-Datasheet Errors:
-  Group: Humedad Relativa
-    Row 1: Low TUR: 1.9:1
-    Row 2: Low TUR: 1.9:1
-    Row 3: Low TUR: 1.9:1
-    Row 4: Low TUR: 1.9:1
-    Row 5: Low TUR: 1.9:1
-  Group: Temperatura - Medición
-    Row 6: Low TUR: 2.1:1
-    Row 7: Low TUR: 2.1:1
-    Row 8: Low TUR: 2.1:1
-    Row 9: Low TUR: 2.1:1
-    Row 10: Low TUR: 3.3:1
+
+Equipment Type: Thermohygrometer
+Certificate: C376393
+
+Certificate: C376394
+
+Certificate: C376389
+
+Certificate: C376395
+
+Certificate: C376396
+
+Certificate: C376397
+
+Certificate: C376398
 
 
 Equipment Type: Scales & Balances
-Certificate: C374218
+Certificate: C376184
+Front Page Errors: EnvironmentalConditions
+
+Certificate: C376186
+Front Page Errors: EnvironmentalConditions
+
+Certificate: C375990
+Datasheet Errors:
+  Group: Peso - Linealidad Ascendente
+    Row 2: Low TUR: 3.4:1
+    Row 3: Low TUR: 3.4:1
+    Row 4: Low TUR: 3.4:1
+    Row 5: Low TUR: 3.4:1
+    Row 6: Low TUR: 3.4:1
+    Row 7: Low TUR: 3.3:1
+    Row 8: Low TUR: 3.3:1
+  Group: Peso - Linnealidad Descendente
+    Row 9: Low TUR: 3.3:1
+    Row 10: Low TUR: 3.4:1
+    Row 11: Low TUR: 3.4:1
+    Row 12: Low TUR: 3.4:1
+    Row 13: Low TUR: 3.4:1
+    Row 14: Low TUR: 3.4:1
+
+Certificate: C376329
 Front Page Errors: AccreditationInfo
 

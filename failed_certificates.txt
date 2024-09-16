@@ -11,7 +11,7 @@ Datasheet Errors:
     Row 3: Low TUR: 1.9:1
     Row 4: Low TUR: 1.9:1
     Row 5: Low TUR: 1.9:1
-  Group: Temperatura - MediciÃ³n
+  Group: Temperatura - Medición
     Row 6: Low TUR: 2.1:1
     Row 7: Low TUR: 2.1:1
     Row 8: Low TUR: 2.1:1
@@ -28,7 +28,7 @@ Datasheet Errors:
     Row 8: Low TUR: 1.9:1
     Row 9: Low TUR: 1.9:1
     Row 10: Low TUR: 1.9:1
-  Group: Temperatura - MediciÃ³n
+  Group: Temperatura - Medición
     Row 1: Low TUR: 2:1
     Row 2: Low TUR: 2:1
     Row 3: Low TUR: 2:1
@@ -43,15 +43,33 @@ Datasheet Errors:
     Row 3: Low TUR: 1.9:1
     Row 4: Low TUR: 1.9:1
     Row 5: Low TUR: 1.9:1
-  Group: Temperatura - MediciÃ³n
+  Group: Temperatura - Medición
     Row 6: Low TUR: 2.1:1
     Row 7: Low TUR: 2.1:1
     Row 8: Low TUR: 2.1:1
     Row 9: Low TUR: 2.1:1
     Row 10: Low TUR: 3.3:1
 
+Certificate: C376391
+
+Certificate: C376392
+
 
 Equipment Type: Thermohygrometer
+Certificate: C376393
+
+Certificate: C376394
+
+Certificate: C376389
+
+Certificate: C376395
+
+Certificate: C376396
+
+Certificate: C376397
+
+Certificate: C376398
+
 Certificate: C376393
 
 Certificate: C376394
@@ -94,4 +112,33 @@ Datasheet Errors:
 
 Certificate: C376329
 Front Page Errors: AccreditationInfo
+
+
+Equipment Type: Process Calibrator
+Certificate: C374151
+Front Page Errors: OperatingRange
+
+
+Equipment Type: Sound Level Meter
+Certificate: C371214
+Front Page Errors: AccreditationInfo
+
+
+Equipment Type: Clamp Meter
+Certificate: C375693
+
+Certificate: C375588
+
+Certificate: C376010
+
+Certificate: C375589
+
+
+Equipment Type: Insulation Tester
+Certificate: C375930
+Front Page Errors: AccreditationInfo
+
+
+Equipment Type: Pressure Calibrator
+Certificate: C373975
 

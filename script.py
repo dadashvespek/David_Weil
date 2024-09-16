@@ -115,19 +115,27 @@ def check_additional_fields(data):
 def check_template_status(data):
     return data.get("TemplateUsedStatus") == "Not Edited"
 
-def check_certificate(cert_data):
+def check_certificate(cert_data, is_template_cert=False):
+    print(f"\nChecking certificate: {cert_data.get('CertNo', 'Unknown')}")
+    print(f"Equipment Type: {cert_data.get('EquipmentType', 'Unknown')}")
+
     env_conditions = check_environmental_conditions(cert_data)
-    
+    print(f"Environmental conditions check: {env_conditions}")
+
     front_page_check, front_page_missing = check_front_page(cert_data)
-    
+    print(f"Front page check: {front_page_check}, Missing: {front_page_missing}")
+
     accreditation = check_accreditation(cert_data)
-    
+    print(f"Accreditation check: {accreditation}")
+
     tur_check, tur_values = check_tur(cert_data)
-    
+    print(f"TUR check: {tur_check}, Values: {tur_values}")
+
     additional_fields_check, missing_fields = check_additional_fields(cert_data)
+    print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
 
     template_status = True
-    if cert_data.get("UseTemplate") == "True":
+    if is_template_cert:
         template_status = check_template_status(cert_data)
         print(f"Template status check: {template_status}")
 
@@ -139,35 +147,11 @@ def check_certificate(cert_data):
         "additional_fields": (additional_fields_check, missing_fields),
         "template_status": template_status
     }
-    
-    return results
 
+    formatted_errors = format_errors(results, cert_data, is_template_cert)
+    return results, formatted_errors
 
-def retrieve_data():
-    all_data = []
-    input_dir = './inputjson'
-    file_patterns = [
-        'data_response_IR Temp.json',
-        'data_response_Ambient Temp_Hum.json',
-        'data_response_scales.json'
-    ]
-
-    for file_name in file_patterns:
-        file_path = os.path.join(input_dir, file_name)
-        try:
-            with open(file_path, 'r') as file:
-                data = json.load(file)
-                all_data.append(data)
-                print(f"Successfully loaded data from {file_name}")
-                print(f"Number of certificates in {file_name}: {len(data) if isinstance(data, list) else 1}")
-        except FileNotFoundError:
-            print(f"Warning: File '{file_path}' not found.")
-        except json.JSONDecodeError:
-            print(f"Error: Invalid JSON in file '{file_path}'.")
-
-    return all_data
-
-def format_errors(result, cert_data):
+def format_errors(result, cert_data, is_template_cert):
     formatted_errors = {
         "FrontPageErrors": [],
         "AdditionalFieldsErrors": [],
@@ -211,17 +195,93 @@ def format_errors(result, cert_data):
     if not result["environmental_conditions"]:
         formatted_errors["FrontPageErrors"].append("EnvironmentalConditions")
 
-    # Add template status error
-    # Add template status error only if UseTemplate is True
-    if cert_data.get("UseTemplate") == "True" and not result["template_status"]:
+    # Add template status error only for template certificates
+    if is_template_cert and not result["template_status"]:
         formatted_errors["TemplateStatusError"] = "Template has been edited"
 
     return formatted_errors
 
 
-def check_certificate(cert_data):
+def retrieve_data():
+    all_data = []
+    input_dir = './inputjson'
+    file_patterns = [
+        'data_response_IR Temp.json',
+        'data_response_Ambient Temp_Hum.json',
+        'data_response_scales.json',
+        'data_response_UseTemplate_True.json'
+    ]
+
+    for file_name in file_patterns:
+        file_path = os.path.join(input_dir, file_name)
+        try:
+            with open(file_path, 'r') as file:
+                data = json.load(file)
+                all_data.append(data)
+                print(f"Successfully loaded data from {file_name}")
+                print(f"Number of certificates in {file_name}: {len(data) if isinstance(data, list) else 1}")
+        except FileNotFoundError:
+            print(f"Warning: File '{file_path}' not found.")
+        except json.JSONDecodeError:
+            print(f"Error: Invalid JSON in file '{file_path}'.")
+
+    return all_data
+
+def format_errors(result, cert_data, is_template_cert):
+    formatted_errors = {
+        "FrontPageErrors": [],
+        "AdditionalFieldsErrors": [],
+        "DatasheetErrors": [],
+        "TemplateStatusError": None
+    }
+
+    # Process front page errors
+    if not result["front_page_complete"][0]:
+        formatted_errors["FrontPageErrors"].extend(result["front_page_complete"][1])
+
+    # Process accreditation error
+    if not result["accreditation"]:
+        formatted_errors["FrontPageErrors"].append("AccreditationInfo")
+
+    # Process additional fields errors
+    if not result["additional_fields"][0]:
+        formatted_errors["AdditionalFieldsErrors"].extend(result["additional_fields"][1])
+
+    # Process TUR errors
+    if not result["tur"][0]:
+        for group in cert_data.get("Datasheet", []):
+            group_errors = []
+            for measurement in group.get("Measurements", []):
+                tur = measurement.get("TUR", "")
+                if tur and ":" in tur:
+                    ratio_str, _ = tur.split(":")
+                    ratio = parse_numeric_value(ratio_str)
+                    if ratio is not None and ratio < 4:
+                        group_errors.append({
+                            "RowId": measurement["RowId"],
+                            "Error": f"Low TUR: {tur}"
+                        })
+            if group_errors:
+                formatted_errors["DatasheetErrors"].append({
+                    "Group": group["Group"],
+                    "Errors": group_errors
+                })
+
+    # Process environmental conditions error
+    if not result["environmental_conditions"]:
+        formatted_errors["FrontPageErrors"].append("EnvironmentalConditions")
+
+    # Add template status error only for template certificates
+    if is_template_cert and not result["template_status"]:
+        formatted_errors["TemplateStatusError"] = "Template has been edited"
+
+    return formatted_errors
+
+
+def check_certificate(cert_data, is_template_cert=False):
     print(f"\nChecking certificate: {cert_data.get('CertNo', 'Unknown')}")
     print(f"Equipment Type: {cert_data.get('EquipmentType', 'Unknown')}")
+    print(f"Is template certificate: {is_template_cert}")
 
     env_conditions = check_environmental_conditions(cert_data)
     print(f"Environmental conditions check: {env_conditions}")
@@ -238,8 +298,10 @@ def check_certificate(cert_data):
     additional_fields_check, missing_fields = check_additional_fields(cert_data)
     print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
 
-    template_status = check_template_status(cert_data)
-    print(f"Template status check: {template_status}")
+    template_status = True
+    if is_template_cert:
+        template_status = check_template_status(cert_data)
+        print(f"Template status check: {template_status}")
 
     results = {
         "environmental_conditions": env_conditions,
@@ -247,13 +309,11 @@ def check_certificate(cert_data):
         "accreditation": accreditation,
         "tur": (tur_check, tur_values),
         "additional_fields": (additional_fields_check, missing_fields),
-        "template_status": template_status
+        "template_status": template_status if is_template_cert else None
     }
 
-    formatted_errors = format_errors(results, cert_data)
+    formatted_errors = format_errors(results, cert_data, is_template_cert)
     return results, formatted_errors
-    
-
 
 def main(all_data):
     retrieve_data()
@@ -271,9 +331,15 @@ def main(all_data):
 
         print(f"\nProcessing {len(certs)} certificates")
 
+        # Determine if this is a template certificate dataset
+        is_template_cert = any(cert.get("UseTemplate") == "True" for cert in certs)
+
         for cert in certs:
             try:
-                result, formatted_errors = check_certificate(cert)
+                # Determine if this specific certificate uses a template
+                is_template_cert = cert.get("TemplateUsed") is not None
+
+                result, formatted_errors = check_certificate(cert, is_template_cert)
                 cert_no = cert.get("CertNo", "Unknown")
                 equipment_type = cert.get("EquipmentType", "Unknown")
 
@@ -294,6 +360,7 @@ def main(all_data):
                     "Errors": {"UnexpectedError": [str(e)]}
                 })
                 print(f"Unexpected error processing certificate {cert_no}: {str(e)}")
+
 
     # Send results to Google Sheets
     user_email = "zakirzhangozin@gmail.com"  # Replace with your actual email

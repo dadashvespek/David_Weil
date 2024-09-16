@@ -19,23 +19,23 @@ def retrieve_data():
     headers = {'Authorization': f'Bearer {token}'}
 
     all_data = []
-    equipment_types = [
+    params = [
         {"EquipmentType": "IR Temp", "ProcedureCode": "DR-WI-0077"},
         {"EquipmentType": "Ambient Temp/Hum", "ProcedureCode": "DR-WI-0078"},
         {"EquipmentType": "scales", "ProcedureCode": "DR-WI-0126"},
-        {"EquipmentType": "", "ProcedureCode": "", "UseTemplate": "True"}
+        {"UseTemplate": "True"}
     ]
 
-    for params in equipment_types:
-        data_response = requests.post(data_url, headers=headers, json=params)
+    for param in params:
+        data_response = requests.post(data_url, headers=headers, json=param)
         data = data_response.json()
         all_data.append(data)
 
         # Save individual JSON files
-        if params["EquipmentType"] == "" and params.get("UseTemplate") == "True":
+        if param.get("UseTemplate") == "True":
             file_name = "data_response_UseTemplate_True.json"
         else:
-            file_name = f"data_response_{params['EquipmentType'].replace('/', '_')}.json"
+            file_name = f"data_response_{param['EquipmentType'].replace('/', '_')}.json"
         file_path = os.path.join("./inputjson", file_name)
         with open(file_path, "w") as file:
             json.dump(data, file, indent=4)

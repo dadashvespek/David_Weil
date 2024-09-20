@@ -1,0 +1,14 @@
+{
+    "errors": {
+        "EquipmentType": [
+            "The EquipmentType field is required."
+        ],
+        "ProcedureCode": [
+            "The ProcedureCode field is required."
+        ]
+    },
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "One or more validation errors occurred.",
+    "status": 400,
+    "traceId": "00-8e41c2b20db07495962884f9c3332211-e3cda0b51c2e0b48-00"
+}

@@ -3,6 +3,7 @@ import os
 import re
 from collections import defaultdict
 from google_sheets_handler import send_results_to_sheets
+from pressure_cert_processor import retrieve_pressure_data, process_pressure_certificates
 
 def parse_numeric_value(value):
     if isinstance(value, (int, float)):
@@ -40,16 +41,6 @@ def check_environmental_conditions(data):
     humidity_check = 30 <= humidity_pct <= 80 if humidity_pct is not None else False
     
     return temp_check and humidity_check
-
-def parse_numeric_value(value):
-    if isinstance(value, (int, float)):
-        return value
-    if isinstance(value, str):
-        try:
-            return float(value)
-        except ValueError:
-            return None
-    return None
 
 def check_front_page(data):
     required_fields = [
@@ -116,15 +107,23 @@ def check_template_status(data):
     return data.get("TemplateUsedStatus") == "Not Edited"
 
 def check_certificate(cert_data):
+    print(f"\nChecking certificate: {cert_data.get('CertNo', 'Unknown')}")
+    print(f"Equipment Type: {cert_data.get('EquipmentType', 'Unknown')}")
+
     env_conditions = check_environmental_conditions(cert_data)
-    
+    print(f"Environmental conditions check: {env_conditions}")
+
     front_page_check, front_page_missing = check_front_page(cert_data)
-    
+    print(f"Front page check: {front_page_check}, Missing: {front_page_missing}")
+
     accreditation = check_accreditation(cert_data)
-    
+    print(f"Accreditation check: {accreditation}")
+
     tur_check, tur_values = check_tur(cert_data)
-    
+    print(f"TUR check: {tur_check}, Values: {tur_values}")
+
     additional_fields_check, missing_fields = check_additional_fields(cert_data)
+    print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
 
     template_status = True
     if cert_data.get("UseTemplate") == "True":
@@ -139,9 +138,9 @@ def check_certificate(cert_data):
         "additional_fields": (additional_fields_check, missing_fields),
         "template_status": template_status
     }
-    
-    return results
 
+    formatted_errors = format_errors(results, cert_data)
+    return results, formatted_errors
 
 def retrieve_data():
     all_data = []
@@ -211,52 +210,13 @@ def format_errors(result, cert_data):
     if not result["environmental_conditions"]:
         formatted_errors["FrontPageErrors"].append("EnvironmentalConditions")
 
-    # Add template status error
     # Add template status error only if UseTemplate is True
     if cert_data.get("UseTemplate") == "True" and not result["template_status"]:
         formatted_errors["TemplateStatusError"] = "Template has been edited"
 
     return formatted_errors
 
-
-def check_certificate(cert_data):
-    print(f"\nChecking certificate: {cert_data.get('CertNo', 'Unknown')}")
-    print(f"Equipment Type: {cert_data.get('EquipmentType', 'Unknown')}")
-
-    env_conditions = check_environmental_conditions(cert_data)
-    print(f"Environmental conditions check: {env_conditions}")
-
-    front_page_check, front_page_missing = check_front_page(cert_data)
-    print(f"Front page check: {front_page_check}, Missing: {front_page_missing}")
-
-    accreditation = check_accreditation(cert_data)
-    print(f"Accreditation check: {accreditation}")
-
-    tur_check, tur_values = check_tur(cert_data)
-    print(f"TUR check: {tur_check}, Values: {tur_values}")
-
-    additional_fields_check, missing_fields = check_additional_fields(cert_data)
-    print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
-
-    template_status = check_template_status(cert_data)
-    print(f"Template status check: {template_status}")
-
-    results = {
-        "environmental_conditions": env_conditions,
-        "front_page_complete": (front_page_check, front_page_missing),
-        "accreditation": accreditation,
-        "tur": (tur_check, tur_values),
-        "additional_fields": (additional_fields_check, missing_fields),
-        "template_status": template_status
-    }
-
-    formatted_errors = format_errors(results, cert_data)
-    return results, formatted_errors
-    
-
-
 def main(all_data):
-    retrieve_data()
     passed_certs = defaultdict(list)
     failed_certs = defaultdict(list)
 
@@ -277,6 +237,7 @@ def main(all_data):
                 cert_no = cert.get("CertNo", "Unknown")
                 equipment_type = cert.get("EquipmentType", "Unknown")
 
+                # Check if all results are True or (True, [])
                 if all(value if isinstance(value, bool) else value[0] for value in result.values()):
                     passed_certs[equipment_type].append(cert_no)
                     print(f"Certificate {cert_no} passed all checks")
@@ -295,6 +256,16 @@ def main(all_data):
                 })
                 print(f"Unexpected error processing certificate {cert_no}: {str(e)}")
 
+    # Process pressure certificates
+    retrieve_pressure_data()
+    pressure_passed_certs, pressure_failed_certs = process_pressure_certificates()
+    
+    # Merge the pressure certificates with the existing results
+    for eq_type, certs in pressure_passed_certs.items():
+        passed_certs[eq_type].extend(certs)
+    for eq_type, certs in pressure_failed_certs.items():
+        failed_certs[eq_type].extend(certs)
+    
     # Send results to Google Sheets
     user_email = "zakirzhangozin@gmail.com"  # Replace with your actual email
     sheet_url = send_results_to_sheets(passed_certs, failed_certs, user_email)
@@ -324,27 +295,27 @@ with open('passed_certificates.txt', 'w') as f:
                 for cert in certs:
                     f.write(f"{cert}\n")
 
-    with open('failed_certificates.txt', 'w') as f:
-        f.write("Certificates that failed one or more checks:\n")
-        if not any(failed_certs.values()):
-            f.write("\nNo certificates failed any checks.\n")
-        else:
-            for equipment_type, certs in failed_certs.items():
-                if certs:
-                    f.write(f"\nEquipment Type: {equipment_type}\n")
-                    for cert in certs:
-                        f.write(f"Certificate: {cert['CertNo']}\n")
-                        errors = cert['Errors']
-                        if errors.get("FrontPageErrors"):
-                            f.write("Front Page Errors: " + ", ".join(errors["FrontPageErrors"]) + "\n")
-                        if errors.get("AdditionalFieldsErrors"):
-                            f.write("Additional Fields Errors: " + ", ".join(errors["AdditionalFieldsErrors"]) + "\n")
-                        if errors.get("DatasheetErrors"):
-                            f.write("Datasheet Errors:\n")
-                            for group in errors["DatasheetErrors"]:
-                                f.write(f"  Group: {group['Group']}\n")
-                                for error in group['Errors']:
-                                    f.write(f"    Row {error['RowId']}: {error['Error']}\n")
-                        f.write("\n")
+with open('failed_certificates.txt', 'w') as f:
+    f.write("Certificates that failed one or more checks:\n")
+    if not any(failed_certs.values()):
+        f.write("\nNo certificates failed any checks.\n")
+    else:
+        for equipment_type, certs in failed_certs.items():
+            if certs:
+                f.write(f"\nEquipment Type: {equipment_type}\n")
+                for cert in certs:
+                    f.write(f"Certificate: {cert['CertNo']}\n")
+                    errors = cert['Errors']
+                    if errors.get("FrontPageErrors"):
+                        f.write("Front Page Errors: " + ", ".join(errors["FrontPageErrors"]) + "\n")
+                    if errors.get("AdditionalFieldsErrors"):
+                        f.write("Additional Fields Errors: " + ", ".join(errors["AdditionalFieldsErrors"]) + "\n")
+                    if errors.get("DatasheetErrors"):
+                        f.write("Datasheet Errors:\n")
+                        for group in errors["DatasheetErrors"]:
+                            f.write(f"  Group: {group['Group']}\n")
+                            for error in group['Errors']:
+                                f.write(f"    Row {error['RowId']}: {error['Error']}\n")
+                    f.write("\n")
 
 print(f"Results have been written to 'passed_certificates.txt' and 'failed_certificates.txt'")

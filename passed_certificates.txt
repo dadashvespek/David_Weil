@@ -83,3 +83,6 @@ C376347
 C374315
 C376233
 C376349
+
+Equipment Type: Digital Multimeter
+C373082

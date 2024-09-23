@@ -113,20 +113,29 @@ def check_certificate(cert_data):
     env_conditions = check_environmental_conditions(cert_data)
     print(f"Environmental conditions check: {env_conditions}")
 
+    print(f"Environmental conditions check: {env_conditions}")
+
     front_page_check, front_page_missing = check_front_page(cert_data)
+    print(f"Front page check: {front_page_check}, Missing: {front_page_missing}")
+
     print(f"Front page check: {front_page_check}, Missing: {front_page_missing}")
 
     accreditation = check_accreditation(cert_data)
     print(f"Accreditation check: {accreditation}")
 
+    print(f"Accreditation check: {accreditation}")
+
     tur_check, tur_values = check_tur(cert_data)
+    print(f"TUR check: {tur_check}, Values: {tur_values}")
+
     print(f"TUR check: {tur_check}, Values: {tur_values}")
 
     additional_fields_check, missing_fields = check_additional_fields(cert_data)
     print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
+    print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
 
     template_status = True
-    if cert_data.get("UseTemplate") == "True":
+    if is_template_cert:
         template_status = check_template_status(cert_data)
         print(f"Template status check: {template_status}")
 
@@ -148,7 +157,8 @@ def retrieve_data():
     file_patterns = [
         'data_response_IR Temp.json',
         'data_response_Ambient Temp_Hum.json',
-        'data_response_scales.json'
+        'data_response_scales.json',
+        'data_response_UseTemplate_True.json'
     ]
 
     for file_name in file_patterns:
@@ -166,7 +176,7 @@ def retrieve_data():
 
     return all_data
 
-def format_errors(result, cert_data):
+def format_errors(result, cert_data, is_template_cert):
     formatted_errors = {
         "FrontPageErrors": [],
         "AdditionalFieldsErrors": [],
@@ -231,9 +241,15 @@ def main(all_data):
 
         print(f"\nProcessing {len(certs)} certificates")
 
+        # Determine if this is a template certificate dataset
+        is_template_cert = any(cert.get("UseTemplate") == "True" for cert in certs)
+
         for cert in certs:
             try:
-                result, formatted_errors = check_certificate(cert)
+                # Determine if this specific certificate uses a template
+                is_template_cert = cert.get("TemplateUsed") is not None
+
+                result, formatted_errors = check_certificate(cert, is_template_cert)
                 cert_no = cert.get("CertNo", "Unknown")
                 equipment_type = cert.get("EquipmentType", "Unknown")
 

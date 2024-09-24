@@ -11,7 +11,7 @@ Datasheet Errors:
     Row 3: Low TUR: 1.9:1
     Row 4: Low TUR: 1.9:1
     Row 5: Low TUR: 1.9:1
-  Group: Temperatura - Medición
+  Group: Temperatura - MediciÃ³n
     Row 6: Low TUR: 2.1:1
     Row 7: Low TUR: 2.1:1
     Row 8: Low TUR: 2.1:1
@@ -28,7 +28,7 @@ Datasheet Errors:
     Row 8: Low TUR: 1.9:1
     Row 9: Low TUR: 1.9:1
     Row 10: Low TUR: 1.9:1
-  Group: Temperatura - Medición
+  Group: Temperatura - MediciÃ³n
     Row 1: Low TUR: 2:1
     Row 2: Low TUR: 2:1
     Row 3: Low TUR: 2:1
@@ -43,7 +43,7 @@ Datasheet Errors:
     Row 3: Low TUR: 1.9:1
     Row 4: Low TUR: 1.9:1
     Row 5: Low TUR: 1.9:1
-  Group: Temperatura - Medición
+  Group: Temperatura - MediciÃ³n
     Row 6: Low TUR: 2.1:1
     Row 7: Low TUR: 2.1:1
     Row 8: Low TUR: 2.1:1

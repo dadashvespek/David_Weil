@@ -110,28 +110,22 @@ def check_certificate(cert_data):
     print(f"\nChecking certificate: {cert_data.get('CertNo', 'Unknown')}")
     print(f"Equipment Type: {cert_data.get('EquipmentType', 'Unknown')}")
 
-    env_conditions = check_environmental_conditions(cert_data)
-    print(f"Environmental conditions check: {env_conditions}")
+    # Determine if this certificate uses a template
+    is_template_cert = cert_data.get("TemplateUsed") is not None
 
+    env_conditions = check_environmental_conditions(cert_data)
     print(f"Environmental conditions check: {env_conditions}")
 
     front_page_check, front_page_missing = check_front_page(cert_data)
     print(f"Front page check: {front_page_check}, Missing: {front_page_missing}")
 
-    print(f"Front page check: {front_page_check}, Missing: {front_page_missing}")
-
     accreditation = check_accreditation(cert_data)
-    print(f"Accreditation check: {accreditation}")
-
     print(f"Accreditation check: {accreditation}")
 
     tur_check, tur_values = check_tur(cert_data)
     print(f"TUR check: {tur_check}, Values: {tur_values}")
 
-    print(f"TUR check: {tur_check}, Values: {tur_values}")
-
     additional_fields_check, missing_fields = check_additional_fields(cert_data)
-    print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
     print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
 
     template_status = True
@@ -148,7 +142,7 @@ def check_certificate(cert_data):
         "template_status": template_status
     }
 
-    formatted_errors = format_errors(results, cert_data)
+    formatted_errors = format_errors(results, cert_data, is_template_cert)
     return results, formatted_errors
 
 def retrieve_data():
@@ -241,15 +235,9 @@ def main(all_data):
 
         print(f"\nProcessing {len(certs)} certificates")
 
-        # Determine if this is a template certificate dataset
-        is_template_cert = any(cert.get("UseTemplate") == "True" for cert in certs)
-
         for cert in certs:
             try:
-                # Determine if this specific certificate uses a template
-                is_template_cert = cert.get("TemplateUsed") is not None
-
-                result, formatted_errors = check_certificate(cert, is_template_cert)
+                result, formatted_errors = check_certificate(cert)
                 cert_no = cert.get("CertNo", "Unknown")
                 equipment_type = cert.get("EquipmentType", "Unknown")
 
@@ -272,15 +260,16 @@ def main(all_data):
                 })
                 print(f"Unexpected error processing certificate {cert_no}: {str(e)}")
 
-    # Process pressure certificates
-    retrieve_pressure_data()
-    pressure_passed_certs, pressure_failed_certs = process_pressure_certificates()
-    
-    # Merge the pressure certificates with the existing results
-    for eq_type, certs in pressure_passed_certs.items():
-        passed_certs[eq_type].extend(certs)
-    for eq_type, certs in pressure_failed_certs.items():
-        failed_certs[eq_type].extend(certs)
+    pressure_data = retrieve_pressure_data()
+    if pressure_data is not None:
+        pressure_passed_certs, pressure_failed_certs = process_pressure_certificates()
+        # Merge the pressure certificates with the existing results
+        for eq_type, certs in pressure_passed_certs.items():
+            passed_certs[eq_type].extend(certs)
+        for eq_type, certs in pressure_failed_certs.items():
+            failed_certs[eq_type].extend(certs)
+    else:
+        print("Skipping pressure certificate processing due to retrieval error.")
     
     # Send results to Google Sheets
     user_email = "zakirzhangozin@gmail.com"  # Replace with your actual email

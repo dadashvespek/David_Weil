@@ -28,13 +28,29 @@ def retrieve_pressure_data():
     auth_url = "http://portal.phoenixcalibrationdr.com/api/auth/login"
     auth_data = {
         "UserName": "calsystest@phoenixcalibrationdr.com",
-        "Password": "Phoenix@1234#"
+        "Password": "Phoenix1234@+"
     }
 
     # Authenticate and get token
     response = requests.post(auth_url, json=auth_data)
-    response_data = response.json()
-    token = response_data.get("AccessToken")['Token']
+
+    # Check if authentication was successful
+    if response.status_code != 200:
+        print(f"Authentication failed with status code {response.status_code}")
+        print(f"Response text: {response.text}")
+        return None
+
+    try:
+        response_data = response.json()
+        token = response_data.get("AccessToken", {}).get('Token')
+    except json.JSONDecodeError as e:
+        print(f"JSONDecodeError during authentication: {e}")
+        print(f"Response text: {response.text}")
+        return None
+
+    if not token:
+        print("Authentication failed: No token received")
+        return None
 
     # Data retrieval endpoint
     data_url = "http://portal.phoenixcalibrationdr.com/api/Calibration/GetCertificatesDataListByEquipmentType"
@@ -46,8 +62,21 @@ def retrieve_pressure_data():
 
     # Make the data request
     data_response = requests.post(data_url, headers=headers, json=data_params)
-    data = data_response.json()
 
+    # Check if the response is successful
+    if data_response.status_code != 200:
+        print(f"Data request failed with status code {data_response.status_code}")
+        print(f"Response text: {data_response.text}")
+        return None
+
+    try:
+        data = data_response.json()
+    except json.JSONDecodeError as e:
+        print(f"JSONDecodeError during data retrieval: {e}")
+        print(f"Response text: {data_response.text}")
+        return None
+
+    # Proceed if data is successfully retrieved
     dir_name = "./pressure_input_jsons"
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
@@ -56,6 +85,7 @@ def retrieve_pressure_data():
     with open(file_path, "w") as file:
         json.dump(data, file, indent=4)
     return data
+
 
 def process_pressure_certificates():
     list_of_all_json = glob.glob(os.path.join('pressure_input_jsons', '*.json'))

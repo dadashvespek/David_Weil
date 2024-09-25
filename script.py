@@ -221,8 +221,8 @@ def format_errors(result, cert_data, is_template_cert):
     return formatted_errors
 
 def main(all_data):
-    passed_certs = defaultdict(list)
-    failed_certs = defaultdict(list)
+    passed_certs_main = defaultdict(list)
+    failed_certs_main = defaultdict(list)
 
     for data_set in all_data:
         if isinstance(data_set, list):
@@ -243,10 +243,10 @@ def main(all_data):
 
                 # Check if all results are True or (True, [])
                 if all(value if isinstance(value, bool) else value[0] for value in result.values()):
-                    passed_certs[equipment_type].append(cert_no)
+                    passed_certs_main[equipment_type].append(cert_no)
                     print(f"Certificate {cert_no} passed all checks")
                 else:
-                    failed_certs[equipment_type].append({
+                    failed_certs_main[equipment_type].append({
                         "CertNo": cert_no,
                         "Errors": formatted_errors
                     })
@@ -254,47 +254,54 @@ def main(all_data):
             except Exception as e:
                 cert_no = cert.get("CertNo", "Unknown")
                 equipment_type = cert.get("EquipmentType", "Unknown")
-                failed_certs[equipment_type].append({
+                failed_certs_main[equipment_type].append({
                     "CertNo": cert_no,
                     "Errors": {"UnexpectedError": [str(e)]}
                 })
                 print(f"Unexpected error processing certificate {cert_no}: {str(e)}")
 
+    # Process pressure certificates
     pressure_data = retrieve_pressure_data()
     if pressure_data is not None:
-        pressure_passed_certs, pressure_failed_certs = process_pressure_certificates()
-        # Merge the pressure certificates with the existing results
-        for eq_type, certs in pressure_passed_certs.items():
-            passed_certs[eq_type].extend(certs)
-        for eq_type, certs in pressure_failed_certs.items():
-            failed_certs[eq_type].extend(certs)
+        passed_certs_pressure, failed_certs_pressure = process_pressure_certificates()
     else:
         print("Skipping pressure certificate processing due to retrieval error.")
-    
+        passed_certs_pressure = defaultdict(list)
+        failed_certs_pressure = defaultdict(list)
+
     # Send results to Google Sheets
     user_email = "zakirzhangozin@gmail.com"  # Replace with your actual email
-    sheet_url = send_results_to_sheets(passed_certs, failed_certs, user_email)
+    sheet_url = send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure, user_email)
     print(f"You can access the Google Sheet at: {sheet_url}")
 
-    return passed_certs, failed_certs
+    return passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure
 
 # Retrieve data from local files
 all_data = retrieve_data()
 
 # Process the JSON data
-passed_certs, failed_certs = main(all_data)
+passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure = main(all_data)
 
 print("\nSummary:")
-print(f"Passed certificates: {sum(len(certs) for certs in passed_certs.values())}")
-print(f"Failed certificates: {sum(len(certs) for certs in failed_certs.values())}")
+total_passed = sum(len(certs) for certs in passed_certs_main.values()) + sum(len(certs) for certs in passed_certs_pressure.values())
+total_failed = sum(len(certs) for certs in failed_certs_main.values()) + sum(len(certs) for certs in failed_certs_pressure.values())
+print(f"Passed certificates: {total_passed}")
+print(f"Failed certificates: {total_failed}")
 
 # Write results to files
 with open('passed_certificates.txt', 'w') as f:
     f.write("Certificates that passed all checks:\n")
-    if not any(passed_certs.values()):
+    if not any(passed_certs_main.values()) and not any(passed_certs_pressure.values()):
         f.write("\nNo certificates passed all checks.\n")
     else:
-        for equipment_type, certs in passed_certs.items():
+        # Write main passed certificates
+        for equipment_type, certs in passed_certs_main.items():
+            if certs:
+                f.write(f"\nEquipment Type: {equipment_type}\n")
+                for cert in certs:
+                    f.write(f"{cert}\n")
+        # Write pressure passed certificates
+        for equipment_type, certs in passed_certs_pressure.items():
             if certs:
                 f.write(f"\nEquipment Type: {equipment_type}\n")
                 for cert in certs:
@@ -302,10 +309,11 @@ with open('passed_certificates.txt', 'w') as f:
 
 with open('failed_certificates.txt', 'w') as f:
     f.write("Certificates that failed one or more checks:\n")
-    if not any(failed_certs.values()):
+    if not any(failed_certs_main.values()) and not any(failed_certs_pressure.values()):
         f.write("\nNo certificates failed any checks.\n")
     else:
-        for equipment_type, certs in failed_certs.items():
+        # Write main failed certificates
+        for equipment_type, certs in failed_certs_main.items():
             if certs:
                 f.write(f"\nEquipment Type: {equipment_type}\n")
                 for cert in certs:
@@ -322,5 +330,20 @@ with open('failed_certificates.txt', 'w') as f:
                             for error in group['Errors']:
                                 f.write(f"    Row {error['RowId']}: {error['Error']}\n")
                     f.write("\n")
+        # Write pressure failed certificates
+        for equipment_type, certs in failed_certs_pressure.items():
+            if certs:
+                f.write(f"\nEquipment Type: {equipment_type}\n")
+                for cert in certs:
+                    f.write(f"Certificate: {cert['CertNo']}\n")
+                    errors = cert['Errors']
+                    if errors.get("DatasheetErrors"):
+                        f.write("Datasheet Errors:\n")
+                        for group in errors["DatasheetErrors"]:
+                            f.write(f"  Group: {group['Group']}\n")
+                            for error in group['Errors']:
+                                f.write(f"    Row {error['RowId']}: {error['Error']}\n")
+                    f.write("\n")
 
 print(f"Results have been written to 'passed_certificates.txt' and 'failed_certificates.txt'")
+

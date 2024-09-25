@@ -6,6 +6,7 @@ import json
 import glob
 import requests
 
+
 def convert_to_psig(value, unit):
     """Converts a pressure value to psig based on the unit."""
     # Implement the actual conversion logic based on your requirements
@@ -13,7 +14,6 @@ def convert_to_psig(value, unit):
         'psi': 1,
         'psig': 1,
         'psia': lambda x: x - 14.7,  # Example adjustment for atmospheric pressure
-        # Add other units and their conversion logic
     }
     if unit in conversion_factors:
         factor = conversion_factors[unit]
@@ -25,7 +25,7 @@ def convert_to_psig(value, unit):
         raise ValueError(f"Unsupported unit: {unit}")
     
 def retrieve_pressure_data():
-    auth_url = "http://portal.phoenixcalibrationdr.com/api/auth/login"
+    auth_url = "http://calsystem-temp.azurewebsites.net/api/auth/login"
     auth_data = {
         "UserName": "calsystest@phoenixcalibrationdr.com",
         "Password": "Phoenix1234@+"
@@ -53,7 +53,7 @@ def retrieve_pressure_data():
         return None
 
     # Data retrieval endpoint
-    data_url = "http://portal.phoenixcalibrationdr.com/api/Calibration/GetCertificatesDataListByEquipmentType"
+    data_url = "http://calsystem-temp.azurewebsites.net/api/Calibration/GetCertificatesDataListByEquipmentType"
     headers = {'Authorization': f'Bearer {token}'}
     data_params = {
         "EquipmentType": "scales",
@@ -86,82 +86,282 @@ def retrieve_pressure_data():
         json.dump(data, file, indent=4)
     return data
 
+def is_valid_float(value):
+    try:
+        float(value)
+        return True
+    except (TypeError, ValueError):
+        return False
 
+# Function to convert units (implement as needed)
+def convert_to_psig(value, unit):
+    # Implement the actual conversion logic based on your requirements
+    conversion_factors = {
+        'psi': 1,
+        'psig': 1,
+        'psia': lambda x: x - 14.7,  # Example adjustment for atmospheric pressure
+        # Add other units and their conversion logic
+    }
+    if unit in conversion_factors:
+        factor = conversion_factors[unit]
+        if callable(factor):
+            return factor(value)
+        else:
+            return value * factor
+    else:
+        raise ValueError(f"Unsupported unit: {unit}")
+    
+def convert_to_grams(value, unit):
+    # Implement unit conversion logic as needed
+    unit = unit.lower()
+    if unit == 'g':
+        return value
+    elif unit == 'mg':
+        return value / 1000
+    elif unit == 'kg':
+        return value * 1000
+    elif unit == 'lb':
+        return value * 453.59237
+    else:
+        raise ValueError(f"Unsupported unit: {unit}")
+    
 def process_pressure_certificates():
+    # Exclusion list (if any)
+    exclusion_list = []
+
+    # Define the required directions and their corresponding group parts
+    split_directions = {
+        'UP': ['up', 'ascendente'],
+        'DOWN': ['down', 'dw', 'dn', 'descendente']
+    }
+
+    # Percentage thresholds (adjust as needed)
+    lower_percent_of_max_rep = 0.4
+    upper_percent_of_max_rep = 1.0
+    lower_percent_of_max_ecce = 0.4
+    upper_percent_of_max_ecce = 1.0
+
+
     list_of_all_json = glob.glob(os.path.join('pressure_input_jsons', '*.json'))
     if not list_of_all_json:
         print("No JSON files found in pressure_input_jsons directory.")
         return defaultdict(list), defaultdict(list)
-    json_data_list = json.load(open(list_of_all_json[0], 'r', encoding='utf-8'))
-    accreditation = json.load(open('pressurecert.json', 'r', encoding='utf-8'))
-    
+
+    # Load the certificate data
+    with open(list_of_all_json[0], 'r', encoding='utf-8') as f:
+        json_data_list = json.load(f)
+
     # Initialize dictionaries to store passed and failed certificates
     passed_certs = defaultdict(list)
     failed_certs = defaultdict(list)
-    
-    for i in json_data_list:
-        certno = i.get("CertNo", "Unknown CertNo")
-        equipment_type = i.get("EquipmentType", "Pressure")
-        print(f"CertNo: {certno}")
-        datasheets = i.get("Datasheet", [])
-    
-        for d in datasheets:
-            measurements = d.get("Measurements", [])
-    
-            for m in measurements:
-                # Implement your measurement processing and conversion logic here
-                # For example:
-                try:
-                    nominal_o = float(m.get("Nominal"))
-                    nominal_unit = m.get("Units").split(" ")[0]
-                    nominal = convert_to_psig(nominal_o, nominal_unit)
-                    
-                    measure_cert_o = float(m.get("MeasUncert"))
-                    measure_cert_unit = m.get("MeasUnit").split(" ")[0]
-                    measure_cert = convert_to_psig(measure_cert_o, measure_cert_unit)
-                except (TypeError, ValueError):
-                    continue 
-    
-                smallest_required_uncertainty = float('inf')
-                largest_uncertainty_range = None
-    
-                for range_info in accreditation["measurement_uncertainty"]:
-                    if range_info["range"][0] <= nominal <= range_info["range"][1]:
-                        variable_uncertainty = range_info.get("variable_uncertainty", 0)
-                        variable_uncertainty_unit = range_info.get("variable_uncertainty_unit", "")
-    
-                        if variable_uncertainty_unit == "%":
-                            variable_uncertainty = nominal * (float(variable_uncertainty)/100)
-                        elif variable_uncertainty_unit == "μpsig/psig":
-                            variable_uncertainty = float(variable_uncertainty) * nominal/10000
-    
-                        fixed_uncertainty = range_info["fixed_uncertainty"]
-                        required_uncertainty = fixed_uncertainty + variable_uncertainty
-    
-                        if required_uncertainty < smallest_required_uncertainty:
-                            smallest_required_uncertainty = round(required_uncertainty,7)
-                            largest_uncertainty_range = range_info["range"]
-    
-                if measure_cert <= smallest_required_uncertainty * 0.98:
-                    print(f"Failed: {measure_cert} {measure_cert_unit} <= {smallest_required_uncertainty} {nominal_unit}")
-                    
-                    # Add to failed_certs dictionary
-                    failed_certs[equipment_type].append({
-                        "CertNo": certno,
-                        "Errors": {
-                            "DatasheetErrors": [{
-                                "Group": d.get("Group", "Unknown Group"),
-                                "Errors": [{
-                                    "RowId": m.get("RowId", "Unknown RowId"),
-                                    "Error": f"Uncertainty too high: {measure_cert} <= {smallest_required_uncertainty}"
-                                }]
-                            }]
-                        }
-                    })
+
+    for json_data in json_data_list:
+        # Set equipment_type to "Pressure"
+        equipment_type = "Pressure"
+        dict_of_noms = {}
+        group_values = []
+        results = []
+        datasheets = json_data.get("Datasheet", [])
+        certno = json_data.get("CertNo", "Unknown CertNo")
+        equipment_type = json_data.get("EquipmentType", "Unknown")
+        asset_description = json_data.get("AssetDescription", "Unknown AssetDescription")
+        excluded = any(keyword in asset_description.lower() for keyword in exclusion_list)
+
+        print(f"Processing CertNo: {certno}, Equipment Type: {equipment_type}")
+
+        std_present = False
+        nominal_std = 0
+        unitofnominal = 'g'
+
+        # Initialize total_measurements_up_dw before using it
+        total_measurements_up_dw = []
+
+        # Check for the presence of 'std' or 'desviación' groups
+        for datasheet in datasheets:
+            group = datasheet.get("Group", "Unknown Group")
+            group_values.append(group)
+
+            if 'std' in group.lower() or 'desviación' in group.lower():
+                std_present = True
+
+            if group.split(' ')[-1].lower() in ['weight', 'peso'] or 'rep' in group.lower():
+                measurements = datasheet.get("Measurements", [])
+                nominal_values = []
+                for i in measurements:
+                    nominal_str = i.get("Nominal")
+                    units = i.get("Units", 'g')
+                    if nominal_str not in [None, '', 'N/A'] and is_valid_float(nominal_str):
+                        nominal_value = float(nominal_str)
+                        converted_nominal = convert_to_grams(nominal_value, units)
+                        if converted_nominal is not None:
+                            nominal_values.append(converted_nominal)
+                        else:
+                            print(f"Skipping measurement with unsupported unit '{units}' in certificate '{certno}'.")
+
+                if nominal_values:
+                    max_nominal_std = max(nominal_values)
+                    nominal_std = max_nominal_std
+                    unitofnominal = measurements[0].get("Units", 'g') if measurements else 'g'
+                    dict_of_noms['Group - Repeatability'] = max_nominal_std
                 else:
-                    print(f"Passed: {measure_cert} {measure_cert_unit} > {smallest_required_uncertainty} {nominal_unit}")
-                    
-                    # Add to passed_certs dictionary
-                    passed_certs[equipment_type].append(certno)
-    
+                    max_nominal_std = 0
+                    nominal_std = 0
+                    dict_of_noms['Group - Repeatability'] = max_nominal_std
+                    print(f"No valid nominal values found in group '{group}' for certificate '{certno}'.")
+
+        # Check for missing directions
+        not_present = [direction for direction, parts in split_directions.items()
+                       if not any(part.lower() in element.lower() for part in parts for element in group_values)]
+
+        cert_passed = True  # Assume certificate passes unless an error is found
+        cert_errors = {
+            "DatasheetErrors": []
+        }
+
+        if not_present and not excluded:
+            error_message = f"Directions not present: {not_present}"
+            print(error_message)
+            cert_passed = False
+            cert_errors["DatasheetErrors"].append({
+                "Group": "General",
+                "Errors": [{
+                    "RowId": "N/A",
+                    "Error": error_message
+                }]
+            })
+
+        if not std_present and not excluded:
+            error_message = "No 'std' or 'desviación' group found"
+            print(error_message)
+            cert_passed = False
+            cert_errors["DatasheetErrors"].append({
+                "Group": "General",
+                "Errors": [{
+                    "RowId": "N/A",
+                    "Error": error_message
+                }]
+            })
+
+        # Now process datasheets again for other checks
+        for datasheet in datasheets:
+            group = datasheet.get("Group", "Unknown Group")
+            measurements = datasheet.get("Measurements", [])
+
+            if any(keyword in group.lower() for keyword in ['up', 'ascendente', 'down', 'dw', 'dn', 'descendente']):
+                total_measurements_up_dw.append(len(measurements))
+
+                # Update max_nominal calculation
+                nominal_values = []
+                for i in measurements:
+                    nominal_str = i.get("Nominal")
+                    units = i.get("Units", 'g')
+                    if nominal_str not in [None, '', 'N/A'] and is_valid_float(nominal_str):
+                        nominal_value = float(nominal_str)
+                        converted_nominal = convert_to_grams(nominal_value, units)
+                        if converted_nominal is not None:
+                            nominal_values.append(converted_nominal)
+                        else:
+                            print(f"Skipping measurement with unsupported unit '{units}' in certificate '{certno}'.")
+
+
+                if nominal_values:
+                    max_nominal = max(nominal_values)
+                    dict_of_noms['Weight - Linearity'] = max_nominal
+                else:
+                    max_nominal = 0
+                    dict_of_noms['Weight - Linearity'] = max_nominal
+                    print(f"No valid nominal values found in group '{group}' for certificate '{certno}'.")
+
+            elif group.split(' ')[-1].lower() not in ['weight', 'peso'] and 'rep' not in group.lower():
+                # Similar update for other groups
+                nominal_values = []
+                for i in measurements:
+                    nominal_str = i.get("Nominal")
+                    units = i.get("Units", 'g')
+                    if nominal_str not in [None, '', 'N/A'] and is_valid_float(nominal_str):
+                        nominal_value = float(nominal_str)
+                        converted_nominal = convert_to_grams(nominal_value, units)
+                        if converted_nominal is not None:
+                            nominal_values.append(converted_nominal)
+                        else:
+                            print(f"Skipping measurement with unsupported unit '{units}' in certificate '{certno}'.")
+
+
+                if nominal_values:
+                    max_nominal = max(nominal_values)
+                    dict_of_noms[group] = max_nominal
+                else:
+                    max_nominal = 0
+                    dict_of_noms[group] = max_nominal
+                    print(f"No valid nominal values found in group '{group}' for certificate '{certno}'.")
+
+            for measurement in measurements:
+                formatted_comment = measurement.get("FormattedComment", "")
+                if formatted_comment:
+                    comment_parts = formatted_comment.split('--')
+                    if len(comment_parts) > 1:
+                        comment_keyword = comment_parts[1]
+                        if comment_keyword.lower().replace(" ", "") not in group.lower().replace(" ", ""):
+                            error_message = f"RowId: {measurement.get('RowId')}: Formatted comment '{comment_keyword}' does not match the Group '{group}'"
+                            print(error_message)
+                            cert_passed = False
+                            cert_errors["DatasheetErrors"].append({
+                                "Group": group,
+                                "Errors": [{
+                                    "RowId": measurement.get("RowId", "Unknown RowId"),
+                                    "Error": error_message
+                                }]
+                            })
+
+        if len(total_measurements_up_dw) > 1:
+            total_measures = sum(total_measurements_up_dw)
+            if total_measures < 9:
+                error_message = f"Number of measurements: {total_measures} is less than required 9"
+                print(error_message)
+                cert_passed = False
+                cert_errors["DatasheetErrors"].append({
+                    "Group": "General",
+                    "Errors": [{
+                        "RowId": "N/A",
+                        "Error": error_message
+                    }]
+                })
+
+        # Check nominal weights against thresholds
+        max_linearity = dict_of_noms.get('Weight - Linearity', 0)
+        for key, value in dict_of_noms.items():
+            if (key.split(' ')[-1].lower() in ['weight', 'peso'] or 'rep' in key.lower()) and not excluded:
+                if max_linearity == 0:
+                    error_message = f"Max linearity is zero, cannot compute percentage thresholds for {key}"
+                    print(error_message)
+                    cert_passed = False
+                    cert_errors["DatasheetErrors"].append({
+                        "Group": key,
+                        "Errors": [{
+                            "RowId": "N/A",
+                            "Error": error_message
+                        }]
+                    })
+                elif not (lower_percent_of_max_rep * max_linearity <= value <= max_linearity * upper_percent_of_max_rep):
+                    error_message = f"{key} with a maximum value of {value}g is not within {round(lower_percent_of_max_rep*100,1)}% to {round(upper_percent_of_max_rep*100)}% of max linearity {max_linearity}g"
+                    print(error_message)
+                    cert_passed = False
+                    cert_errors["DatasheetErrors"].append({
+                        "Group": key,
+                        "Errors": [{
+                            "RowId": "N/A",
+                            "Error": error_message
+                        }]
+                    })
+
+        if cert_passed:
+            passed_certs[equipment_type].append(certno)
+            print(f"Certificate {certno} passed all checks.")
+        else:
+            failed_certs[equipment_type].append({
+                "CertNo": certno,
+                "Errors": cert_errors
+            })
+            print(f"Certificate {certno} failed checks.")
+
     return passed_certs, failed_certs

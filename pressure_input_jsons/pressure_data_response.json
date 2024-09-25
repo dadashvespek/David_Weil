@@ -17,10 +17,17 @@
             "#CalibrationReqs.:Temperatura ambiental en celcius.",
             "#CalibrationReqs.:#CalibrationReqs: TUR Requerido: 4:1"
         ],
+        "EquipmentLocation": "Produccion Solidos",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "Especificaciones dadas por el cliente|  TUR aprobado por Juan de la Cruz",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "22\u00b0C",
         "EnvironmentalRelativeHumidity": "38%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -661,10 +668,17 @@
         "CustomerRequirements": [
             "#Cert. Language: Spanish."
         ],
+        "EquipmentLocation": "Laboratorio",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "https://www.scalesgalore.com/M1/Intelligent-Weighing-Technology-PDA-5000-Laboratory-Precision-Balance-5000-x-01-g-px58027.cfm?srsltid=AfmBOopoqpUdrD1HgjNtxR7Ba2wNwWuqyLlLogGLpaCRciJEyLXv_J5W",
         "LastQuotedPrice": 0.0,
         "EnvironmentalTemperature": "77\u00b0F",
         "EnvironmentalRelativeHumidity": "56%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -1241,10 +1255,17 @@
             "#LastMonthdayduedate:aplica.",
             "#CalibrationReqs: Cliente indica los equipos y puntos que deben ser calibrados en un listado mensual."
         ],
+        "EquipmentLocation": "Envasado LL",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 46.0,
         "EnvironmentalTemperature": "78\u00b0F",
         "EnvironmentalRelativeHumidity": "69%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -1949,14 +1970,151 @@
         ]
     },
     {
+        "IsAccredited": false,
+        "CustomerRequirements": [
+            "#CalibrationReqs: Todos sus equipos son acreditados a excepci\u00f3n de las balanzas."
+        ],
+        "EquipmentLocation": "Proceso",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
+        "LastQuotedPrice": 32.5,
+        "EnvironmentalTemperature": "70\u00b0F",
+        "EnvironmentalRelativeHumidity": "48%RH",
+        "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
+        "Procedures": [
+            "DR-WI-0126"
+        ],
+        "Standards": [
+            {
+                "IdInst": "5946",
+                "Description": "Weight Set (1-13) 25 kg ",
+                "SerialNo": "1-12",
+                "CalDate": "08/29/2024",
+                "DueDate": "09/30/2024"
+            }
+        ],
+        "CertNo": "C377642",
+        "CustomerCode": "CDR00888",
+        "EquipmentType": "Scales & Balances",
+        "AssetDescription": "Digital Scale",
+        "Manufacturer": "Mettler Toledo",
+        "Model": "IND226",
+        "OperatingRange": "0 to 100 kg",
+        "AccreditationInfo": "This calibration is traceable to the International System of Units (SI), through National Metrology Institutes (NIST, PTB, NRC, NPL, etc.), ratiometric techniques, or natural physical constants. Results contained in this document relate only to the items tested or calibrated. Statements of Conformity performed according to Reference Standard, Calibration Procedure, or Customer where indicated. The due dates that may appear on this certificate do not imply continuous conformity to the specification. This certificate shall not be reproduced except in full and with the written consent of Phoenix Calibration. The statement of conformity is based on simple acceptance, whether the calibration result is within or outside the manufacturer\u2019s specification/acceptance limits, with the TUR expressed on the datasheet. It is the responsibility of the end user to determine if it is appropriate for your specific application. Pass: Results within limits. Fail: Results exceed limits. ",
+        "Remarks": "Performed the routine of calibration,  all evaluated parameters were found in Tolerance. The result is Passed.",
+        "Datasheet": [
+            {
+                "Group": "Weight - Linearity Up",
+                "Measurements": [
+                    {
+                        "RowId": 1,
+                        "Units": "kg",
+                        "MaximumPermissibleError": "0.01",
+                        "Nominal": "0.00",
+                        "LowLimit": "-0.01",
+                        "HighLimit": "0.01",
+                        "AsFound": "0.00",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "**",
+                        "MeasUnit": "kg",
+                        "MeasParameter": "Weight",
+                        "MeasSubParameter": "",
+                        "TUR": "",
+                        "IsVisible": true,
+                        "FormattedComment": ""
+                    },
+                    {
+                        "RowId": 2,
+                        "Units": "kg",
+                        "MaximumPermissibleError": "0.01",
+                        "Nominal": "25.00",
+                        "LowLimit": "24.99",
+                        "HighLimit": "25.01",
+                        "AsFound": "25.00",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "**",
+                        "MeasUnit": "kg",
+                        "MeasParameter": "Weight",
+                        "MeasSubParameter": "",
+                        "TUR": "",
+                        "IsVisible": true,
+                        "FormattedComment": ""
+                    },
+                    {
+                        "RowId": 3,
+                        "Units": "kg",
+                        "MaximumPermissibleError": "0.01",
+                        "Nominal": "50.00",
+                        "LowLimit": "49.99",
+                        "HighLimit": "50.01",
+                        "AsFound": "50.00",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "**",
+                        "MeasUnit": "kg",
+                        "MeasParameter": "Weight",
+                        "MeasSubParameter": "",
+                        "TUR": "",
+                        "IsVisible": true,
+                        "FormattedComment": ""
+                    },
+                    {
+                        "RowId": 4,
+                        "Units": "kg",
+                        "MaximumPermissibleError": "0.01",
+                        "Nominal": "75.00",
+                        "LowLimit": "74.99",
+                        "HighLimit": "75.01",
+                        "AsFound": "75.00",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "**",
+                        "MeasUnit": "kg",
+                        "MeasParameter": "Weight",
+                        "MeasSubParameter": "",
+                        "TUR": "",
+                        "IsVisible": true,
+                        "FormattedComment": ""
+                    },
+                    {
+                        "RowId": 5,
+                        "Units": "kg",
+                        "MaximumPermissibleError": "0.01",
+                        "Nominal": "100.00",
+                        "LowLimit": "99.99",
+                        "HighLimit": "100.01",
+                        "AsFound": "100.00",
+                        "AfterAdjustment": "",
+                        "MeasUncert": "**",
+                        "MeasUnit": "kg",
+                        "MeasParameter": "Weight",
+                        "MeasSubParameter": "",
+                        "TUR": "",
+                        "IsVisible": true,
+                        "FormattedComment": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
         "IsAccredited": true,
         "CustomerRequirements": [
             "#Cert. Language: Spanish."
         ],
+        "EquipmentLocation": "Laboratorio",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "https://primeusascales.com/wp-content/uploads/2022/06/PC-A-PrecisionDecigramGram_DataSheet_2021.pdf",
         "LastQuotedPrice": 0.0,
         "EnvironmentalTemperature": "77\u00b0F",
         "EnvironmentalRelativeHumidity": "56%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -2530,10 +2688,17 @@
             "#Cert. Language: Spanish.",
             "Cliente env\u00eda especificaciones (Verificar correo) "
         ],
+        "EquipmentLocation": "Laboratorio",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "77\u00b0F",
         "EnvironmentalRelativeHumidity": "59%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -3209,10 +3374,17 @@
             "#Cert. Language: Spanish.",
             "#CalibrationReqs.: Cliente indica frecuencia de calibracion, consultar en los correos M.T 9/4/2021"
         ],
+        "EquipmentLocation": "Wafer",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "La balanza # RG00EAR995 ya no existe.",
         "LastQuotedPrice": 265.0,
         "EnvironmentalTemperature": "86\u00b0F",
         "EnvironmentalRelativeHumidity": "41%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -3679,10 +3851,17 @@
             "Solo se permite Double Check de Standards Coordinator, Technical Supervisor o Lab Manager",
             "Todas las CALIBRACIONES deben tener Instructivo de Calibracion"
         ],
+        "EquipmentLocation": "MVD Lab",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "20\u00b0C",
         "EnvironmentalRelativeHumidity": "54%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -4659,10 +4838,17 @@
     {
         "IsAccredited": true,
         "CustomerRequirements": [],
+        "EquipmentLocation": "Solidos",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "72\u00b0F",
         "EnvironmentalRelativeHumidity": "54%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -5371,10 +5557,17 @@
         "CustomerRequirements": [
             "#CalibrationReqs: Todos sus equipos son acreditados a excepci\u00f3n de las balanzas."
         ],
+        "EquipmentLocation": "IDM",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 32.5,
         "EnvironmentalTemperature": "70\u00b0F",
         "EnvironmentalRelativeHumidity": "56%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -5529,10 +5722,17 @@
             "#Cert. Language: Spanish.",
             "Cliente env\u00eda especificaciones (Verificar correo) "
         ],
+        "EquipmentLocation": "Bodega de empaque de harina",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "85\u00b0F",
         "EnvironmentalRelativeHumidity": "60%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -6214,10 +6414,17 @@
         "CustomerRequirements": [
             "#CalibrationReqs: Todos sus equipos son acreditados a excepci\u00f3n de las balanzas."
         ],
+        "EquipmentLocation": "Planta Sales (Procesos)",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "El equipo fue ajustado, se encuentra trabajando en buen estado.",
         "LastQuotedPrice": 32.5,
         "EnvironmentalTemperature": "71\u00b0F",
         "EnvironmentalRelativeHumidity": "52%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -6338,10 +6545,17 @@
             "#Cert.Language: espa\u00f1ol.",
             "#CalibrationReqs.:Todos sus equipos son acreditados a excepci\u00f3n de las balanzas. AR 08-31-2021"
         ],
+        "EquipmentLocation": "N/D",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 32.5,
         "EnvironmentalTemperature": "71\u00b0F",
         "EnvironmentalRelativeHumidity": "57%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -6478,10 +6692,17 @@
         "CustomerRequirements": [
             "#CalibrationReqs: Todos sus equipos son acreditados a excepci\u00f3n de las balanzas."
         ],
+        "EquipmentLocation": "Laboratorio Planta jugos",
+        "CalibrationStatus": "Draft",
+        "QualityComment": "",
         "LastQuotedPrice": 32.5,
         "EnvironmentalTemperature": "78\u00b0F",
         "EnvironmentalRelativeHumidity": "42%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -6603,10 +6824,17 @@
             "Solo se permite Double Check de Standards Coordinator, Technical Supervisor o Lab Manager",
             "Todas las CALIBRACIONES deben tener Instructivo de Calibracion"
         ],
+        "EquipmentLocation": "MVD Lab",
+        "CalibrationStatus": "Draft",
+        "QualityComment": "",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "68.2\u00b0F",
         "EnvironmentalRelativeHumidity": "58%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -7439,10 +7667,17 @@
             "#Cert. Language: Spanish.",
             "Cliente env\u00eda especificaciones (Verificar correo) "
         ],
+        "EquipmentLocation": "Empaque de harina 2do piso",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "TUR consulted by the customer.",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "83\u00b0F",
         "EnvironmentalRelativeHumidity": "60%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -8163,10 +8398,17 @@
         "CustomerRequirements": [
             "#Cert. Language: Spanish."
         ],
+        "EquipmentLocation": "N/D",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 0.0,
         "EnvironmentalTemperature": "19.8\u00b0C",
         "EnvironmentalRelativeHumidity": "55%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -8824,10 +9066,17 @@
         "CustomerRequirements": [
             "#InvoicingReqs.: Cliente solo para facturar. No sincronizar calibraciones aqu\u00ed."
         ],
+        "EquipmentLocation": "Trims",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "Tolerancia consultada con el cliente.",
         "LastQuotedPrice": 0.0,
         "EnvironmentalTemperature": "81\u00b0F",
         "EnvironmentalRelativeHumidity": "57%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -9417,10 +9666,17 @@
         "CustomerRequirements": [
             "#Cert. Language: Spanish."
         ],
+        "EquipmentLocation": "N/D",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 0.0,
         "EnvironmentalTemperature": "19.8\u00b0C",
         "EnvironmentalRelativeHumidity": "55%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -10112,10 +10368,17 @@
         "CustomerRequirements": [
             "#Cert. Language: Spanish."
         ],
+        "EquipmentLocation": "Laboratory",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "https://www.adamequipment.com/media/docs/Print%20Publications/Manuals/CKT-CKT-M_UM_EN.pdf",
         "LastQuotedPrice": 0.0,
         "EnvironmentalTemperature": "77\u00b0F",
         "EnvironmentalRelativeHumidity": "54%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -10735,10 +10998,17 @@
             "#Cert. Language: Spanish.",
             "Cliente env\u00eda especificaciones (Verificar correo) "
         ],
+        "EquipmentLocation": "Panader\u00eda",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "https://us.ohaus.com/en-US/Products/Balances-Scales/Portable-Balances/Scout-SPX/SPX2201-AM",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "79\u00b0F",
         "EnvironmentalRelativeHumidity": "60%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -11435,10 +11705,17 @@
         "CustomerRequirements": [
             "#CalibrationReqs: Todos sus equipos son acreditados a excepci\u00f3n de las balanzas."
         ],
+        "EquipmentLocation": "Investigaci\u00f3n y Desarollo",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 32.5,
         "EnvironmentalTemperature": "70\u00b0F",
         "EnvironmentalRelativeHumidity": "59%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -11576,10 +11853,17 @@
             "#Cert. Language: Spanish.",
             "Cliente env\u00eda especificaciones (Verificar correo) "
         ],
+        "EquipmentLocation": "Panaderia ",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "81\u00b0F",
         "EnvironmentalRelativeHumidity": "50%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -12274,10 +12558,17 @@
             "#CalibrationReqs.:Temperatura ambiental en celcius.",
             "#CalibrationReqs.:#CalibrationReqs: TUR Requerido: 4:1"
         ],
+        "EquipmentLocation": "Volumetr\u00eda (GC-007)",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "El cliente opto por calibrar hasta 200 g, balanza queda limitada, tolerancia dada por el cliente. TUR aprobado por el cliente. Puntos extras solicitados por el cliente.",
         "LastQuotedPrice": 95.0,
         "EnvironmentalTemperature": "68\u00b0F",
         "EnvironmentalRelativeHumidity": "46%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -12953,10 +13244,17 @@
             "#Cert. Language: Spanish.",
             "Cliente env\u00eda especificaciones (Verificar correo) "
         ],
+        "EquipmentLocation": "Almacen de materia prima aditivos",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "TUR consulted by the customer.",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "78\u00b0F",
         "EnvironmentalRelativeHumidity": "60%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -13639,10 +13937,17 @@
             "#Cert. Language: Spanish.",
             "Cliente env\u00eda especificaciones (Verificar correo) "
         ],
+        "EquipmentLocation": "Molinos 2do Nivel",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "Tolerance consulted by the customer.",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "85\u00b0F",
         "EnvironmentalRelativeHumidity": "60%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -14352,10 +14657,17 @@
             "#Cert. Language: Spanish.",
             "Cliente env\u00eda especificaciones (Verificar correo) "
         ],
+        "EquipmentLocation": "Laboratorio",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "TUR consulted by the customer.",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "79\u00b0F",
         "EnvironmentalRelativeHumidity": "56%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],
@@ -15030,10 +15342,17 @@
         "CustomerRequirements": [
             "#CollectionReqs.:cliente cambio a DR 8/6/2013. Z.P\u00e9rez"
         ],
+        "EquipmentLocation": "Almacen de aflecho",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "Terminal e=d",
         "LastQuotedPrice": 65.0,
         "EnvironmentalTemperature": "68\u00b0F",
         "EnvironmentalRelativeHumidity": "52%RH",
         "EnvironmentalBarometricPressure": "",
+        "TemplateUsed": "Not Template Use",
+        "TemplateUsedStatus": "Not Edited",
+        "UsedPipetteModule": false,
+        "AttachmentTypesUsed": [],
         "Procedures": [
             "DR-WI-0126"
         ],

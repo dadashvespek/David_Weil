@@ -86,3 +86,10 @@ C376349
 
 Equipment Type: Digital Multimeter
 C373082
+
+Equipment Type: Scales & Balances
+C377503
+C377438
+C371266
+C377542
+C374315

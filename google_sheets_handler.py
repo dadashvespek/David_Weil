@@ -5,7 +5,7 @@ from datetime import datetime
 
 def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure, user_email, sheet_name="QA Bot Results"):
     # Authorization
-    gc = pygsheets.authorize(service_file='future-datum-432413-b9-41e0f202bcba.json')
+    gc = pygsheets.authorize(service_file='future-datum-432413-b9-ac007fce6dab.json')
 
     # Sheet name
     sheet_name = 'QA Bot Results'

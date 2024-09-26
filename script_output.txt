@@ -1865,8 +1865,3 @@ Shared sheet with zakirzhangozin@gmail.com
 Results have been sent to Google Sheets successfully.
 Sheet URL: https://docs.google.com/spreadsheets/d/1_ExYBvkxhFVpOXXL8-0uC4scSGNxFGA3pPLripKonJA
 You can access the Google Sheet at: https://docs.google.com/spreadsheets/d/1_ExYBvkxhFVpOXXL8-0uC4scSGNxFGA3pPLripKonJA
-
-Summary:
-Passed certificates: 70
-Failed certificates: 80
-Results have been written to 'passed_certificates.txt' and 'failed_certificates.txt'

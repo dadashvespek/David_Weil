@@ -298,6 +298,10 @@ all_data = local_retrieve_data()
 # Process the JSON data
 passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure = main(all_data)
 
+# Reset stdout to default
+sys.stdout.close()
+sys.stdout = sys.__stdout__
+
 print("\nSummary:")
 total_passed = sum(len(certs) for certs in passed_certs_main.values()) + sum(len(certs) for certs in passed_certs_pressure.values())
 total_failed = sum(len(certs) for certs in failed_certs_main.values()) + sum(len(certs) for certs in failed_certs_pressure.values())
@@ -362,7 +366,3 @@ with open('failed_certificates.txt', 'w') as f:
                     f.write("\n")
 
 print(f"Results have been written to 'passed_certificates.txt' and 'failed_certificates.txt'")
-
-# Reset stdout to default
-sys.stdout.close()
-sys.stdout = sys.__stdout__

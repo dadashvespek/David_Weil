@@ -1,7 +1,137 @@
 Certificates that failed one or more checks:
 
+Equipment Type: Infrared Thermometer
+Certificate: C377697
+
+Certificate: C377706
+
+Certificate: C377710
+
+Certificate: C377733
+
+Certificate: C377752
+
+
 Equipment Type: Datalogger
-Certificate: C376391
+Certificate: C377820
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377655
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
+
+Certificate: C377822
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377658
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
+
+Certificate: C377659
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
+
+Certificate: C377824
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377660
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
+
+Certificate: C377825
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
 Certificate: C374386
 Datasheet Errors:
@@ -18,7 +148,215 @@ Datasheet Errors:
     Row 9: Low TUR: 2.1:1
     Row 10: Low TUR: 3.3:1
 
-Certificate: C376392
+Certificate: C377826
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377827
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377828
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377829
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377830
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377831
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377832
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377833
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377835
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377836
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377837
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377838
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377839
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377661
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
 
 Certificate: C375519
 Datasheet Errors:
@@ -35,63 +373,293 @@ Datasheet Errors:
     Row 4: Low TUR: 2:1
     Row 5: Low TUR: 2:1
 
-Certificate: C374990
+Certificate: C377664
 Datasheet Errors:
   Group: Humedad Relativa
-    Row 1: Low TUR: 1.9:1
-    Row 2: Low TUR: 1.9:1
-    Row 3: Low TUR: 1.9:1
-    Row 4: Low TUR: 1.9:1
-    Row 5: Low TUR: 1.9:1
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
   Group: Temperatura - Medición
-    Row 6: Low TUR: 2.1:1
-    Row 7: Low TUR: 2.1:1
-    Row 8: Low TUR: 2.1:1
-    Row 9: Low TUR: 2.1:1
-    Row 10: Low TUR: 3.3:1
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
 
-Certificate: C376391
+Certificate: C377840
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376392
+Certificate: C377665
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
 
+Certificate: C377842
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Equipment Type: Thermohygrometer
-Certificate: C376393
+Certificate: C377666
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
 
-Certificate: C376394
+Certificate: C377843
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376389
+Certificate: C377844
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376395
+Certificate: C377845
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376396
+Certificate: C377846
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376397
+Certificate: C377847
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376398
+Certificate: C377667
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
 
-Certificate: C376393
+Certificate: C377848
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376394
+Certificate: C377849
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376389
+Certificate: C377850
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376395
+Certificate: C377668
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 2.0:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2:1
+    Row 2: Low TUR: 2:1
+    Row 3: Low TUR: 2:1
+    Row 4: Low TUR: 2:1
+    Row 5: Low TUR: 2:1
 
-Certificate: C376396
+Certificate: C377851
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376397
+Certificate: C377852
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
-Certificate: C376398
+Certificate: C377853
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
+
+Certificate: C377854
+Datasheet Errors:
+  Group: Humedad Relativa
+    Row 6: Low TUR: 1.9:1
+    Row 7: Low TUR: 1.9:1
+    Row 8: Low TUR: 1.9:1
+    Row 9: Low TUR: 1.9:1
+    Row 10: Low TUR: 1.9:1
+  Group: Temperatura - Medición
+    Row 1: Low TUR: 2.1:1
+    Row 2: Low TUR: 2.1:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 2.1:1
+    Row 5: Low TUR: 3.3:1
 
 
 Equipment Type: Scales & Balances
-Certificate: C376184
-Front Page Errors: EnvironmentalConditions
-
-Certificate: C376186
-Front Page Errors: EnvironmentalConditions
-
 Certificate: C375990
 Datasheet Errors:
   Group: Peso - Linealidad Ascendente
@@ -110,37 +678,40 @@ Datasheet Errors:
     Row 13: Low TUR: 3.4:1
     Row 14: Low TUR: 3.4:1
 
-Certificate: C376329
-Front Page Errors: AccreditationInfo
-
-
-Equipment Type: Process Calibrator
-Certificate: C374151
+Certificate: C377431
 Front Page Errors: OperatingRange
 
+Certificate: C377435
+Front Page Errors: OperatingRange
 
-Equipment Type: Sound Level Meter
-Certificate: C371214
-Front Page Errors: AccreditationInfo
+Certificate: C377440
+Front Page Errors: OperatingRange
+
+Certificate: C373720
+Datasheet Errors:
+  Group: Peso - Linealidad Ascendente
+    Row 2: Low TUR: 3.3:1
+    Row 3: Low TUR: 2.1:1
+    Row 4: Low TUR: 1.1:1
+    Row 5: Low TUR: 0.8:1
+    Row 6: Low TUR: 0.3:1
+    Row 7: Low TUR: 0.3:1
+    Row 8: Low TUR: 0.2:1
+    Row 9: Low TUR: 0.2:1
+  Group: Peso - Linealidad Descendente
+    Row 10: Low TUR: 0.2:1
+    Row 11: Low TUR: 0.3:1
+    Row 12: Low TUR: 0.3:1
+    Row 13: Low TUR: 0.8:1
+    Row 14: Low TUR: 1.1:1
+    Row 15: Low TUR: 2.1:1
+    Row 16: Low TUR: 3.3:1
 
 
-Equipment Type: Clamp Meter
-Certificate: C375693
-
-Certificate: C375588
-
-Certificate: C376010
-
-Certificate: C375589
-
-
-Equipment Type: Insulation Tester
-Certificate: C375930
-Front Page Errors: AccreditationInfo
-
-
-Equipment Type: Pressure Calibrator
-Certificate: C373975
+Equipment Type: Unknown
+Certificate: Unknown
+Front Page Errors: CertNo, CustomerCode, EquipmentType, AssetDescription, Manufacturer, Model, OperatingRange, AccreditationInfo, EnvironmentalConditions
+Additional Fields Errors: CalDate, DueDate
 
 
 Equipment Type: Scales & Balances

@@ -1,9 +1,15 @@
 import json
 import os
 import re
+import traceback
 from collections import defaultdict
+from data_retriever import retrieve_data
 from google_sheets_handler import send_results_to_sheets
 from pressure_cert_processor import retrieve_pressure_data, process_pressure_certificates
+import sys
+
+# Redirect stdout to a file
+sys.stdout = open('script_output.txt', 'w')
 
 def parse_numeric_value(value):
     if isinstance(value, (int, float)):
@@ -145,7 +151,8 @@ def check_certificate(cert_data):
     formatted_errors = format_errors(results, cert_data, is_template_cert)
     return results, formatted_errors
 
-def retrieve_data():
+def local_retrieve_data():
+    retrieve_data()
     all_data = []
     input_dir = './inputjson'
     file_patterns = [
@@ -177,6 +184,10 @@ def format_errors(result, cert_data, is_template_cert):
         "DatasheetErrors": [],
         "TemplateStatusError": None
     }
+
+    print(f"\nFormatting errors for certificate: {cert_data.get('CertNo', 'Unknown')}")
+    print(f"Result: {result}")
+    print(f"Is Template Cert: {is_template_cert}")
 
     # Process front page errors
     if not result["front_page_complete"][0]:
@@ -214,11 +225,15 @@ def format_errors(result, cert_data, is_template_cert):
     if not result["environmental_conditions"]:
         formatted_errors["FrontPageErrors"].append("EnvironmentalConditions")
 
-    # Add template status error only if UseTemplate is True
-    if cert_data.get("UseTemplate") == "True" and not result["template_status"]:
+    # Corrected template status error condition
+    if is_template_cert and not result["template_status"]:
         formatted_errors["TemplateStatusError"] = "Template has been edited"
 
+    print(f"Formatted Errors: {formatted_errors}")
+
     return formatted_errors
+
+
 
 def main(all_data):
     passed_certs_main = defaultdict(list)
@@ -254,11 +269,12 @@ def main(all_data):
             except Exception as e:
                 cert_no = cert.get("CertNo", "Unknown")
                 equipment_type = cert.get("EquipmentType", "Unknown")
+                error_message = f"{str(e)}\n{traceback.format_exc()}"
                 failed_certs_main[equipment_type].append({
                     "CertNo": cert_no,
-                    "Errors": {"UnexpectedError": [str(e)]}
+                    "Errors": {"UnexpectedError": [error_message]}
                 })
-                print(f"Unexpected error processing certificate {cert_no}: {str(e)}")
+                print(f"Unexpected error processing certificate {cert_no}: {error_message}")
 
     # Process pressure certificates
     pressure_data = retrieve_pressure_data()
@@ -277,7 +293,7 @@ def main(all_data):
     return passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure
 
 # Retrieve data from local files
-all_data = retrieve_data()
+all_data = local_retrieve_data()
 
 # Process the JSON data
 passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure = main(all_data)
@@ -347,3 +363,6 @@ with open('failed_certificates.txt', 'w') as f:
 
 print(f"Results have been written to 'passed_certificates.txt' and 'failed_certificates.txt'")
 
+# Reset stdout to default
+sys.stdout.close()
+sys.stdout = sys.__stdout__

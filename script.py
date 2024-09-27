@@ -154,7 +154,7 @@ def check_certificate(cert_data):
 def local_retrieve_data():
     retrieve_data()
     all_data = []
-    input_dir = './inputjson'
+    input_dir = './inputjson'  # Ensure this matches the directory in retrieve_data()
     file_patterns = [
         'data_response_IR Temp.json',
         'data_response_Ambient Temp_Hum.json',
@@ -176,6 +176,7 @@ def local_retrieve_data():
             print(f"Error: Invalid JSON in file '{file_path}'.")
 
     return all_data
+
 
 def format_errors(result, cert_data, is_template_cert):
     formatted_errors = {

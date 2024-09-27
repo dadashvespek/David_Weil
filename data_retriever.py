@@ -26,6 +26,12 @@ def retrieve_data():
         {"UseTemplate": "True"}
     ]
 
+    # Ensure the 'inputjson' directory exists
+    input_dir = './inputjson'
+    if not os.path.exists(input_dir):
+        os.makedirs(input_dir)
+
+    # Proceed with data retrieval
     for param in params:
         data_response = requests.post(data_url, headers=headers, json=param)
         data = data_response.json()
@@ -36,7 +42,7 @@ def retrieve_data():
             file_name = "data_response_UseTemplate_True.json"
         else:
             file_name = f"data_response_{param['EquipmentType'].replace('/', '_')}.json"
-        file_path = os.path.join("./inputjson", file_name)
+        file_path = os.path.join(input_dir, file_name)
         with open(file_path, "w") as file:
             json.dump(data, file, indent=4)
 

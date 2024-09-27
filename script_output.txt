@@ -1,9 +1,9 @@
 Successfully loaded data from data_response_IR Temp.json
 Number of certificates in data_response_IR Temp.json: 6
 Successfully loaded data from data_response_Ambient Temp_Hum.json
-Number of certificates in data_response_Ambient Temp_Hum.json: 67
+Number of certificates in data_response_Ambient Temp_Hum.json: 65
 Successfully loaded data from data_response_scales.json
-Number of certificates in data_response_scales.json: 35
+Number of certificates in data_response_scales.json: 31
 Successfully loaded data from data_response_UseTemplate_True.json
 Number of certificates in data_response_UseTemplate_True.json: 1
 
@@ -99,7 +99,7 @@ Is Template Cert: True
 Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': 'Template has been edited'}
 Certificate C377752 failed checks: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': 'Template has been edited'}
 
-Processing 67 certificates
+Processing 65 certificates
 
 Checking certificate: C377820
 Equipment Type: Datalogger
@@ -806,21 +806,6 @@ Is Template Cert: True
 Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [{'Group': 'Humedad Relativa', 'Errors': [{'RowId': 6, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 7, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 8, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 9, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 10, 'Error': 'Low TUR: 1.9:1'}]}, {'Group': 'Temperatura - Medición', 'Errors': [{'RowId': 1, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 2, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 3, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 4, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 5, 'Error': 'Low TUR: 3.3:1'}]}], 'TemplateStatusError': None}
 Certificate C377844 failed checks: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [{'Group': 'Humedad Relativa', 'Errors': [{'RowId': 6, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 7, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 8, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 9, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 10, 'Error': 'Low TUR: 1.9:1'}]}, {'Group': 'Temperatura - Medición', 'Errors': [{'RowId': 1, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 2, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 3, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 4, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 5, 'Error': 'Low TUR: 3.3:1'}]}], 'TemplateStatusError': None}
 
-Checking certificate: C376935
-Equipment Type: Thermohygrometer
-Environmental conditions check: True
-Front page check: True, Missing: []
-Accreditation check: True
-TUR check: True, Values: []
-Additional fields check: True, Missing: []
-Template status check: True
-
-Formatting errors for certificate: C376935
-Result: {'environmental_conditions': True, 'front_page_complete': (True, []), 'accreditation': True, 'tur': (True, []), 'additional_fields': (True, []), 'template_status': True}
-Is Template Cert: True
-Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': None}
-Certificate C376935 passed all checks
-
 Checking certificate: C377845
 Equipment Type: Datalogger
 Environmental conditions check: True
@@ -925,21 +910,6 @@ Result: {'environmental_conditions': True, 'front_page_complete': (True, []), 'a
 Is Template Cert: True
 Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [{'Group': 'Humedad Relativa', 'Errors': [{'RowId': 6, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 7, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 8, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 9, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 10, 'Error': 'Low TUR: 1.9:1'}]}, {'Group': 'Temperatura - Medición', 'Errors': [{'RowId': 1, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 2, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 3, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 4, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 5, 'Error': 'Low TUR: 3.3:1'}]}], 'TemplateStatusError': None}
 Certificate C377848 failed checks: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [{'Group': 'Humedad Relativa', 'Errors': [{'RowId': 6, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 7, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 8, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 9, 'Error': 'Low TUR: 1.9:1'}, {'RowId': 10, 'Error': 'Low TUR: 1.9:1'}]}, {'Group': 'Temperatura - Medición', 'Errors': [{'RowId': 1, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 2, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 3, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 4, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 5, 'Error': 'Low TUR: 3.3:1'}]}], 'TemplateStatusError': None}
-
-Checking certificate: C376936
-Equipment Type: Thermohygrometer
-Environmental conditions check: True
-Front page check: True, Missing: []
-Accreditation check: True
-TUR check: True, Values: []
-Additional fields check: True, Missing: []
-Template status check: True
-
-Formatting errors for certificate: C376936
-Result: {'environmental_conditions': True, 'front_page_complete': (True, []), 'accreditation': True, 'tur': (True, []), 'additional_fields': (True, []), 'template_status': True}
-Is Template Cert: True
-Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': None}
-Certificate C376936 passed all checks
 
 Checking certificate: C377849
 Equipment Type: Datalogger
@@ -1106,7 +1076,7 @@ Is Template Cert: True
 Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': None}
 Certificate C370223 passed all checks
 
-Processing 35 certificates
+Processing 31 certificates
 
 Checking certificate: C375990
 Equipment Type: Scales & Balances
@@ -1122,21 +1092,6 @@ Result: {'environmental_conditions': True, 'front_page_complete': (True, []), 'a
 Is Template Cert: True
 Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [{'Group': 'Peso - Linealidad Ascendente', 'Errors': [{'RowId': 2, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 3, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 4, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 5, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 6, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 7, 'Error': 'Low TUR: 3.3:1'}, {'RowId': 8, 'Error': 'Low TUR: 3.3:1'}]}, {'Group': 'Peso - Linnealidad Descendente', 'Errors': [{'RowId': 9, 'Error': 'Low TUR: 3.3:1'}, {'RowId': 10, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 11, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 12, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 13, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 14, 'Error': 'Low TUR: 3.4:1'}]}], 'TemplateStatusError': None}
 Certificate C375990 failed checks: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [{'Group': 'Peso - Linealidad Ascendente', 'Errors': [{'RowId': 2, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 3, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 4, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 5, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 6, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 7, 'Error': 'Low TUR: 3.3:1'}, {'RowId': 8, 'Error': 'Low TUR: 3.3:1'}]}, {'Group': 'Peso - Linnealidad Descendente', 'Errors': [{'RowId': 9, 'Error': 'Low TUR: 3.3:1'}, {'RowId': 10, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 11, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 12, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 13, 'Error': 'Low TUR: 3.4:1'}, {'RowId': 14, 'Error': 'Low TUR: 3.4:1'}]}], 'TemplateStatusError': None}
-
-Checking certificate: C377431
-Equipment Type: Scales & Balances
-Environmental conditions check: True
-Front page check: True, Missing: []
-Accreditation check: True
-TUR check: True, Values: []
-Additional fields check: True, Missing: []
-Template status check: True
-
-Formatting errors for certificate: C377431
-Result: {'environmental_conditions': True, 'front_page_complete': (True, []), 'accreditation': True, 'tur': (True, []), 'additional_fields': (True, []), 'template_status': True}
-Is Template Cert: True
-Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': None}
-Certificate C377431 passed all checks
 
 Checking certificate: C377871
 Equipment Type: Scales & Balances
@@ -1302,21 +1257,6 @@ Result: {'environmental_conditions': True, 'front_page_complete': (True, []), 'a
 Is Template Cert: True
 Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': None}
 Certificate C377949 passed all checks
-
-Checking certificate: C377023
-Equipment Type: Scales & Balances
-Environmental conditions check: True
-Front page check: True, Missing: []
-Accreditation check: True
-TUR check: True, Values: []
-Additional fields check: True, Missing: []
-Template status check: True
-
-Formatting errors for certificate: C377023
-Result: {'environmental_conditions': True, 'front_page_complete': (True, []), 'accreditation': True, 'tur': (True, []), 'additional_fields': (True, []), 'template_status': True}
-Is Template Cert: True
-Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': None}
-Certificate C377023 passed all checks
 
 Checking certificate: C377025
 Equipment Type: Scales & Balances
@@ -1543,21 +1483,6 @@ Is Template Cert: True
 Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': None}
 Certificate C377956 passed all checks
 
-Checking certificate: C377052
-Equipment Type: Scales & Balances
-Environmental conditions check: True
-Front page check: True, Missing: []
-Accreditation check: True
-TUR check: True, Values: []
-Additional fields check: True, Missing: []
-Template status check: True
-
-Formatting errors for certificate: C377052
-Result: {'environmental_conditions': True, 'front_page_complete': (True, []), 'accreditation': True, 'tur': (True, []), 'additional_fields': (True, []), 'template_status': True}
-Is Template Cert: True
-Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': None}
-Certificate C377052 passed all checks
-
 Checking certificate: C373720
 Equipment Type: Scales & Balances
 Environmental conditions check: True
@@ -1572,21 +1497,6 @@ Result: {'environmental_conditions': True, 'front_page_complete': (True, []), 'a
 Is Template Cert: True
 Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [{'Group': 'Peso - Linealidad Ascendente', 'Errors': [{'RowId': 2, 'Error': 'Low TUR: 3.3:1'}, {'RowId': 3, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 4, 'Error': 'Low TUR: 1.1:1'}, {'RowId': 5, 'Error': 'Low TUR: 0.8:1'}, {'RowId': 6, 'Error': 'Low TUR: 0.3:1'}, {'RowId': 7, 'Error': 'Low TUR: 0.3:1'}, {'RowId': 8, 'Error': 'Low TUR: 0.2:1'}, {'RowId': 9, 'Error': 'Low TUR: 0.2:1'}]}, {'Group': 'Peso - Linealidad Descendente', 'Errors': [{'RowId': 10, 'Error': 'Low TUR: 0.2:1'}, {'RowId': 11, 'Error': 'Low TUR: 0.3:1'}, {'RowId': 12, 'Error': 'Low TUR: 0.3:1'}, {'RowId': 13, 'Error': 'Low TUR: 0.8:1'}, {'RowId': 14, 'Error': 'Low TUR: 1.1:1'}, {'RowId': 15, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 16, 'Error': 'Low TUR: 3.3:1'}]}], 'TemplateStatusError': None}
 Certificate C373720 failed checks: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [{'Group': 'Peso - Linealidad Ascendente', 'Errors': [{'RowId': 2, 'Error': 'Low TUR: 3.3:1'}, {'RowId': 3, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 4, 'Error': 'Low TUR: 1.1:1'}, {'RowId': 5, 'Error': 'Low TUR: 0.8:1'}, {'RowId': 6, 'Error': 'Low TUR: 0.3:1'}, {'RowId': 7, 'Error': 'Low TUR: 0.3:1'}, {'RowId': 8, 'Error': 'Low TUR: 0.2:1'}, {'RowId': 9, 'Error': 'Low TUR: 0.2:1'}]}, {'Group': 'Peso - Linealidad Descendente', 'Errors': [{'RowId': 10, 'Error': 'Low TUR: 0.2:1'}, {'RowId': 11, 'Error': 'Low TUR: 0.3:1'}, {'RowId': 12, 'Error': 'Low TUR: 0.3:1'}, {'RowId': 13, 'Error': 'Low TUR: 0.8:1'}, {'RowId': 14, 'Error': 'Low TUR: 1.1:1'}, {'RowId': 15, 'Error': 'Low TUR: 2.1:1'}, {'RowId': 16, 'Error': 'Low TUR: 3.3:1'}]}], 'TemplateStatusError': None}
-
-Checking certificate: C377058
-Equipment Type: Scales & Balances
-Environmental conditions check: True
-Front page check: True, Missing: []
-Accreditation check: True
-TUR check: True, Values: []
-Additional fields check: True, Missing: []
-Template status check: True
-
-Formatting errors for certificate: C377058
-Result: {'environmental_conditions': True, 'front_page_complete': (True, []), 'accreditation': True, 'tur': (True, []), 'additional_fields': (True, []), 'template_status': True}
-Is Template Cert: True
-Formatted Errors: {'FrontPageErrors': [], 'AdditionalFieldsErrors': [], 'DatasheetErrors': [], 'TemplateStatusError': None}
-Certificate C377058 passed all checks
 
 Checking certificate: C377761
 Equipment Type: Scales & Balances
@@ -1648,133 +1558,116 @@ Result: {'environmental_conditions': False, 'front_page_complete': (False, ['Cer
 Is Template Cert: False
 Formatted Errors: {'FrontPageErrors': ['CertNo', 'CustomerCode', 'EquipmentType', 'AssetDescription', 'Manufacturer', 'Model', 'OperatingRange', 'AccreditationInfo', 'EquipmentLocation', 'EnvironmentalConditions'], 'AdditionalFieldsErrors': ['CalDate', 'DueDate'], 'DatasheetErrors': [], 'TemplateStatusError': None}
 Certificate Unknown failed checks: {'FrontPageErrors': ['CertNo', 'CustomerCode', 'EquipmentType', 'AssetDescription', 'Manufacturer', 'Model', 'OperatingRange', 'AccreditationInfo', 'EquipmentLocation', 'EnvironmentalConditions'], 'AdditionalFieldsErrors': ['CalDate', 'DueDate'], 'DatasheetErrors': [], 'TemplateStatusError': None}
-Processing CertNo: C375990, Equipment Type: Scales & Balances
+Processing CertNo: C375990, Equipment Type: Pressure
 RowId: 33: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
 No valid nominal values found in group 'Peso - Excentricidad' for certificate 'C375990'.
 RowId: 32: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 Certificate C375990 failed checks.
-Processing CertNo: C377431, Equipment Type: Scales & Balances
-RowId: 29: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-No valid nominal values found in group 'Peso - Excentricidad' for certificate 'C377431'.
-RowId: 28: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
-Certificate C377431 failed checks.
-Processing CertNo: C377871, Equipment Type: Scales & Balances
+Processing CertNo: C377871, Equipment Type: Pressure
 RowId: 36: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
 RowId: 37: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 Certificate C377871 failed checks.
-Processing CertNo: C377855, Equipment Type: Scales & Balances
+Processing CertNo: C377855, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377855'.
 Certificate C377855 passed all checks.
-Processing CertNo: C377856, Equipment Type: Scales & Balances
+Processing CertNo: C377856, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377856'.
 Certificate C377856 passed all checks.
-Processing CertNo: C377642, Equipment Type: Scales & Balances
+Processing CertNo: C377642, Equipment Type: Pressure
 Directions not present: ['DOWN']
 No 'std' or 'desviación' group found
 Certificate C377642 failed checks.
-Processing CertNo: C377773, Equipment Type: Scales & Balances
+Processing CertNo: C377773, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377773'.
 Certificate C377773 passed all checks.
-Processing CertNo: C377857, Equipment Type: Scales & Balances
+Processing CertNo: C377857, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377857'.
 Certificate C377857 passed all checks.
-Processing CertNo: C377960, Equipment Type: Scales & Balances
+Processing CertNo: C377960, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377960'.
 Certificate C377960 passed all checks.
-Processing CertNo: C377947, Equipment Type: Scales & Balances
+Processing CertNo: C377947, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377947'.
 Certificate C377947 passed all checks.
-Processing CertNo: C377629, Equipment Type: Scales & Balances
+Processing CertNo: C377629, Equipment Type: Pressure
 RowId: 24: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
 Certificate C377629 failed checks.
-Processing CertNo: C375257, Equipment Type: Scales & Balances
+Processing CertNo: C375257, Equipment Type: Pressure
 No valid nominal values found in group '2.Software - Version' for certificate 'C375257'.
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C375257'.
 Group - Repeatability with a maximum value of 0.200002g is not within 40.0% to 100% of max linearity 200.0g
 Certificate C375257 failed checks.
-Processing CertNo: C377949, Equipment Type: Scales & Balances
+Processing CertNo: C377949, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377949'.
 Certificate C377949 passed all checks.
-Processing CertNo: C377023, Equipment Type: Scales & Balances
-Directions not present: ['DOWN']
-No 'std' or 'desviación' group found
-Certificate C377023 failed checks.
-Processing CertNo: C377025, Equipment Type: Scales & Balances
+Processing CertNo: C377025, Equipment Type: Pressure
 Directions not present: ['DOWN']
 No 'std' or 'desviación' group found
 Certificate C377025 failed checks.
-Processing CertNo: C377858, Equipment Type: Scales & Balances
+Processing CertNo: C377858, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377858'.
 Certificate C377858 passed all checks.
-Processing CertNo: C377936, Equipment Type: Scales & Balances
+Processing CertNo: C377936, Equipment Type: Pressure
 No valid nominal values found in group '1.Firmware - Version' for certificate 'C377936'.
 No valid nominal values found in group '2.Software - Version' for certificate 'C377936'.
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377936'.
 Certificate C377936 passed all checks.
-Processing CertNo: C377951, Equipment Type: Scales & Balances
+Processing CertNo: C377951, Equipment Type: Pressure
 Certificate C377951 passed all checks.
-Processing CertNo: C376881, Equipment Type: Scales & Balances
+Processing CertNo: C376881, Equipment Type: Pressure
 Directions not present: ['DOWN']
 No 'std' or 'desviación' group found
 Certificate C376881 failed checks.
-Processing CertNo: C377952, Equipment Type: Scales & Balances
+Processing CertNo: C377952, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377952'.
 Certificate C377952 passed all checks.
-Processing CertNo: C371266, Equipment Type: Scales & Balances
+Processing CertNo: C371266, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C371266'.
 Certificate C371266 passed all checks.
-Processing CertNo: C376960, Equipment Type: Scales & Balances
+Processing CertNo: C376960, Equipment Type: Pressure
 RowId: 33: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
 No valid nominal values found in group 'Peso - Excentricidad' for certificate 'C376960'.
 RowId: 34: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 Certificate C376960 failed checks.
-Processing CertNo: C377775, Equipment Type: Scales & Balances
+Processing CertNo: C377775, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377775'.
 Certificate C377775 passed all checks.
-Processing CertNo: C377863, Equipment Type: Scales & Balances
+Processing CertNo: C377863, Equipment Type: Pressure
 RowId: 33: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
 No valid nominal values found in group 'Peso - Excentricidad' for certificate 'C377863'.
 RowId: 32: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 Certificate C377863 failed checks.
-Processing CertNo: C376961, Equipment Type: Scales & Balances
+Processing CertNo: C376961, Equipment Type: Pressure
 RowId: 36: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
 No valid nominal values found in group 'Peso - Excentricidad' for certificate 'C376961'.
 RowId: 35: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 Certificate C376961 failed checks.
-Processing CertNo: C377878, Equipment Type: Scales & Balances
+Processing CertNo: C377878, Equipment Type: Pressure
 RowId: 28: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
 RowId: 27: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 Certificate C377878 failed checks.
-Processing CertNo: C377440, Equipment Type: Scales & Balances
+Processing CertNo: C377440, Equipment Type: Pressure
 RowId: 31: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
 RowId: 30: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 Certificate C377440 failed checks.
-Processing CertNo: C377955, Equipment Type: Scales & Balances
+Processing CertNo: C377955, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377955'.
 Certificate C377955 passed all checks.
-Processing CertNo: C377956, Equipment Type: Scales & Balances
+Processing CertNo: C377956, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377956'.
 Certificate C377956 passed all checks.
-Processing CertNo: C377052, Equipment Type: Scales & Balances
-Directions not present: ['UP', 'DOWN']
-No 'std' or 'desviación' group found
-Certificate C377052 failed checks.
-Processing CertNo: C373720, Equipment Type: Scales & Balances
+Processing CertNo: C373720, Equipment Type: Pressure
 RowId: 34: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
 No valid nominal values found in group 'Peso - Excentricidad' for certificate 'C373720'.
 RowId: 35: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 Certificate C373720 failed checks.
-Processing CertNo: C377058, Equipment Type: Scales & Balances
-Directions not present: ['DOWN']
-No 'std' or 'desviación' group found
-Certificate C377058 failed checks.
-Processing CertNo: C377761, Equipment Type: Scales & Balances
+Processing CertNo: C377761, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377761'.
 Certificate C377761 passed all checks.
-Processing CertNo: C377862, Equipment Type: Scales & Balances
+Processing CertNo: C377862, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377862'.
 Certificate C377862 passed all checks.
-Processing CertNo: C377959, Equipment Type: Scales & Balances
+Processing CertNo: C377959, Equipment Type: Pressure
 No valid nominal values found in group 'Weight - Eccentricity' for certificate 'C377959'.
 Certificate C377959 passed all checks.
 Opened existing sheet: QA Bot Results

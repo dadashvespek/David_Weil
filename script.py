@@ -254,24 +254,32 @@ def main(all_data):
             try:
                 result, formatted_errors = check_certificate(cert)
                 cert_no = cert.get("CertNo", "Unknown")
+                cal_date = cert.get("CalDate", "")
                 equipment_type = cert.get("EquipmentType", "Unknown")
 
                 # Check if all results are True or (True, [])
                 if all(value if isinstance(value, bool) else value[0] for value in result.values()):
-                    passed_certs_main[equipment_type].append(cert_no)
+                    passed_certs_main[equipment_type].append({
+                        "CertNo": cert_no,
+                        "CalDate": cal_date
+                    })
                     print(f"Certificate {cert_no} passed all checks")
                 else:
                     failed_certs_main[equipment_type].append({
                         "CertNo": cert_no,
+                        "CalDate": cal_date,
                         "Errors": formatted_errors
                     })
                     print(f"Certificate {cert_no} failed checks: {formatted_errors}")
+                    
             except Exception as e:
                 cert_no = cert.get("CertNo", "Unknown")
+                cal_date = cert.get("CalDate", "")
                 equipment_type = cert.get("EquipmentType", "Unknown")
                 error_message = f"{str(e)}\n{traceback.format_exc()}"
                 failed_certs_main[equipment_type].append({
                     "CertNo": cert_no,
+                    "CalDate": cal_date,
                     "Errors": {"UnexpectedError": [error_message]}
                 })
                 print(f"Unexpected error processing certificate {cert_no}: {error_message}")

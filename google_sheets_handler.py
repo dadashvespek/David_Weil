@@ -39,39 +39,47 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
     failed_front_page_data = []
     failed_datasheet_data = []
     failed_template_status_data = []
-    pressure_data = []
+    pressure_data = []  # Only for failed pressure certificates
 
     # Process passed main certificates
     for eq_type, certs in passed_certs_main.items():
-        for cert_no in certs:
+        for cert in certs:
+            cert_no = cert['CertNo']
+            cal_date = cert.get('CalDate', '')
             data = {
                 'Equipment Type': eq_type,
                 'Certificate Number': cert_no,
+                'CalDate': cal_date,
                 'Status': 'Passed',
                 'Errors': '',
                 'Test Date': current_date
             }
             passed_data.append(data)
 
-    # Process passed pressure certificates
+    # Process passed pressure certificates (add to passed_data)
     for eq_type, certs in passed_certs_pressure.items():
-        for cert_no in certs:
+        for cert in certs:
+            cert_no = cert['CertNo']
+            cal_date = cert.get('CalDate', '')
             data = {
                 'Equipment Type': eq_type,
                 'Certificate Number': cert_no,
+                'CalDate': cal_date,
                 'Status': 'Passed',
                 'Errors': '',
                 'Test Date': current_date
             }
-            pressure_data.append(data)
+            passed_data.append(data)
 
     # Process failed main certificates
     for eq_type, certs in failed_certs_main.items():
         for cert in certs:
             cert_no = cert['CertNo']
+            cal_date = cert.get('CalDate', '')
             cert_data = {
                 'Equipment Type': eq_type,
                 'Certificate Number': cert_no,
+                'CalDate': cal_date,
                 'Status': 'Failed',
                 'Errors': '',
                 'Test Date': current_date
@@ -103,14 +111,15 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
 
             failed_front_page_data.append(cert_data.copy())
 
-
     # Process failed pressure certificates
     for eq_type, certs in failed_certs_pressure.items():
         for cert in certs:
             cert_no = cert['CertNo']
+            cal_date = cert.get('CalDate', '')
             cert_data = {
                 'Equipment Type': eq_type,
                 'Certificate Number': cert_no,
+                'CalDate': cal_date,
                 'Status': 'Failed',
                 'Errors': '',
                 'Test Date': current_date
@@ -137,19 +146,24 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
             # Append the certificate data to pressure_data
             pressure_data.append(cert_data.copy())
 
-
-    # Write passed certificates (non-pressure)
+    # Write passed certificates
     passed_ws = worksheets["Passed Certificates"]
     passed_ws.clear()
     if passed_data:
         passed_df = pd.DataFrame(passed_data)
+        # Convert "CalDate" to datetime
+        passed_df['CalDate'] = pd.to_datetime(passed_df['CalDate'], errors='coerce')
+        # Sort by "CalDate" descending
+        passed_df = passed_df.sort_values(by='CalDate', ascending=False)
         passed_ws.set_dataframe(passed_df, (1, 1))
 
-    # Write failed certificates (non-pressure)
+    # Write failed certificates (Front Page)
     if failed_front_page_data:
         ws = worksheets["Failed Certificates - Front Page"]
         ws.clear()
         failed_front_page_df = pd.DataFrame(failed_front_page_data)
+        failed_front_page_df['CalDate'] = pd.to_datetime(failed_front_page_df['CalDate'], errors='coerce')
+        failed_front_page_df = failed_front_page_df.sort_values(by='CalDate', ascending=False)
         ws.set_dataframe(failed_front_page_df, (1, 1))
 
     if failed_datasheet_data:
@@ -171,11 +185,13 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
         cert_data['Errors'] = 'Unknown Error'
         failed_front_page_data.append(cert_data.copy())
 
-    # Write pressure certificates
+    # Write failed pressure certificates
     pressure_ws = worksheets["Pressure Certificates"]
     pressure_ws.clear()
     if pressure_data:
         pressure_df = pd.DataFrame(pressure_data)
+        pressure_df['CalDate'] = pd.to_datetime(pressure_df['CalDate'], errors='coerce')
+        pressure_df = pressure_df.sort_values(by='CalDate', ascending=False)
         pressure_ws.set_dataframe(pressure_df, (1, 1))
 
     print(f"Results have been sent to Google Sheets successfully.")

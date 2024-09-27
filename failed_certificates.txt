@@ -706,20 +706,13 @@ Front Page Errors: CertNo, CustomerCode, EquipmentType, AssetDescription, Manufa
 Additional Fields Errors: CalDate, DueDate
 
 
-Equipment Type: Scales & Balances
+Equipment Type: Pressure
 Certificate: C375990
 Datasheet Errors:
   Group: Peso - Desviación Estándar
     Row 33: RowId: 33: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
   Group: Peso - Excentricidad
     Row 32: RowId: 32: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
-
-Certificate: C377431
-Datasheet Errors:
-  Group: Peso - Desviación Estándar
-    Row 29: RowId: 29: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-  Group: Peso - Excentricidad
-    Row 28: RowId: 28: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 
 Certificate: C377871
 Datasheet Errors:
@@ -744,13 +737,6 @@ Certificate: C375257
 Datasheet Errors:
   Group: Group - Repeatability
     Row N/A: Group - Repeatability with a maximum value of 0.200002g is not within 40.0% to 100% of max linearity 200.0g
-
-Certificate: C377023
-Datasheet Errors:
-  Group: General
-    Row N/A: Directions not present: ['DOWN']
-  Group: General
-    Row N/A: No 'std' or 'desviación' group found
 
 Certificate: C377025
 Datasheet Errors:
@@ -801,24 +787,10 @@ Datasheet Errors:
   Group: Peso - Excentricidad
     Row 30: RowId: 30: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 
-Certificate: C377052
-Datasheet Errors:
-  Group: General
-    Row N/A: Directions not present: ['UP', 'DOWN']
-  Group: General
-    Row N/A: No 'std' or 'desviación' group found
-
 Certificate: C373720
 Datasheet Errors:
   Group: Peso - Desviación Estándar
     Row 34: RowId: 34: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
   Group: Peso - Excentricidad
     Row 35: RowId: 35: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
-
-Certificate: C377058
-Datasheet Errors:
-  Group: General
-    Row N/A: Directions not present: ['DOWN']
-  Group: General
-    Row N/A: No 'std' or 'desviación' group found
 

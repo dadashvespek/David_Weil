@@ -166,6 +166,9 @@ def process_pressure_certificates():
         equipment_type = json_data.get("EquipmentType", "Unknown")
         asset_description = json_data.get("AssetDescription", "Unknown AssetDescription")
         excluded = any(keyword in asset_description.lower() for keyword in exclusion_list)
+        certno = json_data.get("CertNo", "Unknown CertNo")
+        cal_date = json_data.get("CalDate", "")
+        equipment_type = "Pressure"
 
         print(f"Processing CertNo: {certno}, Equipment Type: {equipment_type}")
 
@@ -355,11 +358,15 @@ def process_pressure_certificates():
                     })
 
         if cert_passed:
-            passed_certs[equipment_type].append(certno)
+            passed_certs[equipment_type].append({
+                "CertNo": certno,
+                "CalDate": cal_date
+            })
             print(f"Certificate {certno} passed all checks.")
         else:
             failed_certs[equipment_type].append({
                 "CertNo": certno,
+                "CalDate": cal_date,
                 "Errors": cert_errors
             })
             print(f"Certificate {certno} failed checks.")

@@ -51,7 +51,7 @@ def check_environmental_conditions(data):
 def check_front_page(data):
     required_fields = [
         "CertNo", "CustomerCode", "EquipmentType", "AssetDescription",
-        "Manufacturer", "Model", "OperatingRange", "AccreditationInfo"
+        "Manufacturer", "Model", "OperatingRange", "AccreditationInfo", "EquipmentLocation"
     ]
     is_accredited = data.get("IsAccredited", False)
     if is_accredited:

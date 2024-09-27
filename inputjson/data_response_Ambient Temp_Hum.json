@@ -5419,8 +5419,8 @@
             "#CalibrationReqs.:Colocar en el ID de calibraci\u00f3n que utilizan las etiquetas, los c\u00f3digos suministrados por parte de SOFRATESA en el plan anual de calibraci\u00f3n."
         ],
         "EquipmentLocation": "N/D",
-        "CalibrationStatus": "Draft",
-        "QualityComment": "",
+        "CalibrationStatus": "Ready To Approve",
+        "QualityComment": "Se usaron especificaciones de las calibraciones anteriores",
         "LastQuotedPrice": 85.0,
         "EnvironmentalTemperature": "69.7\u00b0F",
         "EnvironmentalRelativeHumidity": "57%RH",
@@ -5434,13 +5434,6 @@
         ],
         "Standards": [
             {
-                "IdInst": "11171",
-                "Description": "Platinum Resistance Probe",
-                "SerialNo": "1623882",
-                "CalDate": "04/07/2024",
-                "DueDate": "10/31/2024"
-            },
-            {
                 "IdInst": "10256",
                 "Description": "Humidity and Temperature Sensor",
                 "SerialNo": "0020413487",
@@ -5453,6 +5446,13 @@
                 "SerialNo": "DWS-2302",
                 "CalDate": "09/01/2024",
                 "DueDate": "12/31/2024"
+            },
+            {
+                "IdInst": "11171",
+                "Description": "Platinum Resistance Probe",
+                "SerialNo": "1623882",
+                "CalDate": "04/07/2024",
+                "DueDate": "10/31/2024"
             }
         ],
         "CertNo": "C376938",

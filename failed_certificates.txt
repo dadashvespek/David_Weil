@@ -14,6 +14,7 @@ Certificate: C377752
 
 Equipment Type: Datalogger
 Certificate: C377820
+Front Page Errors: EquipmentLocation
 Datasheet Errors:
   Group: Humedad Relativa
     Row 6: Low TUR: 1.9:1
@@ -678,15 +679,6 @@ Datasheet Errors:
     Row 13: Low TUR: 3.4:1
     Row 14: Low TUR: 3.4:1
 
-Certificate: C377431
-Front Page Errors: OperatingRange
-
-Certificate: C377435
-Front Page Errors: OperatingRange
-
-Certificate: C377440
-Front Page Errors: OperatingRange
-
 Certificate: C373720
 Datasheet Errors:
   Group: Peso - Linealidad Ascendente
@@ -710,7 +702,7 @@ Datasheet Errors:
 
 Equipment Type: Unknown
 Certificate: Unknown
-Front Page Errors: CertNo, CustomerCode, EquipmentType, AssetDescription, Manufacturer, Model, OperatingRange, AccreditationInfo, EnvironmentalConditions
+Front Page Errors: CertNo, CustomerCode, EquipmentType, AssetDescription, Manufacturer, Model, OperatingRange, AccreditationInfo, EquipmentLocation, EnvironmentalConditions
 Additional Fields Errors: CalDate, DueDate
 
 
@@ -743,20 +735,6 @@ Datasheet Errors:
   Group: General
     Row N/A: No 'std' or 'desviación' group found
 
-Certificate: C377435
-Datasheet Errors:
-  Group: Peso - Desviación Estándar
-    Row 29: RowId: 29: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-  Group: Peso - Excentricidad
-    Row 28: RowId: 28: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
-
-Certificate: C377442
-Datasheet Errors:
-  Group: Peso - Desviación Estándar
-    Row 35: RowId: 35: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-  Group: Peso - Excentricidad
-    Row 34: RowId: 34: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
-
 Certificate: C377629
 Datasheet Errors:
   Group: Peso - Desviación Estándar
@@ -774,13 +752,6 @@ Datasheet Errors:
   Group: General
     Row N/A: No 'std' or 'desviación' group found
 
-Certificate: C377443
-Datasheet Errors:
-  Group: Peso - Desviación Estándar
-    Row 35: RowId: 35: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-  Group: Peso - Excentricidad
-    Row 34: RowId: 34: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
-
 Certificate: C377025
 Datasheet Errors:
   Group: General
@@ -794,13 +765,6 @@ Datasheet Errors:
     Row N/A: Directions not present: ['DOWN']
   Group: General
     Row N/A: No 'std' or 'desviación' group found
-
-Certificate: C377444
-Datasheet Errors:
-  Group: Peso - Desviación Estándar
-    Row 36: RowId: 36: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-  Group: Peso - Excentricidad
-    Row 37: RowId: 37: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 
 Certificate: C376960
 Datasheet Errors:
@@ -837,26 +801,12 @@ Datasheet Errors:
   Group: Peso - Excentricidad
     Row 30: RowId: 30: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 
-Certificate: C377448
-Datasheet Errors:
-  Group: Peso - Desviación Estándar
-    Row 36: RowId: 36: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-  Group: Peso - Excentricidad
-    Row 35: RowId: 35: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
-
 Certificate: C377052
 Datasheet Errors:
   Group: General
     Row N/A: Directions not present: ['UP', 'DOWN']
   Group: General
     Row N/A: No 'std' or 'desviación' group found
-
-Certificate: C377449
-Datasheet Errors:
-  Group: Peso - Desviación Estándar
-    Row 35: RowId: 35: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-  Group: Peso - Excentricidad
-    Row 34: RowId: 34: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 
 Certificate: C373720
 Datasheet Errors:
@@ -871,25 +821,4 @@ Datasheet Errors:
     Row N/A: Directions not present: ['DOWN']
   Group: General
     Row N/A: No 'std' or 'desviación' group found
-
-Certificate: C377450
-Datasheet Errors:
-  Group: Peso - Desviación Estándar
-    Row 35: RowId: 35: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-  Group: Peso - Excentricidad
-    Row 34: RowId: 34: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
-
-Certificate: C377452
-Datasheet Errors:
-  Group: Peso - Desviación Estándar
-    Row 37: RowId: 37: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-  Group: Peso - Excentricidad
-    Row 36: RowId: 36: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
-
-Certificate: C377453
-Datasheet Errors:
-  Group: Peso - Desviación Estándar
-    Row 34: RowId: 34: Formatted comment 'StdDev' does not match the Group 'Peso - Desviación Estándar'
-  Group: Peso - Excentricidad
-    Row 35: RowId: 35: Formatted comment 'Eccentricity' does not match the Group 'Peso - Excentricidad'
 

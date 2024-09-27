@@ -163,5 +163,18 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-future-datum-432413-b9-ac007fce6dab.json
+# Ignore script output
+script_output.txt
+
+# Ignore inputjson directory
 inputjson/
+
+# Ignore pressure input JSONs
+pressure_input_jsons/
+
+# Ignore passed and failed certificates text files
+passed_certificates.txt
+failed_certificates.txt
+
+# Ignore other unnecessary files
+future-datum-432413-b9-ac007fce6dab.json

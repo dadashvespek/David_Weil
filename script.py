@@ -177,7 +177,6 @@ def local_retrieve_data():
 
     return all_data
 
-
 def format_errors(result, cert_data, is_template_cert):
     formatted_errors = {
         "FrontPageErrors": [],
@@ -257,18 +256,22 @@ def main(all_data):
                 cert_no = cert.get("CertNo", "Unknown")
                 cal_date = cert.get("CalDate", "")
                 equipment_type = cert.get("EquipmentType", "Unknown")
+                customer_code = cert.get("CustomerCode", "Unknown")
 
                 # Check if all results are True or (True, [])
                 if all(value if isinstance(value, bool) else value[0] for value in result.values()):
                     passed_certs_main[equipment_type].append({
                         "CertNo": cert_no,
-                        "CalDate": cal_date
+                        "CalDate": cal_date,
+                        "CustomerCode": customer_code,
+                        "CustomerCode": customer_code
                     })
                     print(f"Certificate {cert_no} passed all checks")
                 else:
                     failed_certs_main[equipment_type].append({
                         "CertNo": cert_no,
                         "CalDate": cal_date,
+                        "CustomerCode": customer_code,
                         "Errors": formatted_errors
                     })
                     print(f"Certificate {cert_no} failed checks: {formatted_errors}")

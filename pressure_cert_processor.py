@@ -169,6 +169,7 @@ def process_pressure_certificates():
         certno = json_data.get("CertNo", "Unknown CertNo")
         cal_date = json_data.get("CalDate", "")
         equipment_type = "Pressure"
+        customer_code = json_data.get("CustomerCode", "Unknown")
 
         print(f"Processing CertNo: {certno}, Equipment Type: {equipment_type}")
 
@@ -360,13 +361,15 @@ def process_pressure_certificates():
         if cert_passed:
             passed_certs[equipment_type].append({
                 "CertNo": certno,
-                "CalDate": cal_date
+                "CalDate": cal_date,
+                "CustomerCode": customer_code
             })
             print(f"Certificate {certno} passed all checks.")
         else:
             failed_certs[equipment_type].append({
                 "CertNo": certno,
                 "CalDate": cal_date,
+                "CustomerCode": customer_code,
                 "Errors": cert_errors
             })
             print(f"Certificate {certno} failed checks.")

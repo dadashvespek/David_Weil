@@ -46,7 +46,9 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
         for cert in certs:
             cert_no = cert['CertNo']
             cal_date = cert.get('CalDate', '')
+            customer_code = cert.get('CustomerCode', 'Unknown') 
             data = {
+                'Customer Code': customer_code,
                 'Equipment Type': eq_type,
                 'Certificate Number': cert_no,
                 'CalDate': cal_date,
@@ -61,7 +63,9 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
         for cert in certs:
             cert_no = cert['CertNo']
             cal_date = cert.get('CalDate', '')
+            customer_code = cert.get('CustomerCode', 'Unknown')
             data = {
+                'Customer Code': customer_code,
                 'Equipment Type': eq_type,
                 'Certificate Number': cert_no,
                 'CalDate': cal_date,
@@ -76,7 +80,9 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
         for cert in certs:
             cert_no = cert['CertNo']
             cal_date = cert.get('CalDate', '')
+            customer_code = cert.get('CustomerCode', 'Unknown')
             cert_data = {
+                'Customer Code': customer_code,
                 'Equipment Type': eq_type,
                 'Certificate Number': cert_no,
                 'CalDate': cal_date,
@@ -116,7 +122,9 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
         for cert in certs:
             cert_no = cert['CertNo']
             cal_date = cert.get('CalDate', '')
+            customer_code = cert.get('CustomerCode', 'Unknown')
             cert_data = {
+                'Customer Code': customer_code,
                 'Equipment Type': eq_type,
                 'Certificate Number': cert_no,
                 'CalDate': cal_date,
@@ -151,20 +159,25 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
     passed_ws.clear()
     if passed_data:
         passed_df = pd.DataFrame(passed_data)
-        # Convert "CalDate" to datetime
-        passed_df['CalDate'] = pd.to_datetime(passed_df['CalDate'], errors='coerce')
-        # Sort by "CalDate" descending
+        # Ensure 'CalDate' is datetime
+        passed_df['CalDate'] = pd.to_datetime(passed_df['CalDate'], format='%m/%d/%Y', errors='coerce')
+        # Sort by 'CalDate' descending
         passed_df = passed_df.sort_values(by='CalDate', ascending=False)
+        # Reorder columns if necessary
+        passed_df = passed_df[['Customer Code', 'Equipment Type', 'Certificate Number', 'CalDate', 'Status', 'Errors', 'Test Date']]
         passed_ws.set_dataframe(passed_df, (1, 1))
 
+
     # Write failed certificates (Front Page)
+    ws = worksheets["Failed Certificates - Front Page"]
+    ws.clear()
     if failed_front_page_data:
-        ws = worksheets["Failed Certificates - Front Page"]
-        ws.clear()
         failed_front_page_df = pd.DataFrame(failed_front_page_data)
-        failed_front_page_df['CalDate'] = pd.to_datetime(failed_front_page_df['CalDate'], errors='coerce')
+        failed_front_page_df['CalDate'] = pd.to_datetime(failed_front_page_df['CalDate'], format='%m/%d/%Y', errors='coerce')
         failed_front_page_df = failed_front_page_df.sort_values(by='CalDate', ascending=False)
+        failed_front_page_df = failed_front_page_df[['Customer Code', 'Equipment Type', 'Certificate Number', 'CalDate', 'Status', 'Errors', 'Test Date']]
         ws.set_dataframe(failed_front_page_df, (1, 1))
+
 
     if failed_datasheet_data:
         ws = worksheets["Failed Certificates - Datasheet"]

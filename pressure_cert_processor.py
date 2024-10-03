@@ -156,8 +156,7 @@ def process_pressure_certificates():
     failed_certs = defaultdict(list)
 
     for json_data in json_data_list:
-        # Set equipment_type to "Pressure"
-        equipment_type = "Pressure"
+        equipment_type = "Scales & Balances"
         dict_of_noms = {}
         group_values = []
         results = []
@@ -168,7 +167,6 @@ def process_pressure_certificates():
         excluded = any(keyword in asset_description.lower() for keyword in exclusion_list)
         certno = json_data.get("CertNo", "Unknown CertNo")
         cal_date = json_data.get("CalDate", "")
-        equipment_type = "Pressure"
         customer_code = json_data.get("CustomerCode", "Unknown")
 
         print(f"Processing CertNo: {certno}, Equipment Type: {equipment_type}")

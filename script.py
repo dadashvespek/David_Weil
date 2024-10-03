@@ -1,12 +1,15 @@
-import json
+# script.py
+
 import os
 import re
+import json
 import traceback
+import sys
 from collections import defaultdict
+from datetime import datetime
 from data_retriever import retrieve_data
 from google_sheets_handler import send_results_to_sheets
 from pressure_cert_processor import retrieve_pressure_data, process_pressure_certificates
-import sys
 
 # Redirect stdout to a file
 sys.stdout = open('script_output.txt', 'w')
@@ -57,7 +60,13 @@ def check_front_page(data):
     if is_accredited:
         required_fields.extend(["Procedures", "Standards"])
     
-    missing_fields = [field for field in required_fields if not data.get(field)]
+    missing_fields = []
+    for field in required_fields:
+        value = data.get(field)
+        if value is None or (isinstance(value, str) and not value.strip()):
+            missing_fields.append(field)
+        elif isinstance(value, list) and not value:
+            missing_fields.append(field)
     return len(missing_fields) == 0, missing_fields
 
 def check_accreditation(data):
@@ -72,7 +81,7 @@ def check_accreditation(data):
                 uncert_value = parse_numeric_value(meas_uncert)
                 if uncert_value is not None:
                     return True
-    
+
     # Check for alternative conditions
     if data.get("HasAttachment") and "External Certificate" in data.get("AttachmentType", []):
         return True
@@ -105,7 +114,7 @@ def check_additional_fields(data):
         "CalDate": lambda d: any(std.get("CalDate") for std in d.get("Standards", [])),
         "DueDate": lambda d: any(std.get("DueDate") for std in d.get("Standards", []))
     }
-    
+
     missing_fields = [field for field, check in required_fields.items() if not check(data)]
     return len(missing_fields) == 0, missing_fields
 
@@ -225,7 +234,7 @@ def format_errors(result, cert_data, is_template_cert):
     if not result["environmental_conditions"]:
         formatted_errors["FrontPageErrors"].append("EnvironmentalConditions")
 
-    # Corrected template status error condition
+    # Template status error
     if is_template_cert and not result["template_status"]:
         formatted_errors["TemplateStatusError"] = "Template has been edited"
 
@@ -233,11 +242,10 @@ def format_errors(result, cert_data, is_template_cert):
 
     return formatted_errors
 
-
-
 def main(all_data):
     passed_certs_main = defaultdict(list)
     failed_certs_main = defaultdict(list)
+    draft_certs_main = defaultdict(list)
 
     for data_set in all_data:
         if isinstance(data_set, list):
@@ -252,43 +260,67 @@ def main(all_data):
 
         for cert in certs:
             try:
-                result, formatted_errors = check_certificate(cert)
+                # Retrieve and normalize calibration status
+                calibration_status = cert.get("CalibrationStatus", "").strip().lower()
+
                 cert_no = cert.get("CertNo", "Unknown")
                 cal_date = cert.get("CalDate", "")
                 equipment_type = cert.get("EquipmentType", "Unknown")
                 customer_code = cert.get("CustomerCode", "Unknown")
 
-                # Check if all results are True or (True, [])
-                if all(value if isinstance(value, bool) else value[0] for value in result.values()):
-                    passed_certs_main[equipment_type].append({
+                # **Add this condition to skip scales and balances certificates**
+                if equipment_type == "Scales & Balances":
+                    print(f"Skipping scales and balances certificate {cert_no} in main processing.")
+                    continue  # Skip processing this certificate in the main loop
+
+                if calibration_status == "draft":
+                    # Certificate is in draft status; add to draft list
+                    draft_certs_main[equipment_type].append({
                         "CertNo": cert_no,
                         "CalDate": cal_date,
                         "CustomerCode": customer_code,
-                        "CustomerCode": customer_code
+                        "CalibrationStatus": calibration_status
                     })
-                    print(f"Certificate {cert_no} passed all checks")
+                    print(f"Certificate {cert_no} is in 'Draft' status and added to draft certificates.")
+                    continue  # Skip further processing for this certificate
+
+                elif calibration_status == "ready to approve":
+                    # Proceed with error checking
+                    result, formatted_errors = check_certificate(cert)
+
+                    # Check if all results are True or (True, [])
+                    if all(value if isinstance(value, bool) else value[0] for value in result.values()):
+                        passed_certs_main[equipment_type].append({
+                            "CertNo": cert_no,
+                            "CalDate": cal_date,
+                            "CustomerCode": customer_code
+                        })
+                        print(f"Certificate {cert_no} passed all checks")
+                    else:
+                        failed_certs_main[equipment_type].append({
+                            "CertNo": cert_no,
+                            "CalDate": cal_date,
+                            "CustomerCode": customer_code,
+                            "Errors": formatted_errors
+                        })
+                        print(f"Certificate {cert_no} failed checks: {formatted_errors}")
                 else:
-                    failed_certs_main[equipment_type].append({
-                        "CertNo": cert_no,
-                        "CalDate": cal_date,
-                        "CustomerCode": customer_code,
-                        "Errors": formatted_errors
-                    })
-                    print(f"Certificate {cert_no} failed checks: {formatted_errors}")
-                    
+                    # Handle other statuses if needed
+                    print(f"Certificate {cert_no} has status '{calibration_status}' and is not processed.")
+                    # You can choose to skip or log these certificates
+
             except Exception as e:
-                cert_no = cert.get("CertNo", "Unknown")
-                cal_date = cert.get("CalDate", "")
-                equipment_type = cert.get("EquipmentType", "Unknown")
+                # Exception handling
                 error_message = f"{str(e)}\n{traceback.format_exc()}"
                 failed_certs_main[equipment_type].append({
                     "CertNo": cert_no,
                     "CalDate": cal_date,
+                    "CustomerCode": customer_code,
                     "Errors": {"UnexpectedError": [error_message]}
                 })
                 print(f"Unexpected error processing certificate {cert_no}: {error_message}")
 
-    # Process pressure certificates
+    # Process pressure (scales and balances) certificates
     pressure_data = retrieve_pressure_data()
     if pressure_data is not None:
         passed_certs_pressure, failed_certs_pressure = process_pressure_certificates()
@@ -297,9 +329,19 @@ def main(all_data):
         passed_certs_pressure = defaultdict(list)
         failed_certs_pressure = defaultdict(list)
 
+    # Merge only passed pressure certificates into main passed certificates
+    for eq_type, certs in passed_certs_pressure.items():
+        passed_certs_main[eq_type].extend(certs)
+
+    # Do not merge failed pressure certificates; keep them separate
+
     # Send results to Google Sheets
-    user_email = "zakirzhangozin@gmail.com"  # Replace with your actual email
-    sheet_url = send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure, user_email)
+    user_email = "your_email@example.com"  # Replace with your actual email
+    sheet_url = send_results_to_sheets(
+        passed_certs_main, failed_certs_main, draft_certs_main,
+        failed_certs_pressure, user_email
+    )
+
     print(f"You can access the Google Sheet at: {sheet_url}")
 
     return passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure

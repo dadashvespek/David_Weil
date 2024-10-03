@@ -3,7 +3,10 @@ import pandas as pd
 from pygsheets.exceptions import SpreadsheetNotFound, WorksheetNotFound
 from datetime import datetime
 
-def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure, user_email, sheet_name="QA Bot Results"):
+def send_results_to_sheets(
+    passed_certs_main, failed_certs_main, draft_certs_main,
+    failed_certs_pressure, user_email, sheet_name="QA Bot Results"
+):
     # Authorization
     gc = pygsheets.authorize(service_file='future-datum-432413-b9-ac007fce6dab.json')
 
@@ -21,9 +24,14 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
     print(f"Shared sheet with {user_email}")
 
     # Get or create worksheets
-    sheets = ["Passed Certificates", "Failed Certificates - Front Page",
-              "Failed Certificates - Datasheet", "Failed Certificates - Template Status",
-              "Pressure Certificates"]
+    sheets = [
+        "Passed Certificates",
+        "Failed Certificates - Front Page",
+        "Failed Certificates - Datasheet",
+        "Failed Certificates - Template Status",
+        "Failed Scales & Balances Certificates", 
+        "Draft Certificates"
+    ]
     worksheets = {}
     for ws_name in sheets:
         try:
@@ -39,7 +47,40 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
     failed_front_page_data = []
     failed_datasheet_data = []
     failed_template_status_data = []
-    pressure_data = []  # Only for failed pressure certificates
+    draft_data = []
+    pressure_data = []
+
+    # Process draft certificates
+    for eq_type, certs in draft_certs_main.items():
+        for cert in certs:
+            cert_no = cert['CertNo']
+            cal_date = cert.get('CalDate', '')
+            customer_code = cert.get('CustomerCode', 'Unknown')
+            calibration_status = cert.get('CalibrationStatus', 'Draft')
+            data = {
+                'Customer Code': customer_code,
+                'Equipment Type': eq_type,
+                'Certificate Number': cert_no,
+                'CalDate': cal_date,
+                'Calibration Status': calibration_status,
+                'Test Date': current_date
+            }
+            draft_data.append(data)
+
+    # Write draft certificates to the new worksheet
+    if draft_data:
+        draft_ws = worksheets["Draft Certificates"]
+        draft_ws.clear()
+        draft_df = pd.DataFrame(draft_data)
+        # Ensure 'CalDate' is datetime if applicable
+        if 'CalDate' in draft_df.columns and not draft_df['CalDate'].isnull().all():
+            draft_df['CalDate'] = pd.to_datetime(draft_df['CalDate'], format='%m/%d/%Y', errors='coerce')
+        else:
+            draft_df['CalDate'] = ''
+        # Reorder columns
+        columns_order = ['Customer Code', 'Equipment Type', 'Certificate Number', 'CalDate', 'Calibration Status', 'Test Date']
+        draft_df = draft_df[columns_order]
+        draft_ws.set_dataframe(draft_df, (1, 1))
 
     # Process passed main certificates
     for eq_type, certs in passed_certs_main.items():
@@ -47,23 +88,6 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
             cert_no = cert['CertNo']
             cal_date = cert.get('CalDate', '')
             customer_code = cert.get('CustomerCode', 'Unknown') 
-            data = {
-                'Customer Code': customer_code,
-                'Equipment Type': eq_type,
-                'Certificate Number': cert_no,
-                'CalDate': cal_date,
-                'Status': 'Passed',
-                'Errors': '',
-                'Test Date': current_date
-            }
-            passed_data.append(data)
-
-    # Process passed pressure certificates (add to passed_data)
-    for eq_type, certs in passed_certs_pressure.items():
-        for cert in certs:
-            cert_no = cert['CertNo']
-            cal_date = cert.get('CalDate', '')
-            customer_code = cert.get('CustomerCode', 'Unknown')
             data = {
                 'Customer Code': customer_code,
                 'Equipment Type': eq_type,
@@ -154,6 +178,7 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
             # Append the certificate data to pressure_data
             pressure_data.append(cert_data.copy())
 
+
     # Write passed certificates
     passed_ws = worksheets["Passed Certificates"]
     passed_ws.clear()
@@ -198,14 +223,14 @@ def send_results_to_sheets(passed_certs_main, failed_certs_main, passed_certs_pr
         cert_data['Errors'] = 'Unknown Error'
         failed_front_page_data.append(cert_data.copy())
 
-    # Write failed pressure certificates
-    pressure_ws = worksheets["Pressure Certificates"]
-    pressure_ws.clear()
+    # Write failed scales and balances certificates
+    scales_ws = worksheets["Failed Scales & Balances Certificates"]
+    scales_ws.clear()
     if pressure_data:
         pressure_df = pd.DataFrame(pressure_data)
         pressure_df['CalDate'] = pd.to_datetime(pressure_df['CalDate'], errors='coerce')
         pressure_df = pressure_df.sort_values(by='CalDate', ascending=False)
-        pressure_ws.set_dataframe(pressure_df, (1, 1))
+        scales_ws.set_dataframe(pressure_df, (1, 1))
 
     print(f"Results have been sent to Google Sheets successfully.")
     print(f"Sheet URL: {sh.url}")

@@ -122,6 +122,12 @@ def convert_to_grams(value, unit):
         return value * 1000
     elif unit == 'lb':
         return value * 453.59237
+    elif unit == 'n/a':
+        return value * 0
+    elif unit == '%':
+        return value * 0.01
+    elif unit == '°c':
+        return value * 0
     else:
         raise ValueError(f"Unsupported unit: {unit}")
     
@@ -170,6 +176,10 @@ def process_pressure_certificates():
         customer_code = json_data.get("CustomerCode", "Unknown")
 
         print(f"Processing CertNo: {certno}, Equipment Type: {equipment_type}")
+
+        # Ensure CalibrationResult is "Limited" for On-Site Calibration
+        if json_data.get("CalLocation", "") == "On-Site Calibration" and json_data.get("CalibrationResult", "") != "Limited":
+            json_data["CalibrationResult"] = "Limited"
 
         std_present = False
         nominal_std = 0

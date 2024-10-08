@@ -25,6 +25,36 @@ def parse_numeric_value(value):
             return None
     return None
 
+
+def additional_checks_ambient_temp_and_humidity(data):
+    errors = []
+    # If CalLocation is On-Site Calibration, set CalibrationResult to Limited for ambient temp/humidity
+    if data.get("CalLocation", "") == "On-Site Calibration" and data.get("EquipmentType", "").lower() in ["ambient temp", "humidity"]:
+        data["CalibrationResult"] = "Limited"
+
+    # Span checks
+    for datasheet in data.get("Datasheet", []):
+        group_name = datasheet.get("Group", "").lower()
+        measurements = datasheet.get("Measurements", [])
+
+        if "humedad relativa" in group_name or "humidity" in group_name:
+            nominal_values = [parse_numeric_value(m.get("Nominal")) for m in measurements if parse_numeric_value(m.get("Nominal")) is not None]
+            if nominal_values:
+                max_nominal = max(nominal_values)
+                min_nominal = min(nominal_values)
+                if max_nominal - min_nominal > 10:
+                    errors.append(f"Humidity span exceeds 10 %RH (Max: {max_nominal}, Min: {min_nominal})")
+
+        if "temperatura" in group_name or "temperature" in group_name:
+            nominal_values = [parse_numeric_value(m.get("Nominal")) for m in measurements if parse_numeric_value(m.get("Nominal")) is not None]
+            if nominal_values:
+                max_nominal = max(nominal_values)
+                min_nominal = min(nominal_values)
+                if max_nominal - min_nominal > 5:
+                    errors.append(f"Temperature span exceeds 5 °C (Max: {max_nominal}, Min: {min_nominal})")
+
+    return errors
+
 def check_environmental_conditions(data):
     temp = data.get("EnvironmentalTemperature", "")
     humidity = data.get("EnvironmentalRelativeHumidity", "")
@@ -124,6 +154,24 @@ def check_template_status(data):
 def check_certificate(cert_data):
     print(f"\nChecking certificate: {cert_data.get('CertNo', 'Unknown')}")
     print(f"Equipment Type: {cert_data.get('EquipmentType', 'Unknown')}")
+    cert_no = cert_data.get('CertNo', 'Unknown')
+    cal_date = cert_data.get('CalDate', '')
+    print(f"Checking certificate: {cert_no} with CalDate: {cal_date}")
+
+    # Ensure CalibrationResult is "Limited" for On-Site Calibration
+    if cert_data.get("CalLocation", "") == "On-Site Calibration" and cert_data.get("CalibrationResult", "") != "Limited":
+        cert_data["CalibrationResult"] = "Limited"
+
+    # Sort Datasheet by CalDate for all certificates
+    try:
+        cert_data['Datasheet'] = sorted(cert_data['Datasheet'], key=lambda d: datetime.strptime(cert_data.get('CalDate', 'Jan/01/1900'), '%b/%d/%Y'))
+    except ValueError:
+        print("Invalid CalDate format for sorting")
+
+    # Perform additional checks for ambient temperature and humidity
+    additional_errors = additional_checks_ambient_temp_and_humidity(cert_data)
+    if additional_errors:
+        print(f"Additional checks failed: {additional_errors}")
 
     # Determine if this certificate uses a template
     is_template_cert = cert_data.get("TemplateUsed") is not None

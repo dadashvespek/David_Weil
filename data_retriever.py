@@ -23,7 +23,7 @@ def retrieve_data():
         {"EquipmentType": "IR Temp", "ProcedureCode": "DR-WI-0077"},
         {"EquipmentType": "Ambient Temp/Hum", "ProcedureCode": "DR-WI-0078"},
         {"EquipmentType": "scales", "ProcedureCode": "DR-WI-0126"},
-        {"UseTemplate": "True"}
+        {"EquipmentType": "", "ProcedureCode": "", "UseTemplate": "True"}
     ]
 
     # Ensure the 'inputjson' directory exists

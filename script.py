@@ -93,7 +93,7 @@ def check_front_page(data):
     missing_fields = []
     for field in required_fields:
         value = data.get(field)
-        if value is None or (isinstance(value, str) and not value.strip()):
+        if value is None or value == "null" or (isinstance(value, str) and not value.strip()):
             missing_fields.append(field)
         elif isinstance(value, list) and not value:
             missing_fields.append(field)
@@ -264,13 +264,14 @@ def format_errors(result, cert_data, is_template_cert):
             group_errors = []
             for measurement in group.get("Measurements", []):
                 tur = measurement.get("TUR", "")
+                row_id = measurement.get("RowId", "Unknown RowId")
                 if tur and ":" in tur:
                     ratio_str, _ = tur.split(":")
                     ratio = parse_numeric_value(ratio_str)
                     if ratio is not None and ratio < 4:
                         group_errors.append({
-                            "RowId": measurement["RowId"],
-                            "Error": f"Low TUR: {tur}"
+                            "RowId": row_id,
+                            "Error": f"Low TUR: {tur} in certificate '{cert_data.get('CertNo', 'Unknown CertNo')}'"
                         })
             if group_errors:
                 formatted_errors["DatasheetErrors"].append({

@@ -111,7 +111,7 @@ def convert_to_psig(value, unit):
     else:
         raise ValueError(f"Unsupported unit: {unit}")
     
-def convert_to_grams(value, unit):
+def convert_to_grams(value, unit, cert_no="Unknown", row_id="Unknown"):
     # Implement unit conversion logic as needed
     unit = unit.lower()
     if unit == 'g':
@@ -123,13 +123,17 @@ def convert_to_grams(value, unit):
     elif unit == 'lb':
         return value * 453.59237
     elif unit == 'n/a':
-        return value * 0
+        return 0
     elif unit == '%':
         return value * 0.01
     elif unit == '°c':
-        return value * 0
+        return 0
+    elif unit == 'min':  # Handle unsupported unit case
+        print(f"Skipping conversion for unsupported unit: '{unit}' in certificate '{cert_no}', row '{row_id}'")
+        return None
     else:
-        raise ValueError(f"Unsupported unit: {unit}")
+        print(f"Skipping conversion for unsupported unit: '{unit}' in certificate '{cert_no}', row '{row_id}'")
+        return None
     
 def process_pressure_certificates():
     # Exclusion list (if any)
@@ -287,17 +291,17 @@ def process_pressure_certificates():
             elif group.split(' ')[-1].lower() not in ['weight', 'peso'] and 'rep' not in group.lower():
                 # Similar update for other groups
                 nominal_values = []
-                for i in measurements:
-                    nominal_str = i.get("Nominal")
-                    units = i.get("Units", 'g')
+                for measurement in measurements:
+                    nominal_str = measurement.get("Nominal")
+                    units = measurement.get("Units", 'g')
+                    row_id = measurement.get("RowId", "Unknown RowId")
                     if nominal_str not in [None, '', 'N/A'] and is_valid_float(nominal_str):
                         nominal_value = float(nominal_str)
-                        converted_nominal = convert_to_grams(nominal_value, units)
+                        converted_nominal = convert_to_grams(nominal_value, units, cert_no=certno, row_id=row_id)
                         if converted_nominal is not None:
                             nominal_values.append(converted_nominal)
                         else:
-                            print(f"Skipping measurement with unsupported unit '{units}' in certificate '{certno}'.")
-
+                            print(f"Skipping measurement with unsupported unit '{units}' in certificate '{certno}', row '{row_id}'.")
 
                 if nominal_values:
                     max_nominal = max(nominal_values)

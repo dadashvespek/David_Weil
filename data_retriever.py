@@ -23,9 +23,9 @@ def retrieve_data():
         {"EquipmentType": "IR Temp", "ProcedureCode": "DR-WI-0077"},
         {"EquipmentType": "Ambient Temp/Hum", "ProcedureCode": "DR-WI-0078"},
         {"EquipmentType": "scales", "ProcedureCode": "DR-WI-0126"},
-        {"UseTemplate": "True"},
-        {"UsePipetteModule": "True"},
-        {"HasAttachment": "True"}
+        {"EquipmentType": "", "ProcedureCode": "", "UseTemplate": "True"},
+        {"EquipmentType": "", "ProcedureCode": "", "UsePipetteModule": "True"},
+        {"EquipmentType": "", "ProcedureCode": "", "HasAttachments": "True"}
     ]
 
     # Ensure the 'inputjson' directory exists
@@ -40,13 +40,14 @@ def retrieve_data():
         all_data.append(data)
 
         # Save individual JSON files
-        if "EquipmentType" in param:
+        if param.get("EquipmentType"):
+            # If EquipmentType is not empty, use it in the file name
             file_name = f"data_response_{param['EquipmentType'].replace('/', '_')}.json"
-        elif "UseTemplate" in param:
+        elif param.get("UseTemplate") == "True":
             file_name = "data_response_UseTemplate_True.json"
-        elif "UsePipetteModule" in param:
+        elif param.get("UsePipetteModule") == "True":
             file_name = "data_response_UsePipetteModule_True.json"
-        elif "HasAttachment" in param:
+        elif param.get("HasAttachments") == "True":
             file_name = "data_response_HasAttachment_True.json"
         else:
             file_name = "data_response_Unknown.json"

@@ -211,12 +211,14 @@ def check_certificate(cert_data):
 def local_retrieve_data():
     retrieve_data()
     all_data = []
-    input_dir = './inputjson'  # Ensure this matches the directory in retrieve_data()
+    input_dir = './inputjson'
     file_patterns = [
         'data_response_IR Temp.json',
         'data_response_Ambient Temp_Hum.json',
         'data_response_scales.json',
-        'data_response_UseTemplate_True.json'
+        'data_response_UseTemplate_True.json',
+        'data_response_UsePipetteModule_True.json',
+        'data_response_HasAttachment_True.json'
     ]
 
     for file_name in file_patterns:
@@ -224,14 +226,18 @@ def local_retrieve_data():
         try:
             with open(file_path, 'r') as file:
                 data = json.load(file)
-                all_data.append(data)
-                print(f"Successfully loaded data from {file_name}")
-                print(f"Number of certificates in {file_name}: {len(data) if isinstance(data, list) else 1}")
+                if isinstance(data, list):
+                    all_data.extend(data)
+                    print(f"Loaded {len(data)} certificates from {file_name}")
+                else:
+                    all_data.append(data)
+                    print(f"Loaded 1 certificate from {file_name}")
         except FileNotFoundError:
             print(f"Warning: File '{file_path}' not found.")
         except json.JSONDecodeError:
             print(f"Error: Invalid JSON in file '{file_path}'.")
 
+    print(f"Total certificates loaded: {len(all_data)}")
     return all_data
 
 def format_errors(result, cert_data, is_template_cert):
@@ -296,6 +302,8 @@ def main(all_data):
     failed_certs_main = defaultdict(list)
     draft_certs_main = defaultdict(list)
 
+    total_certificates = 0
+
     for data_set in all_data:
         if isinstance(data_set, list):
             certs = data_set
@@ -305,6 +313,7 @@ def main(all_data):
             print(f"Skipping invalid data set: {data_set}")
             continue
 
+        total_certificates += len(certs)
         print(f"\nProcessing {len(certs)} certificates")
 
         for cert in certs:
@@ -393,13 +402,13 @@ def main(all_data):
 
     print(f"You can access the Google Sheet at: {sheet_url}")
 
-    return passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure
+    return passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates
 
 # Retrieve data from local files
 all_data = local_retrieve_data()
 
 # Process the JSON data
-passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure = main(all_data)
+passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates = main(all_data)
 
 # Reset stdout to default
 sys.stdout.close()
@@ -408,6 +417,7 @@ sys.stdout = sys.__stdout__
 print("\nSummary:")
 total_passed = sum(len(certs) for certs in passed_certs_main.values()) + sum(len(certs) for certs in passed_certs_pressure.values())
 total_failed = sum(len(certs) for certs in failed_certs_main.values()) + sum(len(certs) for certs in failed_certs_pressure.values())
+print(f"Total certificates processed: {total_certificates}")
 print(f"Passed certificates: {total_passed}")
 print(f"Failed certificates: {total_failed}")
 

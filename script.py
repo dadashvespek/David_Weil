@@ -81,15 +81,21 @@ def check_environmental_conditions(data):
     
     return temp_check and humidity_check
 
+
 def check_front_page(data):
     required_fields = [
         "CertNo", "CustomerCode", "EquipmentType", "AssetDescription",
-        "Manufacturer", "Model", "OperatingRange", "AccreditationInfo", "EquipmentLocation"
+        "Manufacturer", "Model", "OperatingRange", "EquipmentLocation"
     ]
+
+    # Add AccreditationInfo only if the certificate is not for a Pipette or doesn't have attachments
     is_accredited = data.get("IsAccredited", False)
-    if is_accredited:
-        required_fields.extend(["Procedures", "Standards"])
-    
+    use_pipette = data.get("UsedPipetteModule", False)
+    has_attachment = data.get("HasAttachment", False)
+
+    if is_accredited and not (use_pipette or has_attachment):
+        required_fields.extend(["Procedures", "Standards", "AccreditationInfo"])
+
     missing_fields = []
     for field in required_fields:
         value = data.get(field)
@@ -97,11 +103,16 @@ def check_front_page(data):
             missing_fields.append(field)
         elif isinstance(value, list) and not value:
             missing_fields.append(field)
+
     return len(missing_fields) == 0, missing_fields
 
 def check_accreditation(data):
     is_accredited = data.get("IsAccredited", False)
-    if not is_accredited:
+    use_pipette = data.get("UsedPipetteModule", False)
+    has_attachment = data.get("HasAttachment", False)
+
+    # Skip accreditation check for pipette or attachment certificates
+    if not is_accredited or use_pipette or has_attachment:
         return True
 
     for group in data.get("Datasheet", []):
@@ -113,12 +124,13 @@ def check_accreditation(data):
                     return True
 
     # Check for alternative conditions
-    if data.get("HasAttachment") and "External Certificate" in data.get("AttachmentType", []):
+    if has_attachment and "External Certificate" in data.get("AttachmentType", []):
         return True
     if data.get("HasModule/Wizard"):
         return True
 
     return False
+
 
 def check_customer_requirements_for_tur(data):
     customer_requirements = data.get("CustomerRequirements", [])

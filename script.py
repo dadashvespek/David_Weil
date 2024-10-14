@@ -81,21 +81,29 @@ def check_environmental_conditions(data):
     
     return temp_check and humidity_check
 
-
 def check_front_page(data):
     required_fields = [
         "CertNo", "CustomerCode", "EquipmentType", "AssetDescription",
         "Manufacturer", "Model", "OperatingRange", "EquipmentLocation"
     ]
 
-    # Add AccreditationInfo only if the certificate is not for a Pipette or doesn't have attachments
-    is_accredited = data.get("IsAccredited", False)
+    # Retrieve and normalize UsedPipetteModule and AttachmentTypesUsed values
     use_pipette = data.get("UsedPipetteModule", False)
-    has_attachment = data.get("HasAttachment", False)
+    attachments_used = data.get("AttachmentTypesUsed", [])
 
-    if is_accredited and not (use_pipette or has_attachment):
+    # Determine if this certificate should skip accreditation checks
+    is_from_hasattachment = not use_pipette and bool(attachments_used)
+
+    # Debugging: Print out values we care about
+    print(f"Certificate: {data.get('CertNo')}, UsedPipetteModule: {use_pipette}, AttachmentsUsed: {attachments_used}, IsFromHasAttachment: {is_from_hasattachment}")
+
+    # Add AccreditationInfo only if the certificate is accredited and not from HasAttachment or Pipette Module
+    is_accredited = data.get("IsAccredited", False)
+    if is_accredited and not is_from_hasattachment:
+        print(f"Adding accreditation fields for certificate: {data.get('CertNo')}")
         required_fields.extend(["Procedures", "Standards", "AccreditationInfo"])
 
+    # Check for missing fields
     missing_fields = []
     for field in required_fields:
         value = data.get(field)
@@ -106,6 +114,7 @@ def check_front_page(data):
 
     return len(missing_fields) == 0, missing_fields
 
+
 def check_accreditation(data):
     is_accredited = data.get("IsAccredited", False)
     use_pipette = data.get("UsedPipetteModule", False)
@@ -115,6 +124,7 @@ def check_accreditation(data):
     if not is_accredited or use_pipette or has_attachment:
         return True
 
+    # Check accreditation only if it's not a pipette and has no attachments
     for group in data.get("Datasheet", []):
         for measurement in group.get("Measurements", []):
             meas_uncert = measurement.get("MeasUncert")
@@ -124,12 +134,13 @@ def check_accreditation(data):
                     return True
 
     # Check for alternative conditions
-    if has_attachment and "External Certificate" in data.get("AttachmentType", []):
+    if data.get("HasAttachment") and "External Certificate" in data.get("AttachmentType", []):
         return True
     if data.get("HasModule/Wizard"):
         return True
 
     return False
+
 
 
 def check_customer_requirements_for_tur(data):
@@ -313,6 +324,7 @@ def main(all_data):
     passed_certs_main = defaultdict(list)
     failed_certs_main = defaultdict(list)
     draft_certs_main = defaultdict(list)
+    skipped_certs_main = defaultdict(list)  # Added to track skipped certificates
 
     total_certificates = 0
 
@@ -338,13 +350,14 @@ def main(all_data):
                 equipment_type = cert.get("EquipmentType", "Unknown")
                 customer_code = cert.get("CustomerCode", "Unknown")
 
-                # **Add this condition to skip scales and balances certificates**
+                # Skip scales and balances certificates if needed
                 if equipment_type == "Scales & Balances":
                     print(f"Skipping scales and balances certificate {cert_no} in main processing.")
-                    continue  # Skip processing this certificate in the main loop
+                    skipped_certs_main[equipment_type].append(cert)
+                    continue
 
+                # Handle draft certificates
                 if calibration_status == "draft":
-                    # Certificate is in draft status; add to draft list
                     draft_certs_main[equipment_type].append({
                         "CertNo": cert_no,
                         "CalDate": cal_date,
@@ -354,6 +367,7 @@ def main(all_data):
                     print(f"Certificate {cert_no} is in 'Draft' status and added to draft certificates.")
                     continue  # Skip further processing for this certificate
 
+                # Handle ready to approve certificates
                 elif calibration_status == "ready to approve":
                     # Proceed with error checking
                     result, formatted_errors = check_certificate(cert)
@@ -374,10 +388,11 @@ def main(all_data):
                             "Errors": formatted_errors
                         })
                         print(f"Certificate {cert_no} failed checks: {formatted_errors}")
+
+                # Handle other statuses explicitly
                 else:
-                    # Handle other statuses if needed
-                    print(f"Certificate {cert_no} has status '{calibration_status}' and is not processed.")
-                    # You can choose to skip or log these certificates
+                    print(f"Certificate {cert_no} has status '{calibration_status}' and is being skipped.")
+                    skipped_certs_main[equipment_type].append(cert)
 
             except Exception as e:
                 # Exception handling
@@ -414,24 +429,30 @@ def main(all_data):
 
     print(f"You can access the Google Sheet at: {sheet_url}")
 
-    return passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates
+    # Return all categories for further processing
+    return passed_certs_main, failed_certs_main, draft_certs_main, skipped_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates
 
 # Retrieve data from local files
 all_data = local_retrieve_data()
 
 # Process the JSON data
-passed_certs_main, failed_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates = main(all_data)
+passed_certs_main, failed_certs_main, draft_certs_main, skipped_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates = main(all_data)
 
 # Reset stdout to default
 sys.stdout.close()
 sys.stdout = sys.__stdout__
 
+# Write summary
 print("\nSummary:")
 total_passed = sum(len(certs) for certs in passed_certs_main.values()) + sum(len(certs) for certs in passed_certs_pressure.values())
 total_failed = sum(len(certs) for certs in failed_certs_main.values()) + sum(len(certs) for certs in failed_certs_pressure.values())
+total_drafts = sum(len(certs) for certs in draft_certs_main.values())
+total_skipped = sum(len(certs) for certs in skipped_certs_main.values())
 print(f"Total certificates processed: {total_certificates}")
 print(f"Passed certificates: {total_passed}")
 print(f"Failed certificates: {total_failed}")
+print(f"Draft certificates: {total_drafts}")
+print(f"Skipped certificates: {total_skipped}")
 
 # Write results to files
 with open('passed_certificates.txt', 'w') as f:

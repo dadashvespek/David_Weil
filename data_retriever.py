@@ -48,7 +48,7 @@ def retrieve_data():
         elif param.get("UsePipetteModule") == "True":
             file_name = "data_response_UsePipetteModule_True.json"
         elif param.get("HasAttachments") == "True":
-            file_name = "data_response_HasAttachment_True.json"
+            file_name = "data_response_HasAttachments_True.json"
         else:
             file_name = "data_response_Unknown.json"
 

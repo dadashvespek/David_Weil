@@ -324,7 +324,7 @@ def main(all_data):
     passed_certs_main = defaultdict(list)
     failed_certs_main = defaultdict(list)
     draft_certs_main = defaultdict(list)
-    skipped_certs_main = defaultdict(list)  # Added to track skipped certificates
+    skipped_certs_main = defaultdict(list)
 
     total_certificates = 0
 
@@ -350,12 +350,6 @@ def main(all_data):
                 equipment_type = cert.get("EquipmentType", "Unknown")
                 customer_code = cert.get("CustomerCode", "Unknown")
 
-                # Skip scales and balances certificates if needed
-                if equipment_type == "Scales & Balances":
-                    print(f"Skipping scales and balances certificate {cert_no} in main processing.")
-                    skipped_certs_main[equipment_type].append(cert)
-                    continue
-
                 # Handle draft certificates
                 if calibration_status == "draft":
                     draft_certs_main[equipment_type].append({
@@ -369,7 +363,13 @@ def main(all_data):
 
                 # Handle ready to approve certificates
                 elif calibration_status == "ready to approve":
-                    # Proceed with error checking
+                    # If it's a scales and balances certificate, delegate to pressure certificate processing
+                    if equipment_type == "Scales & Balances":
+                        print(f"Passing scales and balances certificate {cert_no} to pressure processing.")
+                        # Handled in process_pressure_certificates()
+                        continue
+
+                    # Proceed with error checking for other types
                     result, formatted_errors = check_certificate(cert)
 
                     # Check if all results are True or (True, [])
@@ -418,7 +418,9 @@ def main(all_data):
     for eq_type, certs in passed_certs_pressure.items():
         passed_certs_main[eq_type].extend(certs)
 
-    # Do not merge failed pressure certificates; keep them separate
+    # Merge failed pressure certificates into main failed certificates
+    for eq_type, certs in failed_certs_pressure.items():
+        failed_certs_main[eq_type].extend(certs)
 
     # Send results to Google Sheets
     user_email = "your_email@example.com"  # Replace with your actual email

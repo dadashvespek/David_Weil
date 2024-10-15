@@ -151,7 +151,6 @@ def process_pressure_certificates():
     lower_percent_of_max_ecce = 0.4
     upper_percent_of_max_ecce = 1.0
 
-
     list_of_all_json = glob.glob(os.path.join('pressure_input_jsons', '*.json'))
     if not list_of_all_json:
         print("No JSON files found in pressure_input_jsons directory.")
@@ -278,7 +277,6 @@ def process_pressure_certificates():
                             nominal_values.append(converted_nominal)
                         else:
                             print(f"Skipping measurement with unsupported unit '{units}' in certificate '{certno}'.")
-
 
                 if nominal_values:
                     max_nominal = max(nominal_values)

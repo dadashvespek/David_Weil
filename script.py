@@ -114,14 +114,13 @@ def check_front_page(data):
 
     return len(missing_fields) == 0, missing_fields
 
-
 def check_accreditation(data):
     is_accredited = data.get("IsAccredited", False)
     use_pipette = data.get("UsedPipetteModule", False)
-    has_attachment = data.get("HasAttachment", False)
+    attachments_used = data.get("AttachmentTypesUsed", [])
 
     # Skip accreditation check for pipette or attachment certificates
-    if not is_accredited or use_pipette or has_attachment:
+    if not is_accredited or use_pipette or bool(attachments_used):
         return True
 
     # Check accreditation only if it's not a pipette and has no attachments
@@ -134,14 +133,12 @@ def check_accreditation(data):
                     return True
 
     # Check for alternative conditions
-    if data.get("HasAttachment") and "External Certificate" in data.get("AttachmentType", []):
+    if "External Certificate" in attachments_used:
         return True
     if data.get("HasModule/Wizard"):
         return True
 
     return False
-
-
 
 def check_customer_requirements_for_tur(data):
     customer_requirements = data.get("CustomerRequirements", [])
@@ -241,7 +238,7 @@ def local_retrieve_data():
         'data_response_scales.json',
         'data_response_UseTemplate_True.json',
         'data_response_UsePipetteModule_True.json',
-        'data_response_HasAttachment_True.json'
+        'data_response_HasAttachments_True.json'
     ]
 
     for file_name in file_patterns:

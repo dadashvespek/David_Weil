@@ -119,8 +119,6 @@ def send_results_to_sheets(
             # Process different types of errors
             if errors.get('FrontPageErrors'):
                 error_messages.append('Front Page Errors: ' + ', '.join(errors['FrontPageErrors']))
-            if errors.get('AdditionalFieldsErrors'):
-                error_messages.append('Additional Fields Errors: ' + ', '.join(errors['AdditionalFieldsErrors']))
             if errors.get('TemplateStatusError'):
                 error_messages.append('Template Status Error: ' + errors['TemplateStatusError'])
             if errors.get('DatasheetErrors'):

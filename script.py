@@ -159,15 +159,6 @@ def check_tur(data):
                     low_tur_values.append(tur)
     return len(low_tur_values) == 0, low_tur_values
 
-def check_additional_fields(data):
-    required_fields = {
-        "CalDate": lambda d: any(std.get("CalDate") for std in d.get("Standards", [])),
-        "DueDate": lambda d: any(std.get("DueDate") for std in d.get("Standards", []))
-    }
-
-    missing_fields = [field for field, check in required_fields.items() if not check(data)]
-    return len(missing_fields) == 0, missing_fields
-
 def check_template_status(data):
     return data.get("TemplateUsedStatus") == "Not Edited"
 
@@ -208,9 +199,6 @@ def check_certificate(cert_data):
     tur_check, tur_values = check_tur(cert_data)
     print(f"TUR check: {tur_check}, Values: {tur_values}")
 
-    additional_fields_check, missing_fields = check_additional_fields(cert_data)
-    print(f"Additional fields check: {additional_fields_check}, Missing: {missing_fields}")
-
     template_status = True
     if is_template_cert:
         template_status = check_template_status(cert_data)
@@ -221,7 +209,6 @@ def check_certificate(cert_data):
         "front_page_complete": (front_page_check, front_page_missing),
         "accreditation": accreditation,
         "tur": (tur_check, tur_values),
-        "additional_fields": (additional_fields_check, missing_fields),
         "template_status": template_status
     }
 
@@ -263,7 +250,6 @@ def local_retrieve_data():
 def format_errors(result, cert_data, is_template_cert):
     formatted_errors = {
         "FrontPageErrors": [],
-        "AdditionalFieldsErrors": [],
         "DatasheetErrors": [],
         "TemplateStatusError": None
     }
@@ -279,10 +265,6 @@ def format_errors(result, cert_data, is_template_cert):
     # Process accreditation error
     if not result["accreditation"]:
         formatted_errors["FrontPageErrors"].append("AccreditationInfo")
-
-    # Process additional fields errors
-    if not result["additional_fields"][0]:
-        formatted_errors["AdditionalFieldsErrors"].extend(result["additional_fields"][1])
 
     # Process TUR errors
     if not result["tur"][0]:
@@ -486,8 +468,6 @@ with open('failed_certificates.txt', 'w') as f:
                     errors = cert['Errors']
                     if errors.get("FrontPageErrors"):
                         f.write("Front Page Errors: " + ", ".join(errors["FrontPageErrors"]) + "\n")
-                    if errors.get("AdditionalFieldsErrors"):
-                        f.write("Additional Fields Errors: " + ", ".join(errors["AdditionalFieldsErrors"]) + "\n")
                     if errors.get("DatasheetErrors"):
                         f.write("Datasheet Errors:\n")
                         for group in errors["DatasheetErrors"]:

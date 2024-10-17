@@ -204,6 +204,10 @@ def check_certificate(cert_data):
         template_status = check_template_status(cert_data)
         print(f"Template status check: {template_status}")
 
+    # If any of the required fields are missing, mark the certificate as failed
+    if not front_page_check:
+        print(f"Certificate {cert_no} has missing front page fields: {front_page_missing}")
+
     results = {
         "environmental_conditions": env_conditions,
         "front_page_complete": (front_page_check, front_page_missing),
@@ -342,6 +346,18 @@ def main(all_data):
 
                 # Handle ready to approve certificates
                 elif calibration_status == "ready to approve":
+                    # Perform front-page checks even for scales and balances certificates
+                    front_page_check, front_page_missing = check_front_page(cert)
+                    if not front_page_check:
+                        failed_certs_main[equipment_type].append({
+                            "CertNo": cert_no,
+                            "CalDate": cal_date,
+                            "CustomerCode": customer_code,
+                            "Errors": {"FrontPageErrors": front_page_missing}
+                        })
+                        print(f"Certificate {cert_no} failed front-page checks due to missing fields: {front_page_missing}")
+                        continue  # Skip further processing if front-page checks fail
+
                     # If it's a scales and balances certificate, delegate to pressure certificate processing
                     if equipment_type == "Scales & Balances":
                         print(f"Passing scales and balances certificate {cert_no} to pressure processing.")
@@ -413,14 +429,17 @@ def main(all_data):
     # Return all categories for further processing
     return passed_certs_main, failed_certs_main, draft_certs_main, skipped_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates
 
-# Retrieve data from local files
-all_data = local_retrieve_data()
+# Redirect stdout to a file, process, and then reset stdout
+with open('script_output.txt', 'w') as f:
+    sys.stdout = f
 
-# Process the JSON data
-passed_certs_main, failed_certs_main, draft_certs_main, skipped_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates = main(all_data)
+    # Retrieve data from local files
+    all_data = local_retrieve_data()
+
+    # Process the JSON data
+    passed_certs_main, failed_certs_main, draft_certs_main, skipped_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates = main(all_data)
 
 # Reset stdout to default
-sys.stdout.close()
 sys.stdout = sys.__stdout__
 
 # Write summary

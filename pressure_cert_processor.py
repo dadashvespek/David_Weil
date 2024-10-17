@@ -7,6 +7,7 @@ import glob
 import requests
 
 
+
 def convert_to_psig(value, unit):
     """Converts a pressure value to psig based on the unit."""
     # Implement the actual conversion logic based on your requirements
@@ -136,6 +137,7 @@ def convert_to_grams(value, unit, cert_no="Unknown", row_id="Unknown"):
         return None
     
 def process_pressure_certificates():
+    from script import check_front_page
     # Exclusion list (if any)
     exclusion_list = []
 
@@ -168,7 +170,7 @@ def process_pressure_certificates():
         equipment_type = "Scales & Balances"
         dict_of_noms = {}
         group_values = []
-        results = []
+        cert_no = json_data.get("CertNo", "Unknown CertNo")
         datasheets = json_data.get("Datasheet", [])
         certno = json_data.get("CertNo", "Unknown CertNo")
         equipment_type = json_data.get("EquipmentType", "Unknown")
@@ -179,6 +181,18 @@ def process_pressure_certificates():
         customer_code = json_data.get("CustomerCode", "Unknown")
 
         print(f"Processing CertNo: {certno}, Equipment Type: {equipment_type}")
+
+        # Perform front-page checks for pressure certificates as well
+        front_page_check, front_page_missing = check_front_page(json_data)
+        if not front_page_check:
+            failed_certs[equipment_type].append({
+                "CertNo": cert_no,
+                "CalDate": cal_date,
+                "CustomerCode": customer_code,
+                "Errors": {"FrontPageErrors": front_page_missing}
+            })
+            print(f"Certificate {cert_no} failed front-page checks due to missing fields: {front_page_missing}")
+            continue  # Skip further processing if front-page checks fail
 
         # Ensure CalibrationResult is "Limited" for On-Site Calibration
         if json_data.get("CalLocation", "") == "On-Site Calibration" and json_data.get("CalibrationResult", "") != "Limited":

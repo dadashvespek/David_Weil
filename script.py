@@ -32,7 +32,7 @@ def additional_checks_ambient_temp_and_humidity(data):
     if data.get("CalLocation", "") == "On-Site Calibration" and data.get("EquipmentType", "").lower() in ["ambient temp", "humidity"]:
         data["CalibrationResult"] = "Limited"
 
-    # Span checks
+    # Span checks for humidity and temperature
     for datasheet in data.get("Datasheet", []):
         group_name = datasheet.get("Group", "").lower()
         measurements = datasheet.get("Measurements", [])
@@ -42,6 +42,8 @@ def additional_checks_ambient_temp_and_humidity(data):
             if nominal_values:
                 max_nominal = max(nominal_values)
                 min_nominal = min(nominal_values)
+                # Debugging prints for max and min nominal values
+                print(f"Humidity Group - Max Nominal: {max_nominal}, Min Nominal: {min_nominal}, Certificate: {data.get('CertNo')}")
                 if max_nominal - min_nominal > 10:
                     errors.append(f"Humidity span exceeds 10 %RH (Max: {max_nominal}, Min: {min_nominal})")
 
@@ -50,10 +52,13 @@ def additional_checks_ambient_temp_and_humidity(data):
             if nominal_values:
                 max_nominal = max(nominal_values)
                 min_nominal = min(nominal_values)
+                # Debugging prints for max and min nominal values
+                print(f"Temperature Group - Max Nominal: {max_nominal}, Min Nominal: {min_nominal}, Certificate: {data.get('CertNo')}")
                 if max_nominal - min_nominal > 5:
                     errors.append(f"Temperature span exceeds 5 °C (Max: {max_nominal}, Min: {min_nominal})")
 
     return errors
+
 
 def check_environmental_conditions(data):
     temp = data.get("EnvironmentalTemperature", "")
@@ -183,6 +188,14 @@ def check_certificate(cert_data):
     additional_errors = additional_checks_ambient_temp_and_humidity(cert_data)
     if additional_errors:
         print(f"Additional checks failed: {additional_errors}")
+        # If additional checks fail, directly return these errors
+        return {
+            "environmental_conditions": False,
+            "front_page_complete": (False, []),
+            "accreditation": False,
+            "tur": (False, []),
+            "template_status": False
+        }, {"FrontPageErrors": additional_errors}
 
     # Determine if this certificate uses a template
     is_template_cert = cert_data.get("TemplateUsed") is not None
@@ -218,6 +231,7 @@ def check_certificate(cert_data):
 
     formatted_errors = format_errors(results, cert_data, is_template_cert)
     return results, formatted_errors
+
 
 def local_retrieve_data():
     retrieve_data()

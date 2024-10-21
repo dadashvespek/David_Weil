@@ -25,37 +25,46 @@ def parse_numeric_value(value):
             return None
     return None
 
-
 def additional_checks_ambient_temp_and_humidity(data):
     errors = []
-    # If CalLocation is On-Site Calibration, set CalibrationResult to Limited for ambient temp/humidity
-    if data.get("CalLocation", "") == "On-Site Calibration" and data.get("EquipmentType", "").lower() in ["ambient temp", "humidity"]:
-        data["CalibrationResult"] = "Limited"
+    # Apply span checks only for specific equipment types and calibration location
+    valid_equipment_types = ["thermohygrometer", "datalogger", "temperature and humidity meter"]
 
-    # Span checks for humidity and temperature
-    for datasheet in data.get("Datasheet", []):
-        group_name = datasheet.get("Group", "").lower()
-        measurements = datasheet.get("Measurements", [])
+    # Only proceed if the certificate matches the criteria
+    if (
+        data.get("CalLocation", "").lower() == "on-site calibration" and
+        data.get("EquipmentType", "").lower() in valid_equipment_types
+    ):
+        for datasheet in data.get("Datasheet", []):
+            group_name = datasheet.get("Group", "").lower()
+            measurements = datasheet.get("Measurements", [])
 
-        if "humedad relativa" in group_name or "humidity" in group_name:
-            nominal_values = [parse_numeric_value(m.get("Nominal")) for m in measurements if parse_numeric_value(m.get("Nominal")) is not None]
-            if nominal_values:
-                max_nominal = max(nominal_values)
-                min_nominal = min(nominal_values)
-                # Debugging prints for max and min nominal values
-                print(f"Humidity Group - Max Nominal: {max_nominal}, Min Nominal: {min_nominal}, Certificate: {data.get('CertNo')}")
-                if max_nominal - min_nominal > 10:
-                    errors.append(f"Humidity span exceeds 10 %RH (Max: {max_nominal}, Min: {min_nominal})")
+            # Perform span check only if it's related to humidity or temperature
+            if "humedad relativa" in group_name or "humidity" in group_name:
+                nominal_values = [
+                    parse_numeric_value(m.get("Nominal"))
+                    for m in measurements
+                    if parse_numeric_value(m.get("Nominal")) is not None
+                ]
+                if nominal_values:
+                    max_nominal = max(nominal_values)
+                    min_nominal = min(nominal_values)
+                    print(f"Humidity Group - Max Nominal: {max_nominal}, Min Nominal: {min_nominal}, Certificate: {data.get('CertNo')}")
+                    if max_nominal - min_nominal > 10:
+                        errors.append(f"Humidity span exceeds 10 %RH (Max: {max_nominal}, Min: {min_nominal})")
 
-        if "temperatura" in group_name or "temperature" in group_name:
-            nominal_values = [parse_numeric_value(m.get("Nominal")) for m in measurements if parse_numeric_value(m.get("Nominal")) is not None]
-            if nominal_values:
-                max_nominal = max(nominal_values)
-                min_nominal = min(nominal_values)
-                # Debugging prints for max and min nominal values
-                print(f"Temperature Group - Max Nominal: {max_nominal}, Min Nominal: {min_nominal}, Certificate: {data.get('CertNo')}")
-                if max_nominal - min_nominal > 5:
-                    errors.append(f"Temperature span exceeds 5 °C (Max: {max_nominal}, Min: {min_nominal})")
+            if "temperatura" in group_name or "temperature" in group_name:
+                nominal_values = [
+                    parse_numeric_value(m.get("Nominal"))
+                    for m in measurements
+                    if parse_numeric_value(m.get("Nominal")) is not None
+                ]
+                if nominal_values:
+                    max_nominal = max(nominal_values)
+                    min_nominal = min(nominal_values)
+                    print(f"Temperature Group - Max Nominal: {max_nominal}, Min Nominal: {min_nominal}, Certificate: {data.get('CertNo')}")
+                    if max_nominal - min_nominal > 5:
+                        errors.append(f"Temperature span exceeds 5 °C (Max: {max_nominal}, Min: {min_nominal})")
 
     return errors
 
@@ -188,14 +197,6 @@ def check_certificate(cert_data):
     additional_errors = additional_checks_ambient_temp_and_humidity(cert_data)
     if additional_errors:
         print(f"Additional checks failed: {additional_errors}")
-        # If additional checks fail, directly return these errors
-        return {
-            "environmental_conditions": False,
-            "front_page_complete": (False, []),
-            "accreditation": False,
-            "tur": (False, []),
-            "template_status": False
-        }, {"FrontPageErrors": additional_errors}
 
     # Determine if this certificate uses a template
     is_template_cert = cert_data.get("TemplateUsed") is not None
@@ -231,7 +232,6 @@ def check_certificate(cert_data):
 
     formatted_errors = format_errors(results, cert_data, is_template_cert)
     return results, formatted_errors
-
 
 def local_retrieve_data():
     retrieve_data()

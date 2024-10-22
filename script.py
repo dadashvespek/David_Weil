@@ -35,6 +35,11 @@ def additional_checks_ambient_temp_and_humidity(data):
         data.get("CalLocation", "").lower() == "on-site calibration" and
         data.get("EquipmentType", "").lower() in valid_equipment_types
     ):
+        # Check if CalibrationStatus is "Limited"
+        if data.get("CalibrationStatus", "").lower() != "limited":
+            errors.append("Calibration status must be 'Limited' for On-Site Calibration.")
+
+        # Span checks for humidity and temperature
         for datasheet in data.get("Datasheet", []):
             group_name = datasheet.get("Group", "").lower()
             measurements = datasheet.get("Measurements", [])

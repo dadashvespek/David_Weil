@@ -189,7 +189,7 @@ def check_certificate(cert_data):
     print(f"Checking certificate: {cert_no} with CalDate: {cal_date}")
 
     # Ensure CalibrationResult is "Limited" for On-Site Calibration
-    if cert_data.get("CalLocation", "") == "On-Site Calibration" and cert_data.get("CalibrationResult", "") != "Limited":
+    if cert_data.get("CalLocation", "").lower() == "on-site calibration" and cert_data.get("CalibrationResult", "").lower() != "limited":
         cert_data["CalibrationResult"] = "Limited"
 
     # Sort Datasheet by CalDate for all certificates
@@ -232,7 +232,8 @@ def check_certificate(cert_data):
         "front_page_complete": (front_page_check, front_page_missing),
         "accreditation": accreditation,
         "tur": (tur_check, tur_values),
-        "template_status": template_status
+        "template_status": template_status,
+        "additional_checks": (len(additional_errors) == 0, additional_errors)
     }
 
     formatted_errors = format_errors(results, cert_data, is_template_cert)
@@ -314,9 +315,13 @@ def format_errors(result, cert_data, is_template_cert):
     if not result["environmental_conditions"]:
         formatted_errors["FrontPageErrors"].append("EnvironmentalConditions")
 
-    # Template status error
+    # Process template status error
     if is_template_cert and not result["template_status"]:
         formatted_errors["TemplateStatusError"] = "Template has been edited"
+
+    # Add additional checks errors
+    if not result["additional_checks"][0]:
+        formatted_errors["FrontPageErrors"].extend(result["additional_checks"][1])
 
     print(f"Formatted Errors: {formatted_errors}")
 
@@ -402,6 +407,7 @@ def main(all_data):
                             "Errors": formatted_errors
                         })
                         print(f"Certificate {cert_no} failed checks: {formatted_errors}")
+
 
                 # Handle other statuses explicitly
                 else:

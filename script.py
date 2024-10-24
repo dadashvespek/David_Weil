@@ -1,10 +1,12 @@
 # script.py
 
+import argparse
 import os
 import re
 import json
 import traceback
 import sys
+import subprocess
 from collections import defaultdict
 from datetime import datetime
 from data_retriever import retrieve_data
@@ -13,6 +15,58 @@ from pressure_cert_processor import retrieve_pressure_data, process_pressure_cer
 
 # Redirect stdout to a file
 sys.stdout = open('script_output.txt', 'w')
+
+def read_schedule_config():
+    """Read the schedule configuration from JSON file."""
+    try:
+        with open('schedule_config.json', 'r') as f:
+            config = json.load(f)
+        return config
+    except FileNotFoundError:
+        print("Configuration file 'schedule_config.json' not found. Using default values.")
+        return {"frequency": "daily", "times": ["06:00", "18:00"]}
+    except json.JSONDecodeError:
+        print("Error reading 'schedule_config.json'. Ensure it is properly formatted.")
+        return {"frequency": "daily", "times": ["06:00", "18:00"]}
+
+def create_task_scheduler():
+    """Automates creating a Windows Task Scheduler task to run the script based on JSON configuration."""
+    config = read_schedule_config()
+    frequency = config.get("frequency", "daily")
+    times = config.get("times", ["06:00", "18:00"])
+
+    script_path = os.path.abspath(__file__)
+    try:
+        # Prepare PowerShell command for task creation
+        task_name = "RunScriptBasedOnConfig"
+        action = f'New-ScheduledTaskAction -Execute "python" -Argument "{script_path}"'
+        
+        triggers = []
+        for time in times:
+            hour, minute = time.split(":")
+            if frequency == "daily":
+                trigger = f'New-ScheduledTaskTrigger -Daily -At {hour}:{minute}AM'
+            elif frequency == "weekly":
+                trigger = f'New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At {hour}:{minute}AM'
+            else:
+                print(f"Unsupported frequency: {frequency}. Defaulting to daily.")
+                trigger = f'New-ScheduledTaskTrigger -Daily -At {hour}:{minute}AM'
+            triggers.append(trigger)
+
+        # Construct the PowerShell command
+        trigger_command = ", ".join(triggers)
+        command = f"""
+        $Action = {action}
+        $Trigger = @({trigger_command})
+        Register-ScheduledTask -Action $Action -Trigger $Trigger -TaskName "{task_name}" -Description "Run the Python script based on schedule config" -User "{os.getlogin()}"
+        """
+        
+        # Run the PowerShell command to create the scheduled task
+        subprocess.run(["powershell", "-Command", command], check=True)
+        print(f"Task Scheduler job created successfully based on the configuration: {frequency} at {times}")
+    except subprocess.CalledProcessError as e:
+        print(f"Failed to create task scheduler job: {e}")
+
 
 def parse_numeric_value(value):
     if isinstance(value, (int, float)):
@@ -454,84 +508,100 @@ def main(all_data):
     # Return all categories for further processing
     return passed_certs_main, failed_certs_main, draft_certs_main, skipped_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates
 
-# Redirect stdout to a file, process, and then reset stdout
-with open('script_output.txt', 'w') as f:
-    sys.stdout = f
+if __name__ == "__main__":
+    # Argument parser to decide whether to schedule or run normally
+    parser = argparse.ArgumentParser(description="Process certificates or set up a scheduler for this script.")
+    parser.add_argument("--schedule", action="store_true", help="Set up Windows Task Scheduler to run this script twice a day.")
+    args = parser.parse_args()
 
-    # Retrieve data from local files
-    all_data = local_retrieve_data()
-
-    # Process the JSON data
-    passed_certs_main, failed_certs_main, draft_certs_main, skipped_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates = main(all_data)
-
-# Reset stdout to default
-sys.stdout = sys.__stdout__
-
-# Write summary
-print("\nSummary:")
-total_passed = sum(len(certs) for certs in passed_certs_main.values()) + sum(len(certs) for certs in passed_certs_pressure.values())
-total_failed = sum(len(certs) for certs in failed_certs_main.values()) + sum(len(certs) for certs in failed_certs_pressure.values())
-total_drafts = sum(len(certs) for certs in draft_certs_main.values())
-total_skipped = sum(len(certs) for certs in skipped_certs_main.values())
-print(f"Total certificates processed: {total_certificates}")
-print(f"Passed certificates: {total_passed}")
-print(f"Failed certificates: {total_failed}")
-print(f"Draft certificates: {total_drafts}")
-print(f"Skipped certificates: {total_skipped}")
-
-# Write results to files
-with open('passed_certificates.txt', 'w') as f:
-    f.write("Certificates that passed all checks:\n")
-    if not any(passed_certs_main.values()) and not any(passed_certs_pressure.values()):
-        f.write("\nNo certificates passed all checks.\n")
+    if args.schedule:
+        # If the --schedule argument is passed, create the scheduler
+        if not os.path.exists("task_scheduled.txt"):
+            create_task_scheduler()
+            with open("task_scheduled.txt", "w") as f:
+                f.write("Task scheduled successfully.")
+            print("Task has been scheduled successfully.")
+        else:
+            print("Task has already been scheduled.")
     else:
-        # Write main passed certificates
-        for equipment_type, certs in passed_certs_main.items():
-            if certs:
-                f.write(f"\nEquipment Type: {equipment_type}\n")
-                for cert in certs:
-                    f.write(f"{cert}\n")
-        # Write pressure passed certificates
-        for equipment_type, certs in passed_certs_pressure.items():
-            if certs:
-                f.write(f"\nEquipment Type: {equipment_type}\n")
-                for cert in certs:
-                    f.write(f"{cert}\n")
+        # Redirect stdout to a file, process, and then reset stdout
+        with open('script_output.txt', 'w') as f:
+            sys.stdout = f
 
-with open('failed_certificates.txt', 'w') as f:
-    f.write("Certificates that failed one or more checks:\n")
-    if not any(failed_certs_main.values()) and not any(failed_certs_pressure.values()):
-        f.write("\nNo certificates failed any checks.\n")
-    else:
-        # Write main failed certificates
-        for equipment_type, certs in failed_certs_main.items():
-            if certs:
-                f.write(f"\nEquipment Type: {equipment_type}\n")
-                for cert in certs:
-                    f.write(f"Certificate: {cert['CertNo']}\n")
-                    errors = cert['Errors']
-                    if errors.get("FrontPageErrors"):
-                        f.write("Front Page Errors: " + ", ".join(errors["FrontPageErrors"]) + "\n")
-                    if errors.get("DatasheetErrors"):
-                        f.write("Datasheet Errors:\n")
-                        for group in errors["DatasheetErrors"]:
-                            f.write(f"  Group: {group['Group']}\n")
-                            for error in group['Errors']:
-                                f.write(f"    Row {error['RowId']}: {error['Error']}\n")
-                    f.write("\n")
-        # Write pressure failed certificates
-        for equipment_type, certs in failed_certs_pressure.items():
-            if certs:
-                f.write(f"\nEquipment Type: {equipment_type}\n")
-                for cert in certs:
-                    f.write(f"Certificate: {cert['CertNo']}\n")
-                    errors = cert['Errors']
-                    if errors.get("DatasheetErrors"):
-                        f.write("Datasheet Errors:\n")
-                        for group in errors["DatasheetErrors"]:
-                            f.write(f"  Group: {group['Group']}\n")
-                            for error in group['Errors']:
-                                f.write(f"    Row {error['RowId']}: {error['Error']}\n")
-                    f.write("\n")
+            # Retrieve data from local files
+            all_data = local_retrieve_data()
 
-print(f"Results have been written to 'passed_certificates.txt' and 'failed_certificates.txt'")
+            # Process the JSON data
+            passed_certs_main, failed_certs_main, draft_certs_main, skipped_certs_main, passed_certs_pressure, failed_certs_pressure, total_certificates = main(all_data)
+
+        # Reset stdout to default
+        sys.stdout = sys.__stdout__
+
+        # Write summary
+        print("\nSummary:")
+        total_passed = sum(len(certs) for certs in passed_certs_main.values()) + sum(len(certs) for certs in passed_certs_pressure.values())
+        total_failed = sum(len(certs) for certs in failed_certs_main.values()) + sum(len(certs) for certs in failed_certs_pressure.values())
+        total_drafts = sum(len(certs) for certs in draft_certs_main.values())
+        total_skipped = sum(len(certs) for certs in skipped_certs_main.values())
+        print(f"Total certificates processed: {total_certificates}")
+        print(f"Passed certificates: {total_passed}")
+        print(f"Failed certificates: {total_failed}")
+        print(f"Draft certificates: {total_drafts}")
+        print(f"Skipped certificates: {total_skipped}")
+
+        # Write results to files
+        with open('passed_certificates.txt', 'w') as f:
+            f.write("Certificates that passed all checks:\n")
+            if not any(passed_certs_main.values()) and not any(passed_certs_pressure.values()):
+                f.write("\nNo certificates passed all checks.\n")
+            else:
+                # Write main passed certificates
+                for equipment_type, certs in passed_certs_main.items():
+                    if certs:
+                        f.write(f"\nEquipment Type: {equipment_type}\n")
+                        for cert in certs:
+                            f.write(f"{cert}\n")
+                # Write pressure passed certificates
+                for equipment_type, certs in passed_certs_pressure.items():
+                    if certs:
+                        f.write(f"\nEquipment Type: {equipment_type}\n")
+                        for cert in certs:
+                            f.write(f"{cert}\n")
+
+        with open('failed_certificates.txt', 'w') as f:
+            f.write("Certificates that failed one or more checks:\n")
+            if not any(failed_certs_main.values()) and not any(failed_certs_pressure.values()):
+                f.write("\nNo certificates failed any checks.\n")
+            else:
+                # Write main failed certificates
+                for equipment_type, certs in failed_certs_main.items():
+                    if certs:
+                        f.write(f"\nEquipment Type: {equipment_type}\n")
+                        for cert in certs:
+                            f.write(f"Certificate: {cert['CertNo']}\n")
+                            errors = cert['Errors']
+                            if errors.get("FrontPageErrors"):
+                                f.write("Front Page Errors: " + ", ".join(errors["FrontPageErrors"]) + "\n")
+                            if errors.get("DatasheetErrors"):
+                                f.write("Datasheet Errors:\n")
+                                for group in errors["DatasheetErrors"]:
+                                    f.write(f"  Group: {group['Group']}\n")
+                                    for error in group['Errors']:
+                                        f.write(f"    Row {error['RowId']}: {error['Error']}\n")
+                            f.write("\n")
+                # Write pressure failed certificates
+                for equipment_type, certs in failed_certs_pressure.items():
+                    if certs:
+                        f.write(f"\nEquipment Type: {equipment_type}\n")
+                        for cert in certs:
+                            f.write(f"Certificate: {cert['CertNo']}\n")
+                            errors = cert['Errors']
+                            if errors.get("DatasheetErrors"):
+                                f.write("Datasheet Errors:\n")
+                                for group in errors["DatasheetErrors"]:
+                                    f.write(f"  Group: {group['Group']}\n")
+                                    for error in group['Errors']:
+                                        f.write(f"    Row {error['RowId']}: {error['Error']}\n")
+                            f.write("\n")
+
+        print(f"Results have been written to 'passed_certificates.txt' and 'failed_certificates.txt'")
